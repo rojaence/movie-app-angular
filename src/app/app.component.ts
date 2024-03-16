@@ -7,11 +7,11 @@ import { MovieService } from './services/movie.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit{
-  title = 'MovieAppAngular';
+  title = 'Movie App';
 
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    this.movieService.getAll().subscribe(val => console.log(val));
+    this.movieService.getAll().subscribe();
   }
 }

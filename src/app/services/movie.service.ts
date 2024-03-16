@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { MovieResponse } from '../models/movie.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class MovieService {
 
   }
 
-  getAll(): Observable<Array<any>>
+  getAll(): Observable<MovieResponse>
   {
-    return this.http.get<Array<any>>(environment.apiUrl + '/movies');
+    return this.http.get<MovieResponse>(environment.apiUrl + '/movies');
   }
 }

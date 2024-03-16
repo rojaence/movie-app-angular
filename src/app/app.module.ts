@@ -7,10 +7,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MatButtonModule } from '@angular/material/button';
 import { provideHttpClient } from '@angular/common/http';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainLayoutComponent
   ],
   imports: [
     BrowserModule,
