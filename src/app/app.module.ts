@@ -5,19 +5,28 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { MatButtonModule } from '@angular/material/button';
 import { provideHttpClient } from '@angular/common/http';
-import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { AppHeaderComponent } from './components/app-header/app-header.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { AppFooterComponent } from './components/app-footer/app-footer.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainLayoutComponent
+    AppHeaderComponent,
+    AppFooterComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatToolbarModule
   ],
   providers: [
     provideClientHydration(),
