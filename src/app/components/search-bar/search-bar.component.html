@@ -1,0 +1,10 @@
+<div [@slideDownAnimation]="isOpen ? 'open' : 'closed'" class="search-bar">
+  <mat-form-field appearance="fill" class="form-input">
+    <mat-icon matIconPrefix>search</mat-icon>
+    <input type="text" matInput placeholder="Find movies, TV Shows and people...">
+  </mat-form-field>
+  <button mat-icon-button color="warn" (click)="toggle.emit()" class="close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+

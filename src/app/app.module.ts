@@ -10,9 +10,17 @@ import { AppHeaderComponent } from './components/app-header/app-header.component
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatRippleModule} from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AppFooterComponent } from './components/app-footer/app-footer.component';
-
+import { LayoutModule } from '@angular/cdk/layout';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import { FormsModule } from '@angular/forms';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -23,16 +31,25 @@ import { AppFooterComponent } from './components/app-footer/app-footer.component
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatButtonModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    LayoutModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSidenavModule,
+    FormsModule,
+    SearchBarComponent
   ],
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
     provideHttpClient()
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -1,13 +1,22 @@
-<mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>{{ title }}</span>
-  <span class="example-spacer"></span>
-  <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
-  </button> -->
+<mat-toolbar class="app-header mat-elevation-z6">
+  <mat-toolbar-row class="app-header__main">
+    <button mat-icon-button class="example-icon" aria-label="Menu icon" (click)="sideNavToggle.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="app-title" href="/">
+      <img class="app-icon" src="favicon.ico" alt="app icon">
+      <span>{{ title }}</span>
+    </a>
+    <div class="options">
+      <mat-form-field appearance="outline" class="language-selector" matError>
+        <mat-select [(value)]="selectedLanguage" [panelWidth]="'10rem'">
+          <mat-option *ngFor="let option of languages" [value]="option.value">{{ option.viewValue }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button matRipple class="search-button" (click)="searchBarToggle.emit()">
+        <mat-icon color="primary">search</mat-icon>
+        <span class="search-button__label">SEARCH</span>
+      </button>
+    </div>
+  </mat-toolbar-row>
 </mat-toolbar>

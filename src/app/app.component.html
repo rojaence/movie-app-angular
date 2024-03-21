@@ -1,8 +1,22 @@
-<app-header [title]="appTitle"></app-header>
-<main class="main">
-  <router-outlet />
-</main>
-<app-footer></app-footer>
+<mat-drawer-container class="app-layout" autosize>
+  <mat-drawer #mainDrawer class="main-sidenav" mode="over">
+    <div class="main-sidenav__header">
+      <button mat-icon-button color="warn" class="close-button" (click)="mainDrawer.toggle()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </mat-drawer>
+
+  <mat-drawer-content class="app-content">
+    <app-search-bar [isOpen]="openSearchBar" (toggle)="openSearchBar = false"></app-search-bar>
+    <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="toggleSearchBar()"></app-header>
+    <main class="main">
+        <router-outlet />
+    </main>
+    <app-footer></app-footer>
+  </mat-drawer-content>
+
+</mat-drawer-container>
 
 
 

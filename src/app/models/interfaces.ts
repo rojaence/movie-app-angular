@@ -29,3 +29,9 @@ export interface IMediaResponse<TMedia> {
   totalPages: number,
   totalResults: number
 }
+
+export interface LanguageOption {
+  value: string,
+  viewValue: string,
+  viewValueShort: string
+}

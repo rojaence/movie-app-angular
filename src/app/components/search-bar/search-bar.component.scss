@@ -1,0 +1,19 @@
+.search-bar {
+  width: 100%;
+  background-color: var(--secondary-color-alt);
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 800px) auto 1fr;
+  gap: 1rem;
+  padding-top: .5rem;
+  position: fixed;
+  z-index: 200;
+}
+
+.form-input {
+  grid-column: 2 / 3;
+}
+
+.close-button {
+  grid-column: 3 / 4;
+}
+
