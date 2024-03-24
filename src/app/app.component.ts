@@ -13,9 +13,4 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.movieService.getAll().subscribe();
   }
-
-  openSearchBar = false;
-  toggleSearchBar() {
-    this.openSearchBar = !this.openSearchBar;
-  }
 }

@@ -18,7 +18,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSidenavModule} from '@angular/material/sidenav';
-import { FormsModule } from '@angular/forms';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -42,8 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatInputModule,
     MatFormFieldModule,
     MatSidenavModule,
-    FormsModule,
-    SearchBarComponent
+    SearchBarComponent,
   ],
   providers: [
     provideClientHydration(),

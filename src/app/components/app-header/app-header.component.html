@@ -1,6 +1,6 @@
 <mat-toolbar class="app-header mat-elevation-z6">
   <mat-toolbar-row class="app-header__main">
-    <button mat-icon-button class="example-icon" aria-label="Menu icon" (click)="sideNavToggle.emit()">
+    <button type="button" mat-icon-button class="example-icon" aria-label="Menu icon" (click)="sideNavToggle.emit()">
       <mat-icon>menu</mat-icon>
     </button>
     <a class="app-title" href="/">
@@ -13,7 +13,7 @@
           <mat-option *ngFor="let option of languages" [value]="option.value">{{ option.viewValue }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button matRipple class="search-button" (click)="searchBarToggle.emit()">
+      <button matRipple type="button" class="search-button" (click)="searchBarToggle.emit()">
         <mat-icon color="primary">search</mat-icon>
         <span class="search-button__label">SEARCH</span>
       </button>

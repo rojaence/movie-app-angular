@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin-left: 1rem;
+  -webkit-user-select: none;
   user-select: none;
   text-decoration: none;
   color: #fff;
@@ -39,6 +40,7 @@
 
 .app-header {
   background-color: rgba(var(--secondary-color-value), 0.8);
+  -webkit-backdrop-filter: blur(15px);
   backdrop-filter: blur(15px);
 }
 
