@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { TimeWindow } from "./enums";
+import { TimeWindow, MediaType } from "./enums";
 
 export interface IMedia
 {
@@ -15,7 +15,8 @@ export interface IMedia
   releaseDate: Date,
   title: string,
   voteAverage: number,
-  voteCount: number
+  voteCount: number,
+  getMediaCardData(): IMediaCard
 }
 
 export interface IMovie extends IMedia {}
@@ -44,4 +45,11 @@ export interface IMediaService<TResponse>
   getAll(): Observable<TResponse>;
   getTrending(timeWindow: TimeWindow): Observable<TResponse>;
   getPopular(): Observable<TResponse>;
+}
+
+export interface IMediaCard {
+  title: string,
+  mediaType: MediaType,
+  imageUri: string,
+  contentUri: string
 }

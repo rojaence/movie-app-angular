@@ -13,9 +13,7 @@
     <main class="main">
       <div>
         @for (media of trending; track media.id) {
-          <p>
-            {{ media.title }}
-          </p>
+          <app-media-card [data]="media.getMediaCardData()"></app-media-card>
         }
       </div>
         <router-outlet />

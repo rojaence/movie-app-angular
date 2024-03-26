@@ -13,9 +13,8 @@ export class AppComponent implements OnInit{
   constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    // this.movieService.getAll().subscribe();
     this.movieService.getTrending().subscribe(response => {
-      this.trending = response.results;
+      this.trending = response.results.map(movieData => Movie.fromApiResponse(movieData));
     })
   }
 }

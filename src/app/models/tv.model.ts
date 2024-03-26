@@ -1,4 +1,5 @@
-import { IMediaResponse, ITv } from "./interfaces";
+import { MediaType } from "./enums";
+import { IMediaCard, IMediaResponse, ITv } from "./interfaces";
 
 export class Tv implements ITv {
   constructor (
@@ -19,6 +20,15 @@ export class Tv implements ITv {
     public firstAirDate: Date,
     public name: string
   ) {}
+
+  getMediaCardData(): IMediaCard {
+    return {
+      title: this.title,
+      contentUri: '#',
+      imageUri: this.posterPath,
+      mediaType: MediaType.tv,
+    }
+  }
 }
 
 export class TvResponse implements IMediaResponse<Tv> {
