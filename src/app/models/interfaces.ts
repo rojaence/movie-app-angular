@@ -1,3 +1,6 @@
+import { Observable } from "rxjs";
+import { TimeWindow } from "./enums";
+
 export interface IMedia
 {
   adult: boolean,
@@ -34,4 +37,11 @@ export interface LanguageOption {
   value: string,
   viewValue: string,
   viewValueShort: string
+}
+
+export interface IMediaService<TResponse>
+{
+  getAll(): Observable<TResponse>;
+  getTrending(timeWindow: TimeWindow): Observable<TResponse>;
+  getPopular(): Observable<TResponse>;
 }

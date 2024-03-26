@@ -11,6 +11,13 @@
     <app-search-bar #searchBar></app-search-bar>
     <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="searchBar.toggle()"></app-header>
     <main class="main">
+      <div>
+        @for (media of trending; track media.id) {
+          <p>
+            {{ media.title }}
+          </p>
+        }
+      </div>
         <router-outlet />
     </main>
     <app-footer></app-footer>
