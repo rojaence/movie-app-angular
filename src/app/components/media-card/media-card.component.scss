@@ -1,0 +1,51 @@
+.media-card {
+  width: 250px;
+  background-color: transparent;
+  cursor: pointer;
+  padding: .4rem;
+  transition: background-color 0.2s;
+  box-shadow: none;
+  &__title {
+    font-size: 1rem;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  &__image {
+    border-radius: inherit;
+  }
+  &__content {
+    position: relative;
+    &:last-child {
+      padding: 0 0 0 4px;
+    }
+    height: 2rem;
+  }
+  &__type {
+    position: absolute;
+    opacity: 0.9;
+    font-weight: 500;
+    font-size: '0.8em';
+    padding: 0.3rem 0.8rem;
+    display: grid;
+    place-items: center;
+    border-radius: 1rem;
+    right: 5px;
+    top: calc(-100% - 5px);
+    &--tv {
+      background: rgba(var(--warning-color-value), 0.8);
+    }
+    &--movie {
+      background: rgba(var(--primary-color-value), 0.8);
+    }
+    &--person {
+      background: rgba(var(--success-color-value), 0.8);
+    }
+  }
+}
+

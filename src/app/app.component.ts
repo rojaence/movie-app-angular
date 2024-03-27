@@ -15,6 +15,7 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     this.movieService.getTrending().subscribe(response => {
       this.trending = response.results.map(movieData => Movie.fromApiResponse(movieData));
+      console.log(this.trending)
     })
   }
 }

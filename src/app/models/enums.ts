@@ -1,12 +1,12 @@
 export enum TimeWindow
 {
-  day,
-  week
+  day = 'day',
+  week = 'week'
 }
 
 export enum MediaType
 {
-  tv,
-  movie,
-  person
+  tv = 'tv',
+  movie = 'movie',
+  person = 'person'
 }

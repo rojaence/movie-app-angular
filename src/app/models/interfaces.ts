@@ -7,7 +7,7 @@ export interface IMedia
   backdropPath: string,
   genreIds: string[],
   id: number,
-  originalLanguage: string,
+  originalLanguages: string[],
   originalTitle: string,
   overview: string,
   popularity: number,
