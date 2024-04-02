@@ -36,6 +36,5 @@ export class SearchBarComponent {
     else {
       this.search.setValue('');
     }
-
   }
 }

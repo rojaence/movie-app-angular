@@ -1,0 +1,84 @@
+// STYLES FROM MOVIEAPP-REACT
+:root {
+  --main-color: rgb(31, 32, 35);
+  --secondary-color: #10202d;
+  --main-color-alt: rgb(50, 50, 50);
+  --light-gray: rgb(80, 80, 80);
+  --text-color: hsl(0, 0%, 100%);
+  --primary-color: #006d9c;
+  --warning-color: rgb(190, 101, 0);
+  --error-color: rgb(172, 50, 28);
+  --success-color: rgb(19, 127, 82);
+  --info-color: rgb(88, 67, 138);
+  --accent-color: #c4bc16;
+  --secondary-color-alt: rgb(32, 22, 56);
+
+  --main-color-value: 31, 32, 35;
+  --secondary-color-value: 16, 32, 45;
+  --text-color-value: 255, 255, 255;
+  --light-gray-value: 80, 80, 80;
+  --primary-color-value: 0, 109, 156;
+  --warning-color-value: 190, 101, 0;
+  --error-color-value: 172, 50, 28;
+  --success-color-value: 19, 127, 82;
+  --info-color-value: 88, 67, 138;
+  --accent-color-value: 196, 188, 22;
+  --secondary-color-alt-value: 32, 22, 56;
+  --primary-gradient: linear-gradient(
+    to right,
+    var(--info-color) 50%,
+    var(--primary-color) 150%
+  );
+  --bg-image-alt: #303045;
+  font-size: 100%;
+  @extend .app-scrollbar;
+}
+
+.app-scrollbar {
+  &::-webkit-scrollbar {
+    width: 0.875rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: rgb(70, 70, 70);
+    &:hover {
+      background-color: rgb(80, 80, 80);
+    }
+    &:active {
+      background-color: rgb(90, 90, 90);
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #303030;
+  }
+}
+
+.app-scrollbar--alt {
+  &::-webkit-scrollbar {
+    height: 0.75rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+  }
+}
+
+.app-scrollbar--alt-hover {
+  &::-webkit-scrollbar {
+    width: 0.3125rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(70, 70, 70, 0.6);
+    &:hover {
+      background-color: rgba(80, 80, 80, 0.6);
+    }
+    &:active {
+      background-color: rgba(90, 90, 90, 0.7);
+    }
+  }
+}

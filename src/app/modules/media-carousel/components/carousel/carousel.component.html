@@ -1,1 +1,17 @@
-<p>carousel works!</p>
+<section class="carousel">
+  <ng-content select="app-carousel-header" *ngIf="items.length > 0"></ng-content>
+  <button mat-icon-button type="button" color="accent" class="slide-button slide-button--left" (click)="scrollShift('left')" [disabled]="scrollX === 0 || items.length === 0">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <ul #slideList class="carousel__list" [ngClass]="{ 'carousel__list--empty': items.length === 0}">
+    <li *ngFor="let item of items" class="carousel__item">
+      <ng-container [ngTemplateOutlet]="item.template"></ng-container>
+    </li>
+    <li *ngIf="items.length === 0" class="carousel__item">
+      <span class="empty-text">No hay datos</span>
+    </li>
+    </ul>
+  <button mat-icon-button type="button" color="accent" class="slide-button slide-button--right" (click)="scrollShift('right')" [disabled]="scrollEnd || items.length === 0">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</section>

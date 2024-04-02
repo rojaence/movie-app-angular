@@ -1,1 +1,10 @@
-<p>carousel-header works!</p>
+<header class="carousel-header">
+  <h2 class="carousel-header__title">{{title}}</h2>
+  <ng-content select="[app-carousel-title]"></ng-content>
+  <span class="carousel-header__accent" *ngIf="titleAccent">
+    {{ titleAccent }}
+  </span>
+  <a [routerLink]="contentLink" class="carousel-header__link" matRipple *ngIf="contentLink">
+    {{contentLinkText | uppercase }}
+  </a>
+</header>

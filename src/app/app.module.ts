@@ -21,6 +21,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MediaCardComponent } from './components/media-card/media-card.component';
+import { MediaCarouselModule } from './modules/media-carousel/media-carousel.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MediaCardComponent } from './components/media-card/media-card.component
     MatFormFieldModule,
     MatSidenavModule,
     SearchBarComponent,
-    MediaCardComponent
+    MediaCardComponent,
+    MediaCarouselModule
   ],
   providers: [
     provideClientHydration(),

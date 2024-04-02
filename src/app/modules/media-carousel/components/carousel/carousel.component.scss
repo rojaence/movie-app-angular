@@ -1,0 +1,43 @@
+@use '../../../../../variables.scss';
+
+.carousel {
+  position: relative;
+  padding: 0 2.5rem;
+  &__list {
+    display: flex;
+    overflow-x: scroll;
+    gap: .8rem;
+    scroll-behavior: smooth;
+    padding: 0 0 1rem;
+    list-style: none;
+    @extend .app-scrollbar--alt !optional;
+    &--empty {
+      height: 5rem;
+      overflow-x: auto;
+      display: grid;
+      place-items: center;
+      .empty-text {
+        opacity: 0.8;
+      }
+    }
+    &:hover {
+      @extend .app-scrollbar--alt-hover !optional;
+    }
+  }
+  &__item {
+    padding: 0;
+    list-style: none;
+  }
+
+  .slide-button {
+    position: absolute;
+    top: 45%;
+    z-index: 50;
+    &--left {
+      left: -10px;
+    }
+    &--right {
+      right: -10px;
+    }
+  }
+}

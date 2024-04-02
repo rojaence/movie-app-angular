@@ -1,0 +1,25 @@
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  &__accent, &__link {
+    padding: .3rem 1rem;
+    border-radius: 1rem;
+  }
+  &__title {
+    margin: 0;
+  }
+  &__accent {
+    background-color: var(--info-color);
+  }
+  &__link {
+    margin-left: auto;
+    border-radius: 1rem;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+  }
+}

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
 import { IMediaService } from '../models/interfaces';
-import { TimeWindow } from '../models/enums';
+import { TimeWindowEnum } from '../models/enums';
 
 @Injectable({
   providedIn: 'root'
@@ -18,15 +18,15 @@ export class MovieService implements IMediaService<MovieResponse> {
   }
 
   getAll(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/movies');
+    return this.http.get<MovieResponse>(environment.apiUrl + '/movie');
   }
 
   getPopular(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movies');
+    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie');
   }
 
-  getTrending(timeWindow: TimeWindow = TimeWindow.day): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/trending/movies', {
+  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(environment.apiUrl + '/trending/movie', {
       params: {
         timeWindow
       }

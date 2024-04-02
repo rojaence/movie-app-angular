@@ -1,5 +1,5 @@
 import { environment } from '../../environments/environment';
-import { MediaType } from './enums';
+import { MediaTypeEnum } from './enums';
 import { IMovie, IMediaResponse, IMediaCard } from './interfaces';
 import { plainToClass, Expose } from 'class-transformer';
 
@@ -16,8 +16,8 @@ export class Movie implements IMovie {
   @Expose({ name: 'id' })
   public id: number;
 
-  @Expose({ name: 'original_languages' })
-  public originalLanguages: string[];
+  @Expose({ name: 'original_language' })
+  public originalLanguage: string;
 
   @Expose({ name: 'original_title' })
   public originalTitle: string;
@@ -43,12 +43,15 @@ export class Movie implements IMovie {
   @Expose({ name: 'vote_count' })
   public voteCount: number;
 
+  @Expose({ name: 'video' })
+  public video: boolean;
+
   constructor(
     adult: boolean,
     genreIds: string[],
     backdropPath: string,
     id: number,
-    originalLanguages: string[],
+    originalLanguage: string,
     originalTitle: string,
     overview: string,
     popularity: number,
@@ -56,13 +59,14 @@ export class Movie implements IMovie {
     releaseDate: Date,
     title: string,
     voteAverage: number,
-    voteCount: number
+    voteCount: number,
+    video: boolean
   ) {
     this.adult = adult;
     this.genreIds = genreIds;
     this.backdropPath = backdropPath;
     this.id = id;
-    this.originalLanguages = originalLanguages;
+    this.originalLanguage = originalLanguage;
     this.originalTitle = originalTitle;
     this.overview = overview;
     this.popularity = popularity;
@@ -71,6 +75,7 @@ export class Movie implements IMovie {
     this.title = title;
     this.voteAverage = voteAverage;
     this.voteCount = voteCount;
+    this.video = video
   }
 
   static fromApiResponse(data: IMovie): Movie {
@@ -82,7 +87,7 @@ export class Movie implements IMovie {
       title: this.title,
       contentUri: '#',
       imageUri: `${environment.imageCdn}/w300/${this.posterPath}`,
-      mediaType: MediaType.movie,
+      mediaType: MediaTypeEnum.movie,
     }
   }
 }

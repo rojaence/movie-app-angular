@@ -1,5 +1,5 @@
 import { Observable } from "rxjs";
-import { TimeWindow, MediaType } from "./enums";
+import { TimeWindowEnum, MediaTypeEnum } from "./enums";
 
 export interface IMedia
 {
@@ -7,24 +7,27 @@ export interface IMedia
   backdropPath: string,
   genreIds: string[],
   id: number,
-  originalLanguages: string[],
-  originalTitle: string,
+  originalLanguage: string,
   overview: string,
   popularity: number,
   posterPath: string,
-  releaseDate: Date,
-  title: string,
   voteAverage: number,
   voteCount: number,
   getMediaCardData(): IMediaCard
 }
 
-export interface IMovie extends IMedia {}
+export interface IMovie extends IMedia {
+  title: string,
+  originalTitle: string,
+  releaseDate: Date,
+  video: boolean
+}
 
 export interface ITv extends IMedia {
+  name: string,
+  originalName: string,
   originCountry: string[],
   firstAirDate: Date,
-  name: string
 }
 
 export interface IMediaResponse<TMedia> {
@@ -43,13 +46,13 @@ export interface LanguageOption {
 export interface IMediaService<TResponse>
 {
   getAll(): Observable<TResponse>;
-  getTrending(timeWindow: TimeWindow): Observable<TResponse>;
+  getTrending(timeWindow: TimeWindowEnum): Observable<TResponse>;
   getPopular(): Observable<TResponse>;
 }
 
 export interface IMediaCard {
   title: string,
-  mediaType: MediaType,
+  mediaType: MediaTypeEnum,
   imageUri: string,
   contentUri: string
 }

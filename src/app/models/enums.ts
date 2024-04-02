@@ -1,10 +1,10 @@
-export enum TimeWindow
+export enum TimeWindowEnum
 {
   day = 'day',
   week = 'week'
 }
 
-export enum MediaType
+export enum MediaTypeEnum
 {
   tv = 'tv',
   movie = 'movie',
