@@ -1,6 +1,7 @@
 <header class="carousel-header">
-  <h2 class="carousel-header__title">{{title}}</h2>
+  <h2 class="carousel-header__title">{{listTitle}}</h2>
   <ng-content select="[app-carousel-title]"></ng-content>
+  <ng-content></ng-content>
   <span class="carousel-header__accent" *ngIf="titleAccent">
     {{ titleAccent }}
   </span>

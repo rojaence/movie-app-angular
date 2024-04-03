@@ -1,0 +1,25 @@
+<section>
+  <app-carousel>
+    <app-carousel-header listTitle="Trending" titleAccent="today" contentLink="#"/>
+        @for (media of trending; track media.id) {
+          <app-carousel-item>
+            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          </app-carousel-item>
+        }
+  </app-carousel>
+
+  <app-carousel>
+    <app-carousel-header listTitle="What's popular" contentLink="#">
+      <mat-button-toggle-group name="mediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="selectedMediaType" (valueChange)="getPopularMedia($event)">
+        @for (mediaType of mediaTypes; track mediaType.value) {
+          <mat-button-toggle [value]="mediaType.value" [checked]="">{{ mediaType.viewValue }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </app-carousel-header>
+        @for (media of popular; track media.id) {
+          <app-carousel-item>
+            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          </app-carousel-item>
+        }
+  </app-carousel>
+</section>

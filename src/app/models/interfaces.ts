@@ -56,3 +56,8 @@ export interface IMediaCard {
   imageUri: string,
   contentUri: string
 }
+
+export interface MediaTypeToggleItem {
+  value: string,
+  viewValue: string
+}

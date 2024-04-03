@@ -83,7 +83,8 @@
               "buildTarget": "MovieAppAngular:build:production"
             },
             "development": {
-              "buildTarget": "MovieAppAngular:build:development"
+              "buildTarget": "MovieAppAngular:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

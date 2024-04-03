@@ -11,15 +11,6 @@
     <app-search-bar #searchBar></app-search-bar>
     <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="searchBar.toggle()"></app-header>
     <main class="main">
-      <app-carousel>
-        <app-carousel-header title="Trending" titleAccent="today" contentLink="#"/>
-            @for (media of trending; track media.id) {
-              <app-carousel-item>
-                <app-media-card [data]="media.getMediaCardData()"></app-media-card>
-              </app-carousel-item>
-            }
-        </app-carousel>
-
         <router-outlet />
     </main>
     <app-footer></app-footer>
