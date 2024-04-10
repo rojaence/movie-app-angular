@@ -43,3 +43,4 @@ $primary-default: mat.get-theme-color($movie-app-theme, primary, default);
 @include mat.icon-theme($movie-app-theme);
 @include mat.toolbar-theme($movie-app-theme-alt);
 @include mat.chips-theme($movie-app-theme);
+@include mat.progress-bar-theme($movie-app-theme);

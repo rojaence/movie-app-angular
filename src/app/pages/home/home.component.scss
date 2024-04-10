@@ -1,0 +1,13 @@
+/* :host {
+} */
+.media-type-toggle, .time-window-toggle {
+  border-radius: 2rem;
+}
+
+.media-type-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--primary-color);
+}
+
+.time-window-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--info-color);
+}

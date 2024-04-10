@@ -3,26 +3,36 @@ import { Movie } from '../../models/movie.model';
 import { Tv } from '../../models/tv.model';
 import { TvService } from '../../services/tv.service';
 import { MovieService } from '../../services/movie.service';
-import { map, combineLatest, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { MediaCarouselModule } from '../../modules/media-carousel/media-carousel.module';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MediaTypeToggleItem } from '../../models/interfaces';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SkeletonComponent } from '../../components/skeleton/skeleton.component';
+import { CardSkeletonComponent } from '../../components/card-skeleton/card-skeleton.component';
+import { AppRepeatDirective } from '../../directives/app-repeat.directive';
+import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { TimeWindowEnum } from '../../models/enums';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [ MediaCarouselModule, MediaCardComponent, MatButtonToggleModule]
+  imports: [ MediaCarouselModule, MediaCardComponent, MatButtonToggleModule, MatProgressBarModule, MatProgressSpinnerModule, SkeletonComponent, CardSkeletonComponent, AppRepeatDirective, NgIf, FormsModule],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   trendingSubscription: Subscription;
   popularSubscription: Subscription;
   trending: (Movie | Tv)[] = [];
   popular: (Movie | Tv)[] = [];
+  loadingTrending = true;
+  loadingPopular = true;
 
-  mediaTypes: MediaTypeToggleItem[] = [
+  mediaTypes: MediaTypeToggleItem<'movie' | 'tv'>[] = [
     {
       value: 'movie',
       viewValue: 'Movies'
@@ -33,7 +43,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   ];
 
-  selectedMediaType: 'movie' | 'tv' = 'tv';
+  timeWindows: MediaTypeToggleItem<TimeWindowEnum>[] = [
+    {
+      value: TimeWindowEnum.day,
+      viewValue: 'Today',
+    },
+    {
+      value: TimeWindowEnum.week,
+      viewValue: 'Week',
+    }
+  ]
+
+  popularMediaType: 'movie' | 'tv' = 'movie';
+  trendingMediaType: 'movie' | 'tv' = 'movie';
+  selectedTimeWindow: TimeWindowEnum = TimeWindowEnum.day;
 
   constructor(private movieService: MovieService, private tvService: TvService) {
     this.popularSubscription = new Subscription();
@@ -41,42 +64,68 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getTrendingMedia();
-    this.getPopularMedia(this.selectedMediaType);
+    this.getTrendingMedia(this.trendingMediaType, this.selectedTimeWindow);
+    this.getPopularMedia(this.popularMediaType);
   }
 
-  getTrendingMedia() {
+  getTrendingMedia(mediaType: 'movie' | 'tv', timeWindow: TimeWindowEnum) {
     if (this.trendingSubscription) {
       this.trendingSubscription.unsubscribe();
+      this.loadingTrending = true;
     }
 
-    const movieTrending$ = this.movieService.getTrending().pipe(
+    /* const movieTrending$ = this.movieService.getTrending(timeWindow).pipe(
       map(response => response.results.map(movieData => Movie.fromApiResponse(movieData))
     ));
 
-    const tvTrending$ = this.tvService.getTrending().pipe(
+    const tvTrending$ = this.tvService.getTrending(timeWindow).pipe(
       map(response => response.results.map(movieData => Tv.fromApiResponse(movieData))
     ));
 
-    this.trendingSubscription = combineLatest([movieTrending$, tvTrending$]).subscribe(([movies, tvShows]) => {
-      let trendingItems = [...movies, ...tvShows].sort((a, b) => b.popularity - a.popularity)
+    this.trendingSubscription = combineLatest([movieTrending$, tvTrending$])
+    .subscribe(([movies, tvShows]) => {
+      let trendingItems = [...movies, ...tvShows];
+      trendingItems.sort((a, b) => b.popularity - a.popularity);
+      this.loadingTrending = false;
+      console.log(trendingItems);
       this.trending = trendingItems;
-    });
+    }); */
+
+    if (mediaType === 'movie') {
+      this.trendingSubscription = this.movieService.getTrending(timeWindow)
+      .subscribe(response => {
+        let movies = response.results.map(m => Movie.fromApiResponse(m));
+        this.loadingTrending = false;
+        this.trending = movies;
+      });
+    } else if (mediaType === 'tv') {
+      this.trendingSubscription = this.tvService.getTrending(timeWindow)
+      .subscribe(response => {
+        let tvShows = response.results.map(m => Tv.fromApiResponse(m));
+        this.loadingTrending = false;
+        this.trending = tvShows;
+      });
+    }
   }
 
   getPopularMedia(mediaType: 'movie' | 'tv') {
-    if (this.trendingSubscription) {
+    if (this.popularSubscription) {
       this.popularSubscription.unsubscribe();
+      this.loadingPopular = true;
     }
 
     if (mediaType === 'movie') {
-      this.popularSubscription = this.movieService.getPopular().subscribe(response => {
+      this.popularSubscription = this.movieService.getPopular()
+      .subscribe(response => {
         let movies = response.results.map(m => Movie.fromApiResponse(m));
+        this.loadingPopular = false;
         this.popular = movies;
       });
     } else if (mediaType === 'tv') {
-      this.popularSubscription = this.tvService.getPopular().subscribe(response => {
+      this.popularSubscription = this.tvService.getPopular()
+      .subscribe(response => {
         let tvShows = response.results.map(m => Tv.fromApiResponse(m));
+        this.loadingPopular = false;
         this.popular = tvShows;
       });
     }
@@ -85,5 +134,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
       this.trendingSubscription.unsubscribe();
+      this.popularSubscription.unsubscribe();
   }
 }

@@ -1,11 +1,11 @@
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
-export const slideDownAnimation = trigger('slideDownAnimation', [
+export const fadeAnimation = trigger('fadeAnimation', [
   state('open', style({
-    transform: 'translateY(0)',
+    opacity: .5,
   })),
   state('closed', style({
-    transform: 'translateY(-100%)',
+    opacity: 1,
   })),
   transition('open => closed', [
     animate('0.2s ease')

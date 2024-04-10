@@ -1,12 +1,15 @@
-import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy, ContentChildren, QueryList, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy, ContentChildren, QueryList, OnChanges, SimpleChanges, OnInit, AfterViewInit } from '@angular/core';
 import { CarouselItemComponent } from '../carousel-item/carousel-item.component';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Subscription } from 'rxjs';
+import { fadeAnimation } from '../../../../components/animations/fade-animation';
 
 @Component({
   selector: 'app-carousel',
   templateUrl: './carousel.component.html',
-  styleUrl: './carousel.component.scss'
+  styleUrl: './carousel.component.scss',
+  animations: [fadeAnimation]
 })
+
 export class CarouselComponent implements OnDestroy, AfterViewInit {
   scrollX = 0;
   scrollEnd = false;
@@ -14,15 +17,20 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   @ViewChild('leftButton') leftButton: ElementRef | undefined;
   @ViewChild('rightButton') rightButton: ElementRef | undefined;
   @ContentChildren(CarouselItemComponent) items = new QueryList<CarouselItemComponent>();
-
-  constructor(private breakpointOberver: BreakpointObserver, private renderer: Renderer2) {}
+  itemsChangeSubscription: Subscription | undefined;
 
   ngAfterViewInit(): void {
     this.slideList?.nativeElement.addEventListener('scroll', this.onScrollEvent);
+    this.itemsChangeSubscription = this.items.changes.subscribe((c) => {
+      this.scrollX = 0;
+      this.slideList!.nativeElement.scrollLeft = 0;
+      this.scrollEnd = false;
+    })
   }
 
   ngOnDestroy(): void {
     this.slideList?.nativeElement.removeEventListener('scroll', this.onScrollEvent);
+    this.itemsChangeSubscription?.unsubscribe();
   }
 
   onScrollEvent = () => {
@@ -53,7 +61,6 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
       if (this.scrollX === 0) return;
       value -= reference ? listRects.width - reference.getBoundingClientRect().right : 0
     }
-    console.log(reference?.getBoundingClientRect())
     this.scrollCommit(value);
   }
 
@@ -66,14 +73,12 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
       if (direction === 'right') {
         if (rect.right > listRects.right && rect.left < listRects.right) {
           reference = children[i];
-          // console.log(reference);
           break;
         }
       }
       if (direction === 'left') {
         if (rect.left >= listRects.left) {
           reference = children[i - 1];
-          // console.log(reference);
           break;
         }
       }

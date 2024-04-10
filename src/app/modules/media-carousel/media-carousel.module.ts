@@ -23,7 +23,7 @@ import {MatRippleModule} from '@angular/material/core';
     DragDropModule,
     RouterModule,
     MatChipsModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   exports: [
     CarouselComponent,

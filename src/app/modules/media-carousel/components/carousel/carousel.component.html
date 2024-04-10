@@ -10,7 +10,7 @@
     <li *ngIf="items.length === 0" class="carousel__item">
       <span class="empty-text">No hay datos</span>
     </li>
-    </ul>
+  </ul>
   <button mat-icon-button type="button" color="accent" class="slide-button slide-button--right" (click)="scrollShift('right')" [disabled]="scrollEnd || items.length === 0">
     <mat-icon>chevron_right</mat-icon>
   </button>

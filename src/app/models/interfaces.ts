@@ -13,7 +13,7 @@ export interface IMedia
   posterPath: string,
   voteAverage: number,
   voteCount: number,
-  getMediaCardData(): IMediaCard
+  getMediaCardData(): IMediaCard,
 }
 
 export interface IMovie extends IMedia {
@@ -57,7 +57,7 @@ export interface IMediaCard {
   contentUri: string
 }
 
-export interface MediaTypeToggleItem {
-  value: string,
+export interface MediaTypeToggleItem<T> {
+  value: T,
   viewValue: string
 }
