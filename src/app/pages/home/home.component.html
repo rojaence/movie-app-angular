@@ -1,5 +1,5 @@
 <section>
-  <app-carousel>
+  <app-carousel [disabled]="loadingTrending">
     <app-carousel-header listTitle="Trending" contentLink="#">
       <mat-button-toggle-group class="media-type-toggle" name="trendingMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="trendingMediaType" [(ngModel)]="trendingMediaType" (ngModelChange)="getTrendingMedia(trendingMediaType, selectedTimeWindow)">
         @for (mediaType of mediaTypes; track mediaType.value) {
@@ -23,24 +23,9 @@
           <app-card-skeleton />
         </app-carousel-item>
     }
-    <!-- <ng-container *ngIf="!loadingTrending; else trendingData">
-      <app-carousel-item *appRepeat="8">
-        <app-card-skeleton />
-      </app-carousel-item>
-    </ng-container>
-
-    <ng-template #trendingData>
-      @for (media of trending; track media.id) {
-        <app-carousel-item>
-          <app-media-card [data]="media.getMediaCardData()"></app-media-card>
-        </app-carousel-item>
-      }
-    </ng-template> -->
-
-
   </app-carousel>
 
-  <app-carousel>
+  <app-carousel [disabled]="loadingPopular">
     <app-carousel-header listTitle="What's popular" contentLink="#">
       <mat-button-toggle-group class="media-type-toggle" name="popularMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="popularMediaType" [(ngModel)]="popularMediaType" (ngModelChange)="getPopularMedia(popularMediaType)">
         @for (mediaType of mediaTypes; track mediaType.value) {
