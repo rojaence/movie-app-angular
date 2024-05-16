@@ -15,7 +15,9 @@
     @if (!loadingTrending && trending.length > 0) {
       @for (media of trending; track media.id) {
         <app-carousel-item>
-          <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          <a [routerLink]="[ '/' + trendingMediaType, media.id]" class="card-link">
+            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          </a>
         </app-carousel-item>
       }
     } @else {
@@ -36,7 +38,9 @@
     @if (!loadingPopular && popular.length > 0) {
       @for (media of popular; track media.id) {
         <app-carousel-item>
-          <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          <a [routerLink]="[ '/' + popularMediaType, media.id]" class="card-link">
+            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          </a>
         </app-carousel-item>
       }
     } @else {

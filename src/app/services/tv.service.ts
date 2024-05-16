@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { IMediaService } from '../models/interfaces';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
+import { IMediaService, ITvDetails } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 import { TvResponse } from '../models/tv.model';
+import { TvDetails } from '../models/tv-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,5 +28,16 @@ export class TvService implements IMediaService<TvResponse> {
         timeWindow
       }
     });
+  }
+  getDetails(id: number) {
+    return this.http.get<ITvDetails>(environment.apiUrl + `/movie/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Resource not found'));
+        } else {
+          return throwError(() => new Error('Unknown error'));
+        }
+      })
+    );
   }
 }

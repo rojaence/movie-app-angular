@@ -1,0 +1,21 @@
+<section class="container">
+  <img [src]="data?.posterPath" alt="poster" class="poster">
+  <section class="info">
+    <header class="info__header">
+      <div class="info__header-top">
+        <h2 class="info__title">{{ data?.title }}</h2>
+        <span class="info__rating">{{ data?.voteAverage }}</span>
+      </div>
+      <span class="info__type">{{ data?.mediaType }}</span>
+      <span class="info__release">{{ data?.release }}</span>
+      <a href="#" class="info__trailer-link">Trailer</a>
+      <h3 class="info__tagline">{{ data?.tagline }}</h3>
+    </header>
+    <p>{{ data?.overview }}</p>
+    <footer class="info__footer">
+      @for (genre of data?.genres; track genre.id) {
+        {{ genre.name }}
+      }
+    </footer>
+  </section>
+</section>

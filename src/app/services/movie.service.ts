@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, catchError, throwError } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
-import { IMediaService } from '../models/interfaces';
+import { IMediaService, IMovieDetails } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
+import { MovieDetails } from '../models/movie-details.model';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,15 @@ export class MovieService implements IMediaService<MovieResponse> {
   }
 
   getAll(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/movie');
+    return this.http.get<MovieResponse>(environment.apiUrl + '/movie').pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Resource not found'));
+        } else {
+          return throwError(() => new Error('Unknown error'));
+        }
+      })
+    );
   }
 
   getPopular(): Observable<MovieResponse> {
@@ -31,5 +40,17 @@ export class MovieService implements IMediaService<MovieResponse> {
         timeWindow
       }
     });
+  }
+
+  getDetails(id: number) {
+    return this.http.get<IMovieDetails>(environment.apiUrl + `/movie/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Resource not found'));
+        } else {
+          return throwError(() => new Error('Unknown error'));
+        }
+      })
+    );
   }
 }

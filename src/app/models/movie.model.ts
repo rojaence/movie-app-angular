@@ -1,54 +1,28 @@
 import { environment } from '../../environments/environment';
 import { MediaTypeEnum } from './enums';
-import { IMovie, IMediaResponse, IMediaCard } from './interfaces';
+import { IMovie, IMediaResponse, IMediaCard, IWithGenre } from './interfaces';
 import { plainToClass, Expose } from 'class-transformer';
 
-export class Movie implements IMovie {
+export class Movie implements IMovie, IWithGenre<number> {
   @Expose({ name: 'adult' })
   public adult: boolean;
-
-  @Expose({ name: 'genre_ids' })
-  public genreIds: string[];
-
-  @Expose({ name: 'backdrop_path' })
+  public genres: number[];
   public backdropPath: string;
-
-  @Expose({ name: 'id' })
   public id: number;
-
-  @Expose({ name: 'original_language' })
   public originalLanguage: string;
-
-  @Expose({ name: 'original_title' })
   public originalTitle: string;
-
-  @Expose({ name: 'overview' })
   public overview: string;
-
-  @Expose({ name: 'popularity' })
   public popularity: number;
-
-  @Expose({ name: 'poster_path' })
   public posterPath: string;
-
-  @Expose({ name: 'release_date' })
   public releaseDate: Date;
-
-  @Expose({ name: 'title' })
   public title: string;
-
-  @Expose({ name: 'vote_average' })
   public voteAverage: number;
-
-  @Expose({ name: 'vote_count' })
   public voteCount: number;
-
-  @Expose({ name: 'video' })
   public video: boolean;
 
   constructor(
     adult: boolean,
-    genreIds: string[],
+    genres: number[],
     backdropPath: string,
     id: number,
     originalLanguage: string,
@@ -63,7 +37,7 @@ export class Movie implements IMovie {
     video: boolean
   ) {
     this.adult = adult;
-    this.genreIds = genreIds;
+    this.genres = genres;
     this.backdropPath = backdropPath;
     this.id = id;
     this.originalLanguage = originalLanguage;

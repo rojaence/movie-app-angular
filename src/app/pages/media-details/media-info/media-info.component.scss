@@ -1,0 +1,47 @@
+.poster {
+  width: 100%;
+}
+.info {
+  border-radius: 1rem;
+  transform: translateY(-1rem);
+  background-color: var(--main-color);
+  z-index: 90;
+  padding: .5rem;
+  /* &__header {
+    padding: 1rem 0;
+    display: grid;
+    grid-template-areas:
+      'title rating'
+      'type release'
+      'trailer trailer'
+      'tagline tagline';
+    grid-template-columns: 1fr auto;
+  }
+  &__title {
+    grid-area: title;
+  }
+  &__rating {
+    grid-area: rating;
+  }
+  &__trailer-link {
+    grid-area: trailer;
+  }
+  &__release {
+    grid-area: release;
+  }
+  &__type {
+    grid-area: type;
+  }
+  &__tagline {
+    grid-area: tagline;
+  } */
+  &__header-top {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: space-between;
+  }
+  &__title {
+    margin: 0;
+  }
+}

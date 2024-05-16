@@ -8,7 +8,7 @@ import { MediaCarouselModule } from '../../modules/media-carousel/media-carousel
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { MediaTypeToggleItem } from '../../models/interfaces';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { SkeletonComponent } from '../../components/skeleton/skeleton.component';
 import { CardSkeletonComponent } from '../../components/card-skeleton/card-skeleton.component';
@@ -16,13 +16,14 @@ import { AppRepeatDirective } from '../../directives/app-repeat.directive';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TimeWindowEnum } from '../../models/enums';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   standalone: true,
-  imports: [ MediaCarouselModule, MediaCardComponent, MatButtonToggleModule, MatProgressBarModule, MatProgressSpinnerModule, SkeletonComponent, CardSkeletonComponent, AppRepeatDirective, NgIf, FormsModule],
+  imports: [ MediaCarouselModule, MediaCardComponent, MatButtonToggleModule, MatProgressBarModule, MatProgressSpinnerModule, SkeletonComponent, CardSkeletonComponent, AppRepeatDirective, NgIf, FormsModule, RouterModule],
 })
 export class HomeComponent implements OnInit, OnDestroy {
   trendingSubscription: Subscription;
@@ -130,7 +131,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
     }
   }
-
 
   ngOnDestroy(): void {
       this.trendingSubscription.unsubscribe();

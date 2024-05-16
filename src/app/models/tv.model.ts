@@ -3,47 +3,19 @@ import { MediaTypeEnum } from "./enums";
 import { IMediaCard, IMediaResponse, ITv } from "./interfaces";
 import { plainToClass, Expose } from 'class-transformer';
 
-export class Tv implements ITv {
-  @Expose({ name: 'adult' })
-  public adult: boolean;
-
-  @Expose({ name: 'genre_ids' })
+export class Tv implements ITv {  public adult: boolean;
   public genreIds: string[];
-
-  @Expose({ name: 'backdrop_path' })
   public backdropPath: string;
-
-  @Expose({ name: 'id' })
   public id: number;
-
-  @Expose({ name: 'original_language' })
   public originalLanguage: string;
-
-  @Expose({ name: 'original_name' })
   public originalName: string;
-
-  @Expose({ name: 'overview' })
   public overview: string;
-
-  @Expose({ name: 'popularity' })
   public popularity: number;
-
-  @Expose({ name: 'poster_path' })
   public posterPath: string;
-
-  @Expose({ name: 'name' })
   public name: string;
-
-  @Expose({ name: 'vote_average' })
   public voteAverage: number;
-
-  @Expose({ name: 'vote_count' })
   public voteCount: number;
-
-  @Expose({ name: 'origin_country' })
   public originCountry: string[]
-
-  @Expose({ name: 'first_air_date' })
   public firstAirDate: Date;
 
   constructor(
