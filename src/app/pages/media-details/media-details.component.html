@@ -1,5 +1,11 @@
-<section class="details">
+<section class="details" [ngStyle]="{'--backdrop-url': 'url(' + backgroundImage + ')'}">
+  @if (backgroundImage) {
+    <div class="backdrop"></div>
+  }
   <app-media-info [data]="mediaInfo"/>
+  <app-carousel>
+    <app-carousel-header listTitle="Recomendaciones" contentLink="#"/>
+  </app-carousel>
 </section>
 
 @if (mediaType === 'tv') {

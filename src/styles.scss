@@ -1,8 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('./utils.scss');
 @import url('./theme.scss');
+@import url('./utils.scss');
 
-html, body { height: 100vh; }
+html, body { height: 100vh;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 
 }
@@ -10,4 +10,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
 :root {
   background-color: var(--main-color);
   color: var(--text-color);
+  font-size: 100%;
 }

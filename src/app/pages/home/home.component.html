@@ -1,4 +1,4 @@
-<section>
+<section class="container">
   <app-carousel [disabled]="loadingTrending">
     <app-carousel-header listTitle="Trending" contentLink="#">
       <mat-button-toggle-group class="media-type-toggle" name="trendingMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="trendingMediaType" [(ngModel)]="trendingMediaType" (ngModelChange)="getTrendingMedia(trendingMediaType, selectedTimeWindow)">

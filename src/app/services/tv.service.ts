@@ -30,7 +30,7 @@ export class TvService implements IMediaService<TvResponse> {
     });
   }
   getDetails(id: number) {
-    return this.http.get<ITvDetails>(environment.apiUrl + `/movie/${id}`).pipe(
+    return this.http.get<ITvDetails>(environment.apiUrl + `/tv/${id}`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return throwError(() => new Error('Resource not found'));

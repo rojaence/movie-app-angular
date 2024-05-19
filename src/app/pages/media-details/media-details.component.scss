@@ -1,0 +1,17 @@
+.details {
+  position: relative;
+}
+.backdrop {
+  width: calc(100% + 2rem);
+  position: absolute;
+  background-image:
+  linear-gradient(to bottom, transparent 80%, var(--main-color) 100%),
+  var(--backdrop-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: opacity(0.20);
+  width: 100vw;
+  height: 700px;
+  top: -1rem;
+  left: -1rem;
+}

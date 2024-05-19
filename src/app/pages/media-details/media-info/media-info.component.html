@@ -1,21 +1,33 @@
 <section class="container">
-  <img [src]="data?.posterPath" alt="poster" class="poster">
+  <div class="poster" [ngStyle]="{'--backdrop-url': 'url(' + data.posterPath + ')'}">
+    <img [src]="data.posterPath" alt="poster" class="poster_img elevation-3">
+  </div>
   <section class="info">
     <header class="info__header">
       <div class="info__header-top">
-        <h2 class="info__title">{{ data?.title }}</h2>
-        <span class="info__rating">{{ data?.voteAverage }}</span>
+        <h2 class="info__title">{{ data.title }}</h2>
+        <div class="rating">
+          <mat-icon class="rating__icon">star</mat-icon>
+          <span>{{ data.voteAverage | number: '1.0-2' }}</span>
+        </div>
       </div>
-      <span class="info__type">{{ data?.mediaType }}</span>
-      <span class="info__release">{{ data?.release }}</span>
-      <a href="#" class="info__trailer-link">Trailer</a>
-      <h3 class="info__tagline">{{ data?.tagline }}</h3>
+      <app-media-type-chip [mediaType]="data.mediaType" class="info__type"/>
+      <span class="info__release">{{ data.release | date: 'MMMM d, y' }}</span>
+      <div class="trailer">
+        <button matRipple class="trailer-button">
+          <mat-icon class="trailer-button__icon">play_arrow</mat-icon>
+          <span class="trailer-button__text">Trailer</span>
+        </button>
+      </div>
+      <i class="info__tagline">{{ data.tagline }}</i>
     </header>
-    <p>{{ data?.overview }}</p>
+    <p>{{ data.overview }}</p>
     <footer class="info__footer">
-      @for (genre of data?.genres; track genre.id) {
-        {{ genre.name }}
-      }
+      <div class="genres">
+        @for (genre of data.genres; track genre.id) {
+          <a href="#" matRipple class="genres__link">{{ genre.name | uppercase }}</a>
+        }
+      </div>
     </footer>
   </section>
 </section>

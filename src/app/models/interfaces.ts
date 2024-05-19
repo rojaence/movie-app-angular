@@ -188,5 +188,5 @@ export interface IMediaInfo {
   posterPath: string,
   release: Date,
   mediaType: MediaTypeEnum,
-  tagline: string
+  tagline: string,
 }

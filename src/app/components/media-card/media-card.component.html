@@ -2,6 +2,6 @@
   <img mat-card-image [src]="data.imageUri" alt="Poster" class="media-card__image">
   <mat-card-content class="media-card__content">
     <mat-card-title class="media-card__title">{{ data.title }}</mat-card-title>
-    <span class="media-card__type" [class]="bgColorClass()">{{ data.mediaType | uppercase }}</span>
+    <app-media-type-chip [mediaType]="data.mediaType" class="media-card__type"/>
   </mat-card-content>
 </mat-card>

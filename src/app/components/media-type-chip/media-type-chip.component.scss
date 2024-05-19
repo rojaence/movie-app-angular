@@ -1,0 +1,18 @@
+.chip {
+  font-weight: 500;
+  font-size: '0.8em';
+  padding: 0.3rem 0.8rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1rem;
+  display: inline-flex;
+  &--tv {
+    background: rgba(var(--warning-color-value), 0.8);
+  }
+  &--movie {
+    background: rgba(var(--primary-color-value), 0.8);
+  }
+  &--person {
+    background: rgba(var(--success-color-value), 0.8);
+  }
+}
