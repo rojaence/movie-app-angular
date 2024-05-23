@@ -14,18 +14,19 @@ import { AppRepeatDirective } from '../../directives/app-repeat.directive';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { CardSkeletonComponent } from '../../components/card-skeleton/card-skeleton.component';
 import { finalize } from 'rxjs';
+import { MediaGalleryComponent } from './media-gallery/media-gallery.component';
 
 @Component({
   selector: 'app-media-details',
   templateUrl: './media-details.component.html',
   styleUrl: './media-details.component.scss',
-  imports: [ MediaInfoComponent, MediaCarouselModule, CommonModule, RouterModule, AppRepeatDirective, MediaCardComponent, CardSkeletonComponent ],
+  imports: [ MediaInfoComponent, MediaCarouselModule, CommonModule, RouterModule, AppRepeatDirective, MediaCardComponent, CardSkeletonComponent, MediaGalleryComponent ],
   standalone: true
 })
 
 export class MediaDetailsComponent implements OnInit {
-  id: number | undefined;
-  mediaType: string = "";
+  id: number = 0;
+  mediaType: 'movie' | 'tv' = "movie";
   mediaInfo!: IMediaInfo;
   loadingInfo = true;
   backgroundImage: string = "";
@@ -41,7 +42,7 @@ export class MediaDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = parseInt(params['id']);
-      this.mediaType = this.route.snapshot.url[0].path;
+      this.mediaType = this.route.snapshot.url[0].path as 'movie' | 'tv';
       this.fetchData();
     })
   }

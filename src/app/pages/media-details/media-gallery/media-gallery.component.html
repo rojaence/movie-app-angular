@@ -1,0 +1,38 @@
+<section class="gallery">
+  <app-carousel [disabled]="false">
+    <app-carousel-header listTitle="Gallery">
+      <mat-button-toggle-group class="type-selector" aria-label="Gallery type"
+         [value]="selectedGalleryType"
+        [(ngModel)]="selectedGalleryType"
+      >
+        @for (type of galleryTypes; track type.value) {
+          <mat-button-toggle class="type-selector__item" [value]="type.value">
+            {{ type.viewValue }}
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </app-carousel-header>
+
+    @if (loading) {
+      <app-carousel-item *appRepeat="8">
+        <app-card-skeleton />
+      </app-carousel-item>
+    } @else {
+      @if (selectedGalleryType === 'backdrop') {
+        @for (resource of backdrops; track resource.filePath) {
+          <app-carousel-item>
+            <img [src]="getImageUri(resource.filePath)" alt="image">
+          </app-carousel-item>
+        }
+      }
+      @else if (selectedGalleryType === 'poster') {
+        @for (resource of posters; track resource.filePath) {
+          <app-carousel-item>
+            <img [src]="getImageUri(resource.filePath)" alt="image">
+          </app-carousel-item>
+        }
+      }
+    }
+  </app-carousel>
+</section>
+

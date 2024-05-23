@@ -8,6 +8,7 @@
     <app-media-info [data]="mediaInfo"/>
   }
   <app-carousel>
+    <app-carousel-header listTitle="Recomendaciones"/>
     @if (loadingRecommendations) {
       <app-carousel-item *appRepeat="8">
         <app-card-skeleton />
@@ -21,14 +22,7 @@
         </app-carousel-item>
       }
     }
-    <app-carousel-header listTitle="Recomendaciones"/>
   </app-carousel>
+
+  <app-media-gallery [mediaId]="id" [mediaType]="mediaType"/>
 </section>
-
-@if (mediaType === 'tv') {
-
-}
-
-@if (mediaType === 'movie') {
-
-}

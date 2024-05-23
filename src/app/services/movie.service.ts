@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
-import { IMovieDetails } from '../models/interfaces';
+import { IImageGallery, IMovieDetails } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 
 @Injectable({
@@ -63,5 +63,14 @@ export class MovieService {
         }
       })
     );
+  }
+
+  getImageGallery(id: number): Observable<IImageGallery> {
+    return this.http.get<IImageGallery>(environment.apiUrl + `/movie/${id}/images`
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message));
+      })
+    )
   }
 }

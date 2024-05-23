@@ -192,3 +192,20 @@ export interface IMediaInfo {
   mediaType: MediaTypeEnum,
   tagline: string,
 }
+
+export interface IImageGallery {
+  id: number,
+  backdrops: IImageResource[],
+  posters: IImageResource[],
+  logos: IImageResource[]
+}
+
+export interface IImageResource {
+  aspectRatio: number;
+  height:       number;
+  iso639_1?:   string;
+  filePath:    string;
+  voteAverage: number;
+  voteCount:   number;
+  width:        number;
+}
