@@ -60,7 +60,7 @@ export class Movie implements IMovie, IWithGenre<number> {
     return {
       title: this.title,
       contentUri: '#',
-      imageUri: `${environment.imageCdn}/w300/${this.posterPath}`,
+      imageUri: this.posterPath ? `${environment.imageCdn}/w300/${this.posterPath}` : "",
       mediaType: MediaTypeEnum.movie,
     }
   }

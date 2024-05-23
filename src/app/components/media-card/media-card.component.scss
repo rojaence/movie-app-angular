@@ -16,8 +16,19 @@
     background-color: rgba(255, 255, 255, 0.1);
   }
 
-  &__image {
+  &__image, .poster-placeholder {
     border-radius: inherit;
+    height: 355px;
+  }
+  .poster-placeholder {
+    width: 100%;
+    display: grid;
+    place-items: center;
+    background-color: var(--bg-image-alt);
+    &__icon  {
+      transform: scale(5);
+      opacity: .5;
+    }
   }
   &__content {
     position: relative;

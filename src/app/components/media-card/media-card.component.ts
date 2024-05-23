@@ -4,17 +4,15 @@ import { IMediaCard } from '../../models/interfaces';
 import { CommonModule } from '@angular/common';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MediaTypeChipComponent } from '../media-type-chip/media-type-chip.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-media-card',
   standalone: true,
-  imports: [MatCardModule, CommonModule, MatTooltipModule, MediaTypeChipComponent],
+  imports: [MatCardModule, CommonModule, MatTooltipModule, MediaTypeChipComponent, MatIconModule],
   templateUrl: './media-card.component.html',
   styleUrl: './media-card.component.scss'
 })
 export class MediaCardComponent {
   @Input({required: true}) data!: IMediaCard;
-  /* bgColorClass() {
-    return `media-card__type--${this.data.mediaType}`;
-  } */
 }

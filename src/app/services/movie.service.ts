@@ -3,14 +3,13 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
-import { IMediaService, IMovieDetails } from '../models/interfaces';
+import { IMovieDetails } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
-import { MovieDetails } from '../models/movie-details.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MovieService implements IMediaService<MovieResponse> {
+export class MovieService {
 
   constructor(
     private http: HttpClient
@@ -42,8 +41,20 @@ export class MovieService implements IMediaService<MovieResponse> {
     });
   }
 
-  getDetails(id: number) {
+  getDetails(id: number): Observable<IMovieDetails> {
     return this.http.get<IMovieDetails>(environment.apiUrl + `/movie/${id}`).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          return throwError(() => new Error('Resource not found'));
+        } else {
+          return throwError(() => new Error('Unknown error'));
+        }
+      })
+    );
+  }
+
+  getRecommendations(id: number): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(environment.apiUrl + `/movie/${id}/recommendations`).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === 404) {
           return throwError(() => new Error('Resource not found'));

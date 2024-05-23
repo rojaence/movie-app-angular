@@ -12,7 +12,11 @@
         }
       </mat-button-toggle-group>
     </app-carousel-header>
-    @if (!loadingTrending && trending.length > 0) {
+    @if (loadingTrending) {
+      <app-carousel-item *appRepeat="8">
+        <app-card-skeleton />
+      </app-carousel-item>
+    } @else {
       @for (media of trending; track media.id) {
         <app-carousel-item>
           <a [routerLink]="[ '/' + trendingMediaType, media.id]" class="card-link">
@@ -20,10 +24,6 @@
           </a>
         </app-carousel-item>
       }
-    } @else {
-        <app-carousel-item *appRepeat="8">
-          <app-card-skeleton />
-        </app-carousel-item>
     }
   </app-carousel>
 
@@ -35,7 +35,11 @@
         }
       </mat-button-toggle-group>
     </app-carousel-header>
-    @if (!loadingPopular && popular.length > 0) {
+    @if (loadingPopular) {
+      <app-carousel-item *appRepeat="8">
+        <app-card-skeleton />
+      </app-carousel-item>
+    } @else {
       @for (media of popular; track media.id) {
         <app-carousel-item>
           <a [routerLink]="[ '/' + popularMediaType, media.id]" class="card-link">
@@ -43,10 +47,6 @@
           </a>
         </app-carousel-item>
       }
-    } @else {
-        <app-carousel-item *appRepeat="8">
-          <app-card-skeleton />
-        </app-carousel-item>
     }
   </app-carousel>
 </section>

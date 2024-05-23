@@ -1,7 +1,17 @@
 <section class="container">
-  <div class="poster" [ngStyle]="{'--backdrop-url': 'url(' + data.posterPath + ')'}">
-    <img [src]="data.posterPath" alt="poster" class="poster_img elevation-3">
+
+  <div class="poster">
+  @if (data.posterPath != null) {
+    <img [src]="data.posterPath" alt="poster" class="poster__img elevation-3">
+  }
+  @else {
+    <div class="poster-placeholder">
+      <mat-icon class="poster-placeholder__icon">image</mat-icon>
+    </div>
+  }
   </div>
+
+
   <section class="info">
     <header class="info__header">
       <div class="info__header-top">

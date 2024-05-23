@@ -3,7 +3,7 @@ import { Movie } from '../../models/movie.model';
 import { Tv } from '../../models/tv.model';
 import { TvService } from '../../services/tv.service';
 import { MovieService } from '../../services/movie.service';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { MediaCarouselModule } from '../../modules/media-carousel/media-carousel.module';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { MediaTypeToggleItem } from '../../models/interfaces';
@@ -94,13 +94,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (mediaType === 'movie') {
       this.trendingSubscription = this.movieService.getTrending(timeWindow)
+      .pipe(
+        finalize(() => this.loadingTrending = false)
+      )
       .subscribe(response => {
         let movies = response.results.map(m => Movie.fromApiResponse(m));
-        this.loadingTrending = false;
         this.trending = movies;
       });
     } else if (mediaType === 'tv') {
       this.trendingSubscription = this.tvService.getTrending(timeWindow)
+      .pipe(
+        finalize(() => this.loadingTrending = false)
+      )
       .subscribe(response => {
         let tvShows = response.results.map(m => Tv.fromApiResponse(m));
         this.loadingTrending = false;
@@ -117,16 +122,20 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     if (mediaType === 'movie') {
       this.popularSubscription = this.movieService.getPopular()
+      .pipe(
+        finalize(() => this.loadingPopular = false)
+      )
       .subscribe(response => {
         let movies = response.results.map(m => Movie.fromApiResponse(m));
-        this.loadingPopular = false;
         this.popular = movies;
       });
     } else if (mediaType === 'tv') {
       this.popularSubscription = this.tvService.getPopular()
+      .pipe(
+        finalize(() => this.loadingPopular = false)
+      )
       .subscribe(response => {
         let tvShows = response.results.map(m => Tv.fromApiResponse(m));
-        this.loadingPopular = false;
         this.popular = tvShows;
       });
     }

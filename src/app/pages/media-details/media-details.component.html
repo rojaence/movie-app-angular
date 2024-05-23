@@ -1,10 +1,27 @@
-<section class="details" [ngStyle]="{'--backdrop-url': 'url(' + backgroundImage + ')'}">
+<section class="details">
   @if (backgroundImage) {
-    <div class="backdrop"></div>
+    <div class="backdrop" [ngStyle]="{'--backdrop-url': 'url(' + backgroundImage + ')'}"></div>
+  } @else {
+    <div class="backdrop-placeholder"></div>
   }
-  <app-media-info [data]="mediaInfo"/>
+  @if (!loadingInfo && mediaInfo !== undefined) {
+    <app-media-info [data]="mediaInfo"/>
+  }
   <app-carousel>
-    <app-carousel-header listTitle="Recomendaciones" contentLink="#"/>
+    @if (loadingRecommendations) {
+      <app-carousel-item *appRepeat="8">
+        <app-card-skeleton />
+      </app-carousel-item>
+    } @else {
+      @for (media of recommendations; track media.id) {
+        <app-carousel-item>
+          <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
+            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+          </a>
+        </app-carousel-item>
+      }
+    }
+    <app-carousel-header listTitle="Recomendaciones"/>
   </app-carousel>
 </section>
 

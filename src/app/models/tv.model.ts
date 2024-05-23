@@ -58,7 +58,7 @@ export class Tv implements ITv {  public adult: boolean;
     return {
       title: this.name,
       contentUri: '#',
-      imageUri: `${environment.imageCdn}/w300/${this.posterPath}`,
+      imageUri: this.posterPath ? `${environment.imageCdn}/w300/${this.posterPath}` : "",
       mediaType: MediaTypeEnum.tv,
     }
   }

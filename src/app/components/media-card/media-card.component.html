@@ -1,5 +1,12 @@
 <mat-card class="media-card" [matTooltip]="data.title" [matTooltipShowDelay]="1000">
-  <img mat-card-image [src]="data.imageUri" alt="Poster" class="media-card__image">
+  @if (data.imageUri) {
+    <img mat-card-image [src]="data.imageUri" alt="Poster" class="media-card__image">
+  }
+  @else {
+    <div class="poster-placeholder">
+      <mat-icon class="poster-placeholder__icon">image</mat-icon>
+    </div>
+  }
   <mat-card-content class="media-card__content">
     <mat-card-title class="media-card__title">{{ data.title }}</mat-card-title>
     <app-media-type-chip [mediaType]="data.mediaType" class="media-card__type"/>

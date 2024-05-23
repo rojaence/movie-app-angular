@@ -1,6 +1,3 @@
-:host {
-  // padding: 1rem;
-}
 .media-type-toggle, .time-window-toggle {
   border-radius: 2rem;
 }
@@ -11,9 +8,4 @@
 
 .time-window-toggle {
   --mat-standard-button-toggle-selected-state-background-color: var(--info-color);
-}
-
-.card-link {
-  text-decoration: none;
-  color: inherit;
 }

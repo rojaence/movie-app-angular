@@ -161,12 +161,14 @@ export interface LanguageOption {
   viewValueShort: string
 }
 
-export interface IMediaService<TResponse>
+/* export interface IMediaService<TResponse>
 {
   getAll(): Observable<TResponse>;
   getTrending(timeWindow: TimeWindowEnum): Observable<TResponse>;
   getPopular(): Observable<TResponse>;
-}
+  getDetails(id: number): Observable<TResponse>;
+  getRecommendations(id: number): Observable<TResponse>;
+} */
 
 export interface IMediaCard {
   title: string,

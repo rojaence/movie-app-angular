@@ -12,3 +12,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;
   color: var(--text-color);
   font-size: 100%;
 }
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
