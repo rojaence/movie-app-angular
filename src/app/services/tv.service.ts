@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { IImageGallery, ITvDetails } from '../models/interfaces';
+import { IImageGallery, ITvDetails, IVideoGallery } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 import { TvResponse } from '../models/tv.model';
 import { TvDetails } from '../models/tv-details.model';
@@ -55,6 +55,15 @@ export class TvService {
 
   getImageGallery(id: number): Observable<IImageGallery> {
     return this.http.get<IImageGallery>(environment.apiUrl + `/tv/${id}/images`
+    ).pipe(
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message));
+      })
+    )
+  }
+
+  getVideoGallery(id: number): Observable<IVideoGallery> {
+    return this.http.get<IVideoGallery>(environment.apiUrl + `/tv/${id}/videos`
     ).pipe(
       catchError((err: HttpErrorResponse) => {
         return throwError(() => new Error(err.message));

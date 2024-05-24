@@ -209,3 +209,21 @@ export interface IImageResource {
   voteCount:   number;
   width:        number;
 }
+
+export interface IVideoGallery {
+  id: number;
+  results: IVideoResource[]
+}
+
+export interface IVideoResource {
+  iso639_1:   string;
+  iso3166_1:  string;
+  name:       string;
+  key:        string;
+  site:       string;
+  size:       number;
+  type:       string;
+  official:   boolean;
+  publisedAt: Date;
+  id:         string;
+}

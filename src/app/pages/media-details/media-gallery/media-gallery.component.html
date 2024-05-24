@@ -13,22 +13,30 @@
       </mat-button-toggle-group>
     </app-carousel-header>
 
-    @if (loading) {
+    @if (loadingImages && loadingVideos) {
       <app-carousel-item *appRepeat="8">
         <app-card-skeleton />
       </app-carousel-item>
     } @else {
       @if (selectedGalleryType === 'backdrop') {
         @for (resource of backdrops; track resource.filePath) {
-          <app-carousel-item>
-            <img [src]="getImageUri(resource.filePath)" alt="image">
+          <app-carousel-item class="gallery-item">
+            <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
           </app-carousel-item>
         }
       }
       @else if (selectedGalleryType === 'poster') {
         @for (resource of posters; track resource.filePath) {
-          <app-carousel-item>
-            <img [src]="getImageUri(resource.filePath)" alt="image">
+          <app-carousel-item class="gallery-item">
+            <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+          </app-carousel-item>
+        }
+      }
+      @else if (selectedGalleryType === 'video') {
+        @for (resource of videos; track resource.id) {
+          <app-carousel-item class="gallery-item">
+            <!-- TODO miniature video -->
+            <span>{{ resource.type }}</span>
           </app-carousel-item>
         }
       }

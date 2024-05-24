@@ -5,3 +5,10 @@
 .type-selector {
   --mat-standard-button-toggle-selected-state-background-color: var(--primary-color);
 }
+
+.gallery-item {
+  &__image {
+    border-radius: .25rem;
+    height: 250px;
+  }
+}
