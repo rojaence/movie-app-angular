@@ -7,8 +7,35 @@
 }
 
 .gallery-item {
-  &__image {
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  &__image, &__thumbnail {
     border-radius: .25rem;
     height: 250px;
   }
+  &__thumbnail {
+    background-image: var(--thumbnail-url);
+    background-size: cover;
+    width: 340px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    .gallery-item__icon {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      transform: scale(2);
+      opacity: .7;
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      background-color: var(--info-color);
+    }
+  }
+}
+
+
+.gallery {
+  margin-top: 4rem;
 }

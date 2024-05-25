@@ -20,23 +20,32 @@
     } @else {
       @if (selectedGalleryType === 'backdrop') {
         @for (resource of backdrops; track resource.filePath) {
-          <app-carousel-item class="gallery-item">
-            <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+          <app-carousel-item>
+            <div class="gallery-item">
+              <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+            </div>
           </app-carousel-item>
         }
       }
       @else if (selectedGalleryType === 'poster') {
         @for (resource of posters; track resource.filePath) {
           <app-carousel-item class="gallery-item">
-            <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+            <div class="gallery-item">
+              <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+            </div>
           </app-carousel-item>
         }
       }
       @else if (selectedGalleryType === 'video') {
         @for (resource of videos; track resource.id) {
-          <app-carousel-item class="gallery-item">
-            <!-- TODO miniature video -->
-            <span>{{ resource.type }}</span>
+          <app-carousel-item>
+            <div class="gallery-item gallery-item--video">
+              <div [ngStyle]="{'--thumbnail-url': 'url(' + getImageUri(resource.key) + ')'}" class="gallery-item__thumbnail">
+                <div class="gallery-item__icon">
+                  <mat-icon>play_arrow</mat-icon>
+                </div>
+              </div>
+            </div>
           </app-carousel-item>
         }
       }
