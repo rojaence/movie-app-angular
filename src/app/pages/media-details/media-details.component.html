@@ -7,22 +7,24 @@
   @if (!loadingInfo && mediaInfo !== undefined) {
     <app-media-info [data]="mediaInfo"/>
   }
-  <app-carousel>
-    <app-carousel-header listTitle="Recomendaciones"/>
-    @if (loadingRecommendations) {
-      <app-carousel-item *appRepeat="8">
-        <app-card-skeleton />
-      </app-carousel-item>
-    } @else {
-      @for (media of recommendations; track media.id) {
-        <app-carousel-item>
-          <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
-            <app-media-card [data]="media.getMediaCardData()"></app-media-card>
-          </a>
+  <section class="container">
+    <app-carousel>
+      <app-carousel-header listTitle="Recomendaciones"/>
+      @if (loadingRecommendations) {
+        <app-carousel-item *appRepeat="8">
+          <app-card-skeleton />
         </app-carousel-item>
+      } @else {
+        @for (media of recommendations; track media.id) {
+          <app-carousel-item>
+            <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
+              <app-media-card [data]="media.getMediaCardData()"></app-media-card>
+            </a>
+          </app-carousel-item>
+        }
       }
-    }
-  </app-carousel>
-
-  <app-media-gallery [mediaId]="id" [mediaType]="mediaType" class="gallery"/>
+    </app-carousel>
+    <app-media-gallery [mediaId]="id" [mediaType]="mediaType" class="gallery"/>
+  </section>
 </section>
+
