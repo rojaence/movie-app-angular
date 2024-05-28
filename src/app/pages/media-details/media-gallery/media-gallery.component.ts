@@ -6,16 +6,18 @@ import { IImageResource, IVideoResource, MediaTypeToggleItem } from '../../../mo
 import { MovieService } from '../../../services/movie.service';
 import { TvService } from '../../../services/tv.service';
 import { finalize } from 'rxjs';
-import { CardSkeletonComponent } from '../../../components/card-skeleton/card-skeleton.component';
 import { environment } from '../../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { AppRepeatDirective } from '../../../directives/app-repeat.directive';
 import { MatIconModule } from '@angular/material/icon';
+import { ImageViewerComponent } from '../../../components/image-viewer/image-viewer.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SkeletonComponent } from '../../../components/skeleton/skeleton.component';
 
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [ MediaCarouselModule, CommonModule, MatButtonToggleModule, CardSkeletonComponent, FormsModule, AppRepeatDirective, MatIconModule ],
+  imports: [ MediaCarouselModule, CommonModule, MatButtonToggleModule, SkeletonComponent, FormsModule, AppRepeatDirective, MatIconModule, ImageViewerComponent ],
   templateUrl: './media-gallery.component.html',
   styleUrl: './media-gallery.component.scss'
 })
@@ -49,7 +51,8 @@ export class MediaGalleryComponent {
 
   constructor(
     private movieService: MovieService,
-    private tvService: TvService
+    private tvService: TvService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -108,13 +111,26 @@ export class MediaGalleryComponent {
     }
   }
 
-  getImageUri(path: string): string {
+  getImageUri(path: string, width: number = 300): string {
     const generator = {
-      backdrop: () => `${environment.imageCdn}/w500${path}`,
+      backdrop: () => `${environment.imageCdn}/w${width}${path}`,
       video: () => `${environment.thumbnailVideoBaseUrl}/${path}/hqdefault.jpg`,
-      poster: () => `${environment.imageCdn}/w200${path}`
+      poster: () => `${environment.imageCdn}/w${width}${path}`
     }
     return generator[this.selectedGalleryType]();
+  }
+
+  openImageViewer(path: string): void {
+    let images: string[] = [];
+    let selected = 0;
+    if (this.selectedGalleryType === 'backdrop') {
+      images = this.backdrops.map(i => `${environment.imageCdn}/original${i.filePath}`)
+      selected = this.backdrops.findIndex(i => i.filePath === path)
+    } else if (this.selectedGalleryType === 'poster') {
+      images = this.posters.map(i => `${environment.imageCdn}/original${i.filePath}`)
+      selected = this.posters.findIndex(i => i.filePath === path)
+    }
+    ImageViewerComponent.open(this.dialog, images, selected);
   }
 
 }

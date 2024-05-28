@@ -13,16 +13,16 @@
       </mat-button-toggle-group>
     </app-carousel-header>
 
-    @if (loadingImages && loadingVideos) {
+    @if (loadingImages || loadingVideos) {
       <app-carousel-item *appRepeat="8">
-        <app-card-skeleton />
+        <app-skeleton height="250" width="300"></app-skeleton>
       </app-carousel-item>
     } @else {
       @if (selectedGalleryType === 'backdrop') {
         @for (resource of backdrops; track resource.filePath) {
           <app-carousel-item>
             <div class="gallery-item">
-              <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+              <img [src]="getImageUri(resource.filePath, 500)" alt="image" class="gallery-item__image" (click)="openImageViewer(resource.filePath)">
             </div>
           </app-carousel-item>
         }
@@ -31,7 +31,7 @@
         @for (resource of posters; track resource.filePath) {
           <app-carousel-item class="gallery-item">
             <div class="gallery-item">
-              <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image">
+              <img [src]="getImageUri(resource.filePath)" alt="image" class="gallery-item__image" (click)="openImageViewer(resource.filePath)">
             </div>
           </app-carousel-item>
         }

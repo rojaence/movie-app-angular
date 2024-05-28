@@ -2,9 +2,14 @@
   position: relative;
   border-radius: 1rem;
   overflow: hidden;
+  max-width: 100%;
+  @media screen and (min-width: 960px) {
+    width: 300px;
+    height: 450px;
+  }
   &__img {
     width: 100%;
-    z-index: 10;
+    object-fit: contain;
   }
   &-placeholder {
     width: 100%;
@@ -93,19 +98,13 @@
 @media screen and (min-width: 960px) {
   .container {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 1fr;
     align-items: center;
-    gap: 1rem;
+    gap: 2rem;
   }
   .info {
     transform: translateY(0);
-    margin: 0 auto;
     background-color: rgba(var(--main-color-value), .5);
     backdrop-filter: blur(.4rem);
-  }
-  .poster {
-    &__img {
-
-    }
   }
 }

@@ -1,0 +1,21 @@
+<article class="image-viewer">
+  <div class="image-viewer__counter">
+    <span>{{ data.selected + 1}} / {{ data.images.length}}</span>
+  </div>
+  <div class="image-viewer__content">
+    <button mat-icon-button (click)="previous()" class="image-viewer__prev-button">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    @if (data.images[data.selected]) {
+      <img [src]="data.images[data.selected]" alt="image" class="image-viewer__item">
+    } @else {
+      <span class="image-viewer__item">No image</span>
+    }
+    <button mat-icon-button (click)="next()" class="image-viewer__next-button">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+  <button mat-icon-button (click)="onClose()" class="image-viewer__close-button">
+    <mat-icon>close</mat-icon>
+  </button>
+</article>
