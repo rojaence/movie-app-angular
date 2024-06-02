@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MediaCarouselModule } from '../../../modules/media-carousel/media-carousel.module';
 import { CommonModule } from '@angular/common';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { IImageResource, IVideoResource, MediaTypeToggleItem } from '../../../models/interfaces';
 import { MovieService } from '../../../services/movie.service';
 import { TvService } from '../../../services/tv.service';
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { AppRepeatDirective } from '../../../directives/app-repeat.directive';
@@ -13,15 +13,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { ImageViewerComponent } from '../../../components/image-viewer/image-viewer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SkeletonComponent } from '../../../components/skeleton/skeleton.component';
+import { VideoViewerComponent } from '../../../components/video-viewer/video-viewer.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-media-gallery',
   standalone: true,
-  imports: [ MediaCarouselModule, CommonModule, MatButtonToggleModule, SkeletonComponent, FormsModule, AppRepeatDirective, MatIconModule, ImageViewerComponent ],
+  imports: [ MediaCarouselModule, CommonModule, MatButtonToggleModule, SkeletonComponent, FormsModule, AppRepeatDirective, MatIconModule, ImageViewerComponent, VideoViewerComponent ],
   templateUrl: './media-gallery.component.html',
   styleUrl: './media-gallery.component.scss'
 })
-export class MediaGalleryComponent {
+export class MediaGalleryComponent implements OnInit, OnChanges, OnDestroy {
   @Input() mediaType: 'movie' | 'tv' = 'movie';
   @Input() mediaId: number = 0;
   loadingImages = true;
@@ -49,65 +51,87 @@ export class MediaGalleryComponent {
 
   selectedGalleryType: 'backdrop' | 'poster' | 'video' = "backdrop";
 
+  private subscriptions: Subscription[] = [];
+
   constructor(
     private movieService: MovieService,
     private tvService: TvService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
     this.fetchData();
   }
 
-  fetchData() {
-    if (this.mediaType === 'movie') {
-      this.movieService.getImageGallery(this.mediaId)
-      .pipe(finalize(() => this.loadingImages = false))
-      .subscribe({
-        next: (value) => {
-          this.backdrops = value.backdrops.slice(0, 20);
-          this.logos = value.logos.slice(0, 20);
-          this.posters = value.posters.slice(0, 20);
-        },
-        error(err) {
-          console.log(err)
-        },
-      })
-      this.movieService.getVideoGallery(this.mediaId)
-      .pipe(finalize(() => this.loadingVideos = false))
-      .subscribe({
-        next: (value) => {
-          this.videos = value.results.slice(0, 20);
-        },
-        error(err) {
-          console.log(err)
-        },
-      })
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['mediaId'] || changes['mediaType']) {
+      this.fetchData();
     }
-    if (this.mediaType === 'tv') {
-      this.tvService.getImageGallery(this.mediaId)
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  fetchData() {
+    this.loadingImages = true;
+    this.loadingVideos = true;
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
+
+    if (this.mediaType === 'movie') {
+      const imageSub = this.movieService.getImageGallery(this.mediaId)
       .pipe(finalize(() => this.loadingImages = false))
       .subscribe({
         next: (value) => {
-          this.backdrops = value.backdrops.slice(0, 20);
-          this.logos = value.logos.slice(0, 20);
-          this.posters = value.posters.slice(0, 20);
+          this.backdrops = value.backdrops;
+          this.logos = value.logos;
+          this.posters = value.posters;
         },
         error(err) {
           console.log(err)
         },
       })
 
-      this.tvService.getVideoGallery(this.mediaId)
+      const videoSub = this.movieService.getVideoGallery(this.mediaId)
       .pipe(finalize(() => this.loadingVideos = false))
       .subscribe({
         next: (value) => {
-          this.videos = value.results.slice(0, 20);
+          this.videos = value.results;
         },
         error(err) {
           console.log(err)
         },
       })
+      this.subscriptions.push(imageSub, videoSub);
+    }
+    if (this.mediaType === 'tv') {
+      const imageSub = this.tvService.getImageGallery(this.mediaId)
+      .pipe(finalize(() => this.loadingImages = false))
+      .subscribe({
+        next: (value) => {
+          this.backdrops = value.backdrops;
+          this.logos = value.logos;
+          this.posters = value.posters;
+        },
+        error(err) {
+          console.log(err)
+        },
+      })
+
+      const videoSub = this.tvService.getVideoGallery(this.mediaId)
+      .pipe(finalize(() => this.loadingVideos = false))
+      .subscribe({
+        next: (value) => {
+          this.videos = value.results;
+        },
+        error(err) {
+          console.log(err)
+        },
+      })
+
+      this.subscriptions.push(imageSub, videoSub);
     }
   }
 
@@ -119,6 +143,7 @@ export class MediaGalleryComponent {
     }
     return generator[this.selectedGalleryType]();
   }
+
 
   openImageViewer(path: string): void {
     let images: string[] = [];
@@ -133,4 +158,11 @@ export class MediaGalleryComponent {
     ImageViewerComponent.open(this.dialog, images, selected);
   }
 
+  openVideoViewer(url: string, title: string): void {
+    VideoViewerComponent.open(this.dialog,
+      this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${url}`),
+      title
+    );
+    // VideoViewerComponent.open(this.dialog, url, title);
+  }
 }

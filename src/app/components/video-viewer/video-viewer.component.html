@@ -1,0 +1,21 @@
+<article class="video-viewer">
+  <header class="video-viewer__header">
+    <h2 class="video-viewer__title">{{ data.title }}</h2>
+    <button mat-icon-button (click)="onClose()" class="video-viewer__close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </header>
+  <div class="video-viewer__content">
+    @if (data.videoUri) {
+      <iframe
+        className="video-viewer__player"
+        [src]="data.videoUri"
+        [title]="data.title"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+      ></iframe>
+    } @else {
+      <span class="video-viewer__item">No video</span>
+    }
+  </div>
+</article>

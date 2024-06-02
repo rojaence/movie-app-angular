@@ -1,7 +1,7 @@
 <section class="container">
 
   <div class="poster">
-  @if (data.posterPath != null) {
+  @if (data.posterPath) {
     <img [src]="data.posterPath" alt="poster" class="poster__img elevation-3">
   }
   @else {
@@ -10,7 +10,6 @@
     </div>
   }
   </div>
-
 
   <section class="info">
     <header class="info__header">
@@ -23,12 +22,14 @@
       </div>
       <app-media-type-chip [mediaType]="data.mediaType" class="info__type"/>
       <span class="info__release">{{ data.release | date: 'MMMM d, y' }}</span>
-      <div class="trailer">
-        <button matRipple class="trailer-button">
-          <mat-icon class="trailer-button__icon">play_arrow</mat-icon>
-          <span class="trailer-button__text">Trailer</span>
-        </button>
-      </div>
+      @if (introVideo) {
+        <div class="trailer">
+          <button class="trailer-button" mat-button (click)="openVideoViewer()">
+            <mat-icon class="trailer-button__icon">play_arrow</mat-icon>
+            <span class="trailer-button__text">Trailer</span>
+          </button>
+        </div>
+      }
       <i class="info__tagline">{{ data.tagline }}</i>
     </header>
     <p>{{ data.overview }}</p>

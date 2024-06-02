@@ -1,5 +1,5 @@
 <section class="carousel" [class.disabled]="disabled">
-  <ng-content select="app-carousel-header" *ngIf="items.length > 0"></ng-content>
+  <ng-content select="app-carousel-header"></ng-content>
   <div class="carousel__body">
     <button mat-icon-button type="button" color="accent" class="slide-button slide-button--left" (click)="scrollShift('left')" [disabled]="disabled || items.length === 0">
       <mat-icon>chevron_left</mat-icon>

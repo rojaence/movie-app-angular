@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MediaInfoComponent } from './media-info/media-info.component';
 import { IMediaInfo } from '../../models/interfaces';
@@ -13,25 +13,28 @@ import { Tv } from '../../models/tv.model';
 import { AppRepeatDirective } from '../../directives/app-repeat.directive';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { CardSkeletonComponent } from '../../components/card-skeleton/card-skeleton.component';
-import { finalize } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { MediaGalleryComponent } from './media-gallery/media-gallery.component';
+import { MediaInfoSkeletonComponent } from './media-info-skeleton/media-info-skeleton.component';
 
 @Component({
   selector: 'app-media-details',
   templateUrl: './media-details.component.html',
   styleUrl: './media-details.component.scss',
-  imports: [ MediaInfoComponent, MediaCarouselModule, CommonModule, RouterModule, AppRepeatDirective, MediaCardComponent, CardSkeletonComponent, MediaGalleryComponent ],
+  imports: [ MediaInfoComponent, MediaCarouselModule, CommonModule, RouterModule, AppRepeatDirective, MediaCardComponent, CardSkeletonComponent, MediaGalleryComponent, MediaInfoSkeletonComponent ],
   standalone: true
 })
 
-export class MediaDetailsComponent implements OnInit {
+export class MediaDetailsComponent implements OnInit, OnDestroy {
   id: number = 0;
   mediaType: 'movie' | 'tv' = "movie";
   mediaInfo!: IMediaInfo;
-  loadingInfo = true;
   backgroundImage: string = "";
   recommendations: Movie[] | Tv[] = [];
+  loadingInfo = true;
   loadingRecommendations = true;
+
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -47,10 +50,19 @@ export class MediaDetailsComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   fetchData() {
     if (!this.id) return;
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.subscriptions = [];
+    this.loadingInfo = true;
+    this.loadingRecommendations = true;
+    this.backgroundImage = "";
     if (this.mediaType === 'movie') {
-      this.movieService.getDetails(this.id)
+      const detailSub = this.movieService.getDetails(this.id)
       .pipe(
         finalize(() => this.loadingInfo = false)
       )
@@ -58,6 +70,7 @@ export class MediaDetailsComponent implements OnInit {
         {
           next: (value) => {
             this.mediaInfo = {
+              id: value.id,
               title: value.title,
               overview: value.overview,
               posterPath: value.posterPath ? `${environment.imageCdn}/w300${value.posterPath}` : "",
@@ -74,7 +87,7 @@ export class MediaDetailsComponent implements OnInit {
           }
         }
       )
-      this.movieService.getRecommendations(this.id)
+      const recomSub = this.movieService.getRecommendations(this.id)
       .pipe(
         finalize(() => this.loadingRecommendations = false)
       )
@@ -86,9 +99,11 @@ export class MediaDetailsComponent implements OnInit {
           console.log(err)
         }
       })
+
+      this.subscriptions.push(detailSub, recomSub);
     }
     if (this.mediaType === 'tv') {
-      this.tvService.getDetails(this.id)
+      const detailSub = this.tvService.getDetails(this.id)
       .pipe(
         finalize(() => this.loadingInfo = false)
       )
@@ -96,6 +111,7 @@ export class MediaDetailsComponent implements OnInit {
         {
           next: (value) => {
             this.mediaInfo = {
+              id: value.id,
               title: value.name,
               overview: value.overview,
               posterPath: value.posterPath ? `${environment.imageCdn}/w300${value.posterPath}` : "",
@@ -112,7 +128,8 @@ export class MediaDetailsComponent implements OnInit {
           }
         }
       )
-      this.tvService.getRecommendations(this.id).subscribe({
+
+      const recomSub = this.tvService.getRecommendations(this.id).subscribe({
         next: (value) => {
           this.recommendations = value.results.map(m => Tv.fromApiResponse(m));
           this.loadingRecommendations = false;
@@ -122,6 +139,8 @@ export class MediaDetailsComponent implements OnInit {
           this.loadingRecommendations = false;
         },
       })
+
+      this.subscriptions.push(detailSub, recomSub);
     }
   }
 }

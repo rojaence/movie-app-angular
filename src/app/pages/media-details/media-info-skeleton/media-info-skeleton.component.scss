@@ -1,0 +1,33 @@
+.info-skeleton {
+  .poster {
+    grid-area: poster;
+    width: 100%;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+
+  .body {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+  }
+
+  .genres {
+    display: flex;
+    gap: 1rem;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .info-skeleton {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    align-items: center;
+  }
+}

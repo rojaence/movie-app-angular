@@ -4,7 +4,10 @@
   } @else {
     <div class="backdrop-placeholder"></div>
   }
-  @if (!loadingInfo && mediaInfo !== undefined) {
+  @if (loadingInfo) {
+    <app-media-info-skeleton/>
+  }
+  @else if (!loadingInfo && mediaInfo !== undefined) {
     <app-media-info [data]="mediaInfo"/>
   }
   <section class="container">

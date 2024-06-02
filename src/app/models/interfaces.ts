@@ -183,6 +183,7 @@ export interface MediaTypeToggleItem<T> {
 }
 
 export interface IMediaInfo {
+  id: number,
   title: string,
   overview: string,
   voteAverage: number,
