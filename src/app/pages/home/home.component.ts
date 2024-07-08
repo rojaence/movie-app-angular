@@ -75,31 +75,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.loadingTrending = true;
     }
 
-    /* const movieTrending$ = this.movieService.getTrending(timeWindow).pipe(
-      map(response => response.results.map(movieData => Movie.fromApiResponse(movieData))
-    ));
-
-    const tvTrending$ = this.tvService.getTrending(timeWindow).pipe(
-      map(response => response.results.map(movieData => Tv.fromApiResponse(movieData))
-    ));
-
-    this.trendingSubscription = combineLatest([movieTrending$, tvTrending$])
-    .subscribe(([movies, tvShows]) => {
-      let trendingItems = [...movies, ...tvShows];
-      trendingItems.sort((a, b) => b.popularity - a.popularity);
-      this.loadingTrending = false;
-      console.log(trendingItems);
-      this.trending = trendingItems;
-    }); */
-
     if (mediaType === 'movie') {
       this.trendingSubscription = this.movieService.getTrending(timeWindow)
       .pipe(
         finalize(() => this.loadingTrending = false)
       )
       .subscribe(response => {
-        let movies = response.results.map(m => Movie.fromApiResponse(m));
-        this.trending = movies;
+        this.trending = response.results;
       });
     } else if (mediaType === 'tv') {
       this.trendingSubscription = this.tvService.getTrending(timeWindow)
@@ -107,9 +89,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         finalize(() => this.loadingTrending = false)
       )
       .subscribe(response => {
-        let tvShows = response.results.map(m => Tv.fromApiResponse(m));
-        this.loadingTrending = false;
-        this.trending = tvShows;
+        this.trending = response.results;
       });
     }
   }
@@ -126,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         finalize(() => this.loadingPopular = false)
       )
       .subscribe(response => {
-        let movies = response.results.map(m => Movie.fromApiResponse(m));
+        let movies = response.results;
         this.popular = movies;
       });
     } else if (mediaType === 'tv') {
@@ -135,7 +115,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         finalize(() => this.loadingPopular = false)
       )
       .subscribe(response => {
-        let tvShows = response.results.map(m => Tv.fromApiResponse(m));
+        let tvShows = response.results;
         this.popular = tvShows;
       });
     }

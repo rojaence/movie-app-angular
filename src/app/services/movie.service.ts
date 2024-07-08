@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
-import { IImageGallery, IMovieDetails, IVideoGallery } from '../models/interfaces';
+import { IImageGallery, IMediaResponse, IMovie, IMovieDetails, IVideoGallery } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 
 @Injectable({
@@ -18,19 +18,22 @@ export class MovieService {
   }
 
   getAll(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/movie').pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          return throwError(() => new Error('Resource not found'));
-        } else {
-          return throwError(() => new Error('Unknown error'));
-        }
-      })
+    return this.http.get<IMediaResponse<IMovie>>(environment.apiUrl + '/movie')
+    .pipe(
+      map(response => {
+        return new MovieResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getPopular(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie');
+    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie').pipe(
+      map(response => {
+        return new MovieResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    );
   }
 
   getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day): Observable<MovieResponse> {
@@ -38,48 +41,40 @@ export class MovieService {
       params: {
         timeWindow
       }
-    });
+    }).pipe(
+      map(response => {
+        return new MovieResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
   }
 
   getDetails(id: number): Observable<IMovieDetails> {
     return this.http.get<IMovieDetails>(environment.apiUrl + `/movie/${id}`).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          return throwError(() => new Error('Resource not found'));
-        } else {
-          return throwError(() => new Error('Unknown error'));
-        }
-      })
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getRecommendations(id: number): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(environment.apiUrl + `/movie/${id}/recommendations`).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 404) {
-          return throwError(() => new Error('Resource not found'));
-        } else {
-          return throwError(() => new Error('Unknown error'));
-        }
-      })
+      map(response => {
+        return new MovieResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getImageGallery(id: number): Observable<IImageGallery> {
     return this.http.get<IImageGallery>(environment.apiUrl + `/movie/${id}/images`
     ).pipe(
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => new Error(err.message));
-      })
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
   getVideoGallery(id: number): Observable<IVideoGallery> {
     return this.http.get<IVideoGallery>(environment.apiUrl + `/movie/${id}/videos`
     ).pipe(
-      catchError((err: HttpErrorResponse) => {
-        return throwError(() => new Error(err.message));
-      })
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 }

@@ -1,10 +1,11 @@
 import { environment } from '../../environments/environment';
 import { MediaTypeEnum } from "./enums";
-import { IMediaCard, IMediaResponse, ITv } from "./interfaces";
-import { plainToClass, Expose } from 'class-transformer';
+import { IMediaCard, IMediaResponse, ITv, IWithGenre } from "./interfaces";
+import { plainToClass } from 'class-transformer';
 
-export class Tv implements ITv {  public adult: boolean;
-  public genreIds: string[];
+export class Tv implements ITv, IWithGenre<number> {
+  public adult: boolean;
+  public genres: number[];
   public backdropPath: string;
   public id: number;
   public originalLanguage: string;
@@ -16,11 +17,11 @@ export class Tv implements ITv {  public adult: boolean;
   public voteAverage: number;
   public voteCount: number;
   public originCountry: string[]
-  public firstAirDate: Date;
+  public firstAirDate: Date | string;
 
   constructor(
     adult: boolean,
-    genreIds: string[],
+    genres: number[],
     backdropPath: string,
     id: number,
     originalLanguage: string,
@@ -31,11 +32,11 @@ export class Tv implements ITv {  public adult: boolean;
     voteAverage: number,
     voteCount: number,
     originCountry: string[],
-    firstAirDate: Date,
+    firstAirDate: Date | string,
     name: string
   ) {
     this.adult = adult;
-    this.genreIds = genreIds;
+    this.genres = genres;
     this.backdropPath = backdropPath;
     this.id = id;
     this.originalLanguage = originalLanguage;
@@ -65,10 +66,16 @@ export class Tv implements ITv {  public adult: boolean;
 }
 
 export class TvResponse implements IMediaResponse<Tv> {
+  page: number;
+  results: Tv[];
+  totalResults: number;
+  totalPages: number
   constructor (
-    public page: number,
-    public results: Tv[],
-    public totalPages: number,
-    public totalResults: number
-  ) {}
+    { page, totalPages, results, totalResults }: IMediaResponse<ITv>
+  ) {
+    this.page = page;
+    this.results = results.map(m => Tv.fromApiResponse(m));
+    this.totalResults = totalResults;
+    this.totalPages = totalPages;
+  }
 }

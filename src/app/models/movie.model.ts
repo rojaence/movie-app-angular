@@ -1,10 +1,9 @@
 import { environment } from '../../environments/environment';
 import { MediaTypeEnum } from './enums';
 import { IMovie, IMediaResponse, IMediaCard, IWithGenre } from './interfaces';
-import { plainToClass, Expose } from 'class-transformer';
+import { plainToClass } from 'class-transformer';
 
 export class Movie implements IMovie, IWithGenre<number> {
-  @Expose({ name: 'adult' })
   public adult: boolean;
   public genres: number[];
   public backdropPath: string;
@@ -67,10 +66,16 @@ export class Movie implements IMovie, IWithGenre<number> {
 }
 
 export class MovieResponse implements IMediaResponse<Movie> {
+  page: number;
+  results: Movie[];
+  totalResults: number;
+  totalPages: number
   constructor (
-    public page: number,
-    public results: Movie[],
-    public totalPages: number,
-    public totalResults: number
-  ) {}
+    { page, totalPages, results, totalResults }: IMediaResponse<IMovie>
+  ) {
+    this.page = page;
+    this.results = results.map(m => Movie.fromApiResponse(m));
+    this.totalResults = totalResults;
+    this.totalPages = totalPages;
+  }
 }

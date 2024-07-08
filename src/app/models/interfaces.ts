@@ -31,8 +31,8 @@ export interface IGenre {
 export interface IMovie extends IMedia {
   title: string,
   originalTitle: string,
-  releaseDate: Date,
-  video: boolean
+  releaseDate: Date | string,
+  video: boolean,
 }
 
 export interface IProductionCompany {
@@ -53,7 +53,7 @@ export interface ISpokenLanguage {
   name: string
 }
 
-export interface IMovieDetails extends IMovie {
+export interface IMovieDetails extends IMovie, IWithGenre<IGenre> {
   homepage: string,
   imbdId: string,
   budget: number,
@@ -65,10 +65,9 @@ export interface IMovieDetails extends IMovie {
   status: string,
   tagline: string,
   belongsToCollection: ICollection,
-  genres: IGenre[]
 }
 
-export interface ITvDetails extends ITv {
+export interface ITvDetails extends ITv, IWithGenre<IGenre> {
   inProduction: boolean,
   createdBy: IProducer,
   episodeRunTime: number[],
@@ -76,7 +75,6 @@ export interface ITvDetails extends ITv {
   languages: string[],
   lastEpisodeToAir: IEpisode,
   nextEpisodeToAir: IEpisode,
-  // TODO: Add TvDetails properties
   networks: INetwork[],
   numberOfEpisodes: number,
   numberOfSeasons: number,
@@ -86,9 +84,8 @@ export interface ITvDetails extends ITv {
   status: string,
   tagline: string,
   type: string,
-  lastAirDate: Date,
+  firstAirDate: Date | string,
   seasons: ISeason[],
-  genres: IGenre[]
 }
 
 export interface INetwork {
@@ -145,7 +142,7 @@ export interface ITv extends IMedia {
   name: string,
   originalName: string,
   originCountry: string[],
-  firstAirDate: Date,
+  firstAirDate: Date | string,
 }
 
 export interface IMediaResponse<TMedia> {
@@ -189,7 +186,7 @@ export interface IMediaInfo {
   voteAverage: number,
   genres: IGenre[],
   posterPath: string,
-  release: Date,
+  release: Date | string,
   mediaType: MediaTypeEnum,
   tagline: string,
 }
@@ -204,7 +201,7 @@ export interface IImageGallery {
 export interface IImageResource {
   aspectRatio: number;
   height:       number;
-  iso639_1?:   string;
+  iso639_1:   string | null;
   filePath:    string;
   voteAverage: number;
   voteCount:   number;
@@ -225,6 +222,6 @@ export interface IVideoResource {
   size:       number;
   type:       string;
   official:   boolean;
-  publisedAt: Date;
+  publishedAt: Date | string;
   id:         string;
 }
