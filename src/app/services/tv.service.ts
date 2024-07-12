@@ -75,4 +75,14 @@ export class TvService {
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
+
+  search(query: string): Observable<TvResponse> {
+    return this.http.get<TvResponse>(environment.apiUrl + '/search/tv', {
+      params: {
+        query
+      }
+    }).pipe(
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
 }

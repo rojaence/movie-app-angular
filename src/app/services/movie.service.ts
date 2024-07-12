@@ -77,4 +77,14 @@ export class MovieService {
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
+
+  search(query: string): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(environment.apiUrl + '/search/movie', {
+      params: {
+        query
+      }
+    }).pipe(
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
 }
