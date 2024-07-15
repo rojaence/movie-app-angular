@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 1fr minmax(200px, 800px) auto 1fr;
   gap: 1rem;
-  padding-top: .5rem;
+  padding: .5rem 0;
   position: fixed;
   z-index: 200;
 }

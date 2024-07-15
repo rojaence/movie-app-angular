@@ -1,23 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
 import { combineLatest, Subscription } from 'rxjs';
 import { TvService } from '../../services/tv.service';
 import { Tv } from '../../models/tv.model';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
+import { CardSkeletonComponent } from "../../components/card-skeleton/card-skeleton.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-media-search',
   standalone: true,
-  imports: [],
+  imports: [MatProgressSpinnerModule, MatTabsModule, CardSkeletonComponent, RouterModule, CommonModule],
   templateUrl: './media-search.component.html',
   styleUrl: './media-search.component.scss'
 })
+
 export class MediaSearchComponent implements OnInit {
   searchQuery: string = '';
   movies: Movie[] = [];
+  totalMovies = 0;
+  totalSeries = 0;
   tvseries: Tv[] = [];
   loading = true;
+  selectedMediaTypeIndex = 0;
 
   movieSubscription: Subscription = new Subscription();
   tvSubscription: Subscription = new Subscription();
@@ -38,28 +47,31 @@ export class MediaSearchComponent implements OnInit {
     });
   }
 
+  get movieTabLabel(): string {
+    return `Movies (${this.totalMovies})`
+  }
+
+  get tvTabLabel(): string {
+    return `Tv series (${this.totalSeries})`
+  }
+
   search() {
-    this.movieSubscription = this.movieService.search(this.searchQuery)
-      .subscribe(response => {
-        this.movies = response.results;
-      }
-    );
+    if (this.searchSubscription) {
+      this.searchSubscription.unsubscribe();
+    }
+    this.loading = true;
 
-    this.tvSubscription = this.tvService.search(this.searchQuery)
-      .subscribe(response => {
-        this.tvseries = response.results;
-      }
-    );
+    const movieSubscription$ = this.movieService.search(this.searchQuery);
 
+    const tvSubscription$ = this.tvService.search(this.searchQuery);
 
-    /* combineLatest(
-      this.movieSubscription,
-      // combineLatest also takes an optional projection function
-      (one, two, three) => {
-        return `Timer One (Proj) Latest: ${one},
-                  Timer Two (Proj) Latest: ${two},
-                  Timer Three (Proj) Latest: ${three}`;
-      }
-    ).subscribe(console.log); */
+    this.searchSubscription = combineLatest([movieSubscription$, tvSubscription$])
+    .subscribe(([movieResponse, tvResponse]) => {
+      this.movies = movieResponse.results;
+      this.tvseries = tvResponse.results;
+      this.totalMovies = movieResponse.totalResults;
+      this.totalSeries = tvResponse.totalResults;
+      this.loading = false;
+    });
   }
 }

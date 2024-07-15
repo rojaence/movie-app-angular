@@ -7,6 +7,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { slideDownAnimation } from './search-bar.animations';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search-bar',
@@ -28,6 +29,10 @@ export class SearchBarComponent {
     }
   }
 
+  constructor(
+    private router: Router
+  ) {}
+
   toggle() {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
@@ -37,4 +42,14 @@ export class SearchBarComponent {
       this.search.setValue('');
     }
   }
+
+  goToSearch() {
+    this.router.navigate(['/search'],
+      {
+        queryParams: {
+          query: encodeURIComponent(this.search.value) }
+        }
+    );
+  }
+
 }

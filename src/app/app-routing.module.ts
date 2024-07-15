@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MediaDetailsComponent } from './pages/media-details/media-details.component';
+import { MediaSearchComponent } from './pages/media-search/media-search.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'tv/:id',
     component: MediaDetailsComponent,
     title: 'Tv Serie'
+  },
+  {
+    path: 'search',
+    component: MediaSearchComponent,
+    title: 'Search media'
   }
 ];
 
