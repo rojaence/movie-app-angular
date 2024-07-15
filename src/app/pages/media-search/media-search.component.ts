@@ -8,7 +8,6 @@ import { Tv } from '../../models/tv.model';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardSkeletonComponent } from "../../components/card-skeleton/card-skeleton.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 
 @Component({
