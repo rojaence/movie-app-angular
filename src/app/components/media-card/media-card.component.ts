@@ -15,4 +15,5 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class MediaCardComponent {
   @Input({required: true}) data!: IMediaCard;
+  @Input() size: 'small' | 'normal' = 'normal';
 }

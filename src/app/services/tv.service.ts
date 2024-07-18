@@ -82,6 +82,7 @@ export class TvService {
         query
       }
     }).pipe(
+      map(response => new TvResponse(response)),
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }

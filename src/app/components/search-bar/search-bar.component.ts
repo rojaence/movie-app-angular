@@ -30,7 +30,7 @@ export class SearchBarComponent {
   }
 
   constructor(
-    private router: Router
+    private router: Router,
   ) {}
 
   toggle() {

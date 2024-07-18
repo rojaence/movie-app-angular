@@ -84,6 +84,7 @@ export class MovieService {
         query
       }
     }).pipe(
+      map(response => new MovieResponse(response)),
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }

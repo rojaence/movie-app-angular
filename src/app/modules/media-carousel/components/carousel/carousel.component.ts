@@ -17,7 +17,6 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   @ViewChild('rightButton') rightButton: ElementRef | undefined;
   @ContentChildren(CarouselItemComponent) items = new QueryList<CarouselItemComponent>();
   itemsChangeSubscription: Subscription | undefined;
-  itemsToShow: CarouselItemComponent[] = [];
 
   constructor() {}
 

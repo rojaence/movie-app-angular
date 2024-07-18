@@ -14,7 +14,7 @@ import { SkeletonComponent } from '../skeleton/skeleton.component';
   styles: `
     .card-skeleton {
       width: 250px;
-      height: 400.6px;
+      height: 400px;
       box-sizing: border-box;
       padding: .4rem;
       display: flex;

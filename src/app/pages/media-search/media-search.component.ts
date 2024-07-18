@@ -2,18 +2,22 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { MovieService } from '../../services/movie.service';
 import { Movie } from '../../models/movie.model';
-import { combineLatest, Subscription } from 'rxjs';
+import { combineLatest, finalize, Subscription } from 'rxjs';
 import { TvService } from '../../services/tv.service';
 import { Tv } from '../../models/tv.model';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CardSkeletonComponent } from "../../components/card-skeleton/card-skeleton.component";
 import { CommonModule } from '@angular/common';
+import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-virtual-grid.module';
+import { MediaCardComponent } from "../../components/media-card/media-card.component";
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MediaTypeToggleItem } from '../../models/interfaces';
 
 @Component({
   selector: 'app-media-search',
   standalone: true,
-  imports: [MatProgressSpinnerModule, MatTabsModule, CardSkeletonComponent, RouterModule, CommonModule],
+  imports: [MatProgressSpinnerModule, MatTabsModule, CardSkeletonComponent, RouterModule, CommonModule, MediaVirtualGridModule, MediaCardComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './media-search.component.html',
   styleUrl: './media-search.component.scss'
 })
@@ -32,6 +36,21 @@ export class MediaSearchComponent implements OnInit {
 
   searchSubscription: Subscription = new Subscription();
 
+  tabs = ['Movies', 'Tv Series'];
+  selectedTab = new FormControl(0);
+
+  mediaTypes: MediaTypeToggleItem<'movie' | 'tv'>[] = [
+    {
+      value: 'movie',
+      viewValue: 'Movies'
+    },
+    {
+      value: 'tv',
+      viewValue: 'Tv Shows'
+    }
+  ];
+
+
   constructor (
     private movieService: MovieService,
     private tvService: TvService,
@@ -40,7 +59,7 @@ export class MediaSearchComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(value => {
-      let query = decodeURIComponent(value['query']);
+      let query = value['query'] !== undefined ? decodeURIComponent(value['query']) : '';
       this.searchQuery = query;
       this.search();
     });
@@ -65,12 +84,14 @@ export class MediaSearchComponent implements OnInit {
     const tvSubscription$ = this.tvService.search(this.searchQuery);
 
     this.searchSubscription = combineLatest([movieSubscription$, tvSubscription$])
+    .pipe(
+      finalize(() => this.loading = false)
+    )
     .subscribe(([movieResponse, tvResponse]) => {
       this.movies = movieResponse.results;
       this.tvseries = tvResponse.results;
       this.totalMovies = movieResponse.totalResults;
       this.totalSeries = tvResponse.totalResults;
-      this.loading = false;
     });
   }
 }

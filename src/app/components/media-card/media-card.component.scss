@@ -1,9 +1,10 @@
 .media-card {
   width: 250px;
   background-color: transparent;
+  box-sizing: border-box;
   cursor: pointer;
   padding: .4rem;
-  transition: background-color 0.2s;
+  transition: backgrouPnd-color 0.2s;
   box-shadow: none;
   &__title {
     font-size: 1rem;
@@ -17,8 +18,10 @@
   }
 
   &__image, .poster-placeholder {
+    width: 100%;
     border-radius: inherit;
     height: 355px;
+    object-fit: cover;
   }
   .poster-placeholder {
     width: 100%;
@@ -42,5 +45,19 @@
     opacity: 0.9;
     right: 5px;
     top: calc(-100% - 5px);
+  }
+}
+
+
+.small-size {
+  width: 200px;
+  .media-card__image, .poster-placeholder {
+    height: 270px;
+  }
+  .media-card__type {
+    font-size: .7rem;
+  }
+  .media-card__title {
+    font-size: .8rem;
   }
 }

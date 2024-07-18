@@ -29,7 +29,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: MediaSearchComponent,
-    title: 'Search media'
+    title: 'Search media',
+    data: {
+      title: 'Search media'
+    }
   }
 ];
 

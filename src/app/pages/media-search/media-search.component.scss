@@ -1,10 +1,18 @@
 .media-search {
-  margin-top: 1rem;
+  // margin-top: .5rem;
 
   &__title {
     margin: 0;
     text-align: center;
-    font-size: 1rem;
+    font-size: .8rem;
+    margin-bottom: .2rem;
+  }
+
+  &__value {
+    display: inline-block;
+    background-color: rgba(var(--primary-color-value), 0.4);
+    padding: 0 1rem;
+    border-radius: 1rem;
   }
 }
 

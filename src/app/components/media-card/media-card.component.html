@@ -1,4 +1,4 @@
-<mat-card class="media-card" [matTooltip]="data.title" [matTooltipShowDelay]="1000">
+<mat-card class="media-card" [class.small-size]="size == 'small'" [matTooltip]="data.title" [matTooltipShowDelay]="1000">
   @if (data.imageUri) {
     <img mat-card-image [src]="data.imageUri" alt="Poster" class="media-card__image">
   }
