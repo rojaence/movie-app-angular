@@ -76,10 +76,11 @@ export class TvService {
     )
   }
 
-  search(query: string): Observable<TvResponse> {
+  search(query: string, page: number = 1): Observable<TvResponse> {
     return this.http.get<TvResponse>(environment.apiUrl + '/search/tv', {
       params: {
-        query
+        query,
+        page
       }
     }).pipe(
       map(response => new TvResponse(response)),

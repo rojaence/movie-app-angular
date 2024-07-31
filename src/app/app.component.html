@@ -1,15 +1,15 @@
 <mat-drawer-container class="app-layout">
   <mat-drawer #mainDrawer class="main-sidenav" mode="over">
     <div class="main-sidenav__header">
-      <button type="button" mat-icon-button color="warn" class="close-button" (click)="mainDrawer.toggle()">
+      <button type="button" mat-icon-button color="warn" class="close-button" (click)="mainDrawer.toggle()" #searchBarButton>
         <mat-icon>close</mat-icon>
       </button>
     </div>
   </mat-drawer>
 
-  <mat-drawer-content class="app-content">
+  <mat-drawer-content class="app-content" [class.overflow-scroll]="searchRoute">
     <app-search-bar #searchBar></app-search-bar>
-    <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="searchBar.toggle()"></app-header>
+    <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="searchBar.toggle()" #appHeader></app-header>
     <main class="main">
         <router-outlet />
     </main>

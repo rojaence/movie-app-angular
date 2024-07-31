@@ -1,18 +1,58 @@
-<section class="media-search">
-  <div class="container">
-    <header  class="media-search__header">
-      <h2 class="media-search__title">
-        Results for:
-        <span class="media-search__value">{{ searchQuery }}</span>
-      </h2>
-    </header>
-    @if (loading) {
-      <mat-spinner [diameter]="100" class="loader"></mat-spinner>
-    } @else {
-      <mat-tab-group animationDuration="250ms" mat-stretch-tabs="false" mat-align-tabs="center" [selectedIndex]="selectedMediaTypeIndex" dynamicHeight [selectedIndex]="selectedTab.value"
+<section class="media-search container">
+
+  <h2 class="media-search__title">
+    Results for:
+    <span class="media-search__value">{{ searchQuery }}</span>
+  </h2>
+  <header  class="media-search__header">
+    <mat-chip-listbox class="mat-mdc-chip-set" aria-label="Media types" [hideSingleSelectionIndicator]="true" [required]="true">
+      @for (type of mediaTypes; track type.value) {
+        <mat-chip-option [selected]="type.value === mediaType" [selectable]="type.value !== mediaType" (selectionChange)="onSelectedChip(type.value)" [value]="type.value">{{type.viewValue}}</mat-chip-option>
+      }
+    </mat-chip-listbox>
+    <app-paginator [currentPage]="currentPage" [totalPages]="totalPages" (requestPage)="onRequestPage($event)"></app-paginator>
+  </header>
+
+      @if (loading) {
+        <mat-spinner [diameter]="100" class="loader"></mat-spinner>
+      } @else {
+        <app-virtual-list>
+          @for (media of mediaItems; track media.id) {
+            <app-virtual-list-item>
+              <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
+                <app-media-card [data]="media" [size]="'small'"></app-media-card>
+              </a>
+            </app-virtual-list-item>
+          }
+          @empty {
+          <app-virtual-list-item>
+            <div class="empty-list">
+              <mat-icon>block</mat-icon>
+              <span class="empty-list__label">No results</span>
+            </div>
+          </app-virtual-list-item>
+          }
+        </app-virtual-list>
+      }
+
+      <!-- <app-virtual-list (scrollEnd)="onScrollEnd($event)">
+        <mat-button-toggle-group class="media-type-toggle" name="trendingMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="mediaType" [(ngModel)]="mediaType" (ngModelChange)="search()">
+          @for (mediaType of mediaTypes; track mediaType.value) {
+            <mat-button-toggle class="media-type-toggle__item" [value]="mediaType.value">{{ getMediaTypeLabel(mediaType.value) }}</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+        @for (media of mediaItems; track media.id) {
+          <app-virtual-list-item>
+            <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
+              <app-media-card [data]="media.getMediaCardData()" [size]="'small'"></app-media-card>
+            </a>
+          </app-virtual-list-item>
+        }
+      </app-virtual-list> -->
+      <!-- <mat-tab-group animationDuration="250ms" mat-stretch-tabs="false" mat-align-tabs="center" [selectedIndex]="selectedMediaTypeIndex" dynamicHeight [selectedIndex]="selectedTab.value"
       (selectedIndexChange)="selectedTab.setValue($event)">
         <mat-tab [label]="movieTabLabel">
-          <app-virtual-list>
+          <app-virtual-list (scrollEnd)="onScrollEnd($event)">
             @for (media of movies; track media.id) {
               <app-virtual-list-item>
                 <a [routerLink]="[ '/' + 'movie', media.id]" class="card-link">
@@ -23,7 +63,7 @@
           </app-virtual-list>
         </mat-tab>
         <mat-tab [label]="tvTabLabel">
-          <app-virtual-list>
+          <app-virtual-list (scrollEnd)="onScrollEnd($event)">
             @for (media of tvseries; track media.id) {
               <app-virtual-list-item>
                 <a [routerLink]="[ '/' + 'tv', media.id]" class="card-link">
@@ -33,8 +73,7 @@
             }
           </app-virtual-list>
         </mat-tab>
-      </mat-tab-group>
-    }
-  </div>
+      </mat-tab-group> -->
+
 </section>
 

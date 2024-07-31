@@ -1,0 +1,4 @@
+.paginator { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; justify-content: center;}
+button { cursor: pointer; }
+.active { font-weight: bold; }
+.ellipsis { align-self: flex-center; }

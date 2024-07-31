@@ -21,9 +21,7 @@
 
 .main {
   z-index: 50;
-  // padding: 1rem;
 }
-
 
 .main-sidenav {
   width: 250px;
@@ -43,4 +41,9 @@
 
 .close-button {
   margin-left: auto;
+}
+
+
+.overflow-scroll {
+  overflow-y: scroll;
 }

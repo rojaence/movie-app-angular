@@ -1,0 +1,20 @@
+<div class="paginator">
+  <button mat-icon-button (click)="prevPage()" [disabled]="currentPage === 1">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <ng-container *ngFor="let item of displayedPages()">
+    <button mat-stroked-button (click)="updatePage(item.value)" *ngIf="item.type === 'step'" class="ellipsis">{{ item.viewValue }}</button>
+    <button
+      mat-flat-button
+      [color]="item.value === currentPage ? 'primary' : ''"
+      *ngIf="item.type === 'page'"
+      (click)="updatePage(item.value)"
+      [class.active]="item.value === currentPage"
+    >
+      {{ item.viewValue }}
+    </button>
+  </ng-container>
+  <button mat-icon-button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>

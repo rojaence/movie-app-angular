@@ -1,5 +1,7 @@
-<ul class="virtual-list">
-  <li class="virtual-list__item" *ngFor="let item of items">
-    <ng-container [ngTemplateOutlet]="item.template"></ng-container>
-  </li>
-</ul>
+<div class="virtual-list-container">
+  <ul class="virtual-list">
+    <li class="virtual-list__item" *ngFor="let item of items">
+      <ng-container [ngTemplateOutlet]="item.template"></ng-container>
+    </li>
+  </ul>
+</div>

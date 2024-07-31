@@ -13,7 +13,7 @@
           <mat-option *ngFor="let option of languages" [value]="option.value">{{ option.viewValue }}</mat-option>
         </mat-select>
       </mat-form-field>
-      <button matRipple type="button" class="search-button" (click)="searchBarToggle.emit()">
+      <button matRipple type="button" class="search-button" (click)="searchBarToggle.emit()" #searchButton>
         <mat-icon color="primary">search</mat-icon>
         <span class="search-button__label">SEARCH</span>
       </button>

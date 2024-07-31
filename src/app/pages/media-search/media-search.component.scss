@@ -1,5 +1,4 @@
 .media-search {
-  // margin-top: .5rem;
 
   &__title {
     margin: 0;
@@ -14,8 +13,25 @@
     padding: 0 1rem;
     border-radius: 1rem;
   }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
 }
 
 .loader {
-  margin: 3rem auto;
+  margin: 4rem auto;
+}
+
+
+.empty-list {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  margin: 3rem 0;
+  opacity: 0.8;
+  background-color: rgba(var(--error-color-value), 0.5);
+  padding: .5rem 1rem;
+  border-radius: 2rem;
 }

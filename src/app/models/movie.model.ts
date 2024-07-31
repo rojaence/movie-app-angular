@@ -57,6 +57,7 @@ export class Movie implements IMovie, IWithGenre<number> {
 
   getMediaCardData(): IMediaCard {
     return {
+      id: this.id,
       title: this.title,
       contentUri: '#',
       imageUri: this.posterPath ? `${environment.imageCdn}/w300/${this.posterPath}` : "",

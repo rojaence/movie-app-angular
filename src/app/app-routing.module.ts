@@ -10,28 +10,40 @@ const routes: Routes = [
   {
     path: 'notfound',
     component: NotFoundComponent,
+    data: {
+      name: 'notFound'
+    }
   },
   {
     path: '',
     component: HomeComponent,
     title: 'Home',
+    data: {
+      name: 'home'
+    }
   },
   {
     path: 'movie/:id',
     component: MediaDetailsComponent,
-    title: 'Movie'
+    title: 'Movie',
+    data: {
+      name: 'movieDetails'
+    }
   },
   {
     path: 'tv/:id',
     component: MediaDetailsComponent,
-    title: 'Tv Serie'
+    title: 'Tv Serie',
+    data: {
+      name: 'tvDetails'
+    }
   },
   {
     path: 'search',
     component: MediaSearchComponent,
     title: 'Search media',
     data: {
-      title: 'Search media'
+      name: 'search'
     }
   }
 ];

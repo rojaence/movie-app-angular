@@ -78,10 +78,11 @@ export class MovieService {
     )
   }
 
-  search(query: string): Observable<MovieResponse> {
+  search(query: string, page: number = 1): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(environment.apiUrl + '/search/movie', {
       params: {
-        query
+        query,
+        page
       }
     }).pipe(
       map(response => new MovieResponse(response)),

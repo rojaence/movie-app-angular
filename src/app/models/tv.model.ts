@@ -57,6 +57,7 @@ export class Tv implements ITv, IWithGenre<number> {
 
   getMediaCardData(): IMediaCard {
     return {
+      id: this.id,
       title: this.name,
       contentUri: '#',
       imageUri: this.posterPath ? `${environment.imageCdn}/w300/${this.posterPath}` : "",

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChildren, QueryList } from '@angular/core';
+import { Component, ContentChildren, QueryList } from '@angular/core';
 import { VirtualListItemComponent } from '../virtual-list-item/virtual-list-item.component';
 
 @Component({
@@ -6,11 +6,8 @@ import { VirtualListItemComponent } from '../virtual-list-item/virtual-list-item
   templateUrl: './virtual-list.component.html',
   styleUrl: './virtual-list.component.scss'
 })
-export class VirtualListComponent implements AfterViewInit {
+export class VirtualListComponent {
   @ContentChildren(VirtualListItemComponent) items = new QueryList<VirtualListItemComponent>();
 
-  ngAfterViewInit(): void {
-    // TODO: capturar eventos para scroll infinito
-
-  }
+  selector: string = ".virtual-list-container";
 }

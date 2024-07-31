@@ -168,6 +168,7 @@ export interface LanguageOption {
 } */
 
 export interface IMediaCard {
+  id: number,
   title: string,
   mediaType: MediaTypeEnum,
   imageUri: string,
@@ -224,4 +225,11 @@ export interface IVideoResource {
   official:   boolean;
   publishedAt: Date | string;
   id:         string;
+}
+
+
+export interface IQueryParams {
+  query: string,
+  page: number,
+  mediaType: MediaTypeEnum
 }

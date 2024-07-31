@@ -13,8 +13,6 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   scrollEnd = false;
   @Input() disabled = false;
   @ViewChild('slideList') slideList: ElementRef<HTMLDivElement> | undefined;
-  @ViewChild('leftButton') leftButton: ElementRef | undefined;
-  @ViewChild('rightButton') rightButton: ElementRef | undefined;
   @ContentChildren(CarouselItemComponent) items = new QueryList<CarouselItemComponent>();
   itemsChangeSubscription: Subscription | undefined;
 
