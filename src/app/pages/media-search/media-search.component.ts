@@ -17,6 +17,7 @@ import { PaginatorComponent } from '../../components/paginator/paginator.compone
 import { MediaTypeEnum } from '../../models/enums';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { PersonService } from '../../services/person.service';
 
 @Component({
   selector: 'app-media-search',
@@ -40,7 +41,7 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
   searchSubscription: Subscription = new Subscription();
   paramsSubscription: Subscription = new Subscription()
 
-  mediaTypes: MediaTypeToggleItem<'movie' | 'tv'>[] = [
+  mediaTypes: MediaTypeToggleItem<'movie' | 'tv' | 'person'>[] = [
     {
       value: 'movie',
       viewValue: 'Movies'
@@ -48,6 +49,10 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
     {
       value: 'tv',
       viewValue: 'Tv Shows'
+    },
+    {
+      value: 'person',
+      viewValue: 'People'
     }
   ];
 
@@ -56,6 +61,7 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
   constructor (
     private movieService: MovieService,
     private tvService: TvService,
+    private personService: PersonService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
@@ -72,7 +78,7 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSelectedChip(value: 'movie' | 'tv') {
+  onSelectedChip(value: 'movie' | 'tv' | 'person') {
     if (value !== this.mediaType) {
       this.mediaType = value as MediaTypeEnum
       this.router.navigate(['/search'],
@@ -126,6 +132,17 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
         this.mediaItems = tvResponse.results.map(m => m.getMediaCardData());
         this.totalItems = tvResponse.totalResults
         this.totalPages = tvResponse.totalPages
+      })
+    } else if (this.mediaType === 'person') {
+      this.searchSubscription = this.personService.search(this.searchQuery, this.currentPage)
+      .pipe(
+        finalize(() => {
+          this.loading = false
+        })
+      ).subscribe(personResponse => {
+        this.mediaItems = personResponse.results.map(m => m.getMediaCardData());
+        this.totalItems = personResponse.totalResults
+        this.totalPages = personResponse.totalPages
       })
     }
   }

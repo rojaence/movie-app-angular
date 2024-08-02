@@ -4,6 +4,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MediaDetailsComponent } from './pages/media-details/media-details.component';
 import { MediaSearchComponent } from './pages/media-search/media-search.component';
+import { PersonDetailsComponent } from './pages/person-details/person-details.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,14 @@ const routes: Routes = [
     title: 'Tv Serie',
     data: {
       name: 'tvDetails'
+    }
+  },
+  {
+    path: 'person/:id',
+    component: PersonDetailsComponent,
+    title: 'People',
+    data: {
+      name: 'personDetails'
     }
   },
   {

@@ -233,3 +233,33 @@ export interface IQueryParams {
   page: number,
   mediaType: MediaTypeEnum
 }
+
+export interface IMediaAppearances {
+  movies: IMovie[],
+  tvSeries: ITv[]
+}
+
+export interface IBasePerson {
+  adult:              boolean;
+  gender:             number;
+  id:                 number;
+  knownForDepartment: string;
+  name:               string;
+  originalName:       string;
+  popularity:         number;
+  profilePath:        string;
+}
+
+export interface IPerson extends IBasePerson {
+  knownFor: IMediaAppearances;
+}
+
+export interface IPersonDetails extends IBasePerson {
+  alsoKnownAs:        string[];
+  biography:          string;
+  birthday:           Date | string;
+  deathday:           Date | string;
+  homepage:           string;
+  imdbId:             string;
+  placeOfBirth:       string;
+}

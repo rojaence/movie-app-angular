@@ -1,0 +1,18 @@
+.details {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.backdrop-placeholder {
+  position: absolute;
+  background-image: linear-gradient(
+    to bottom,
+    var(--info-color) 0%,
+    var(--primary-color) 75%,
+    var(--main-color) 100%
+  );
+  opacity: 0.2;
+  width: 100vw;
+  height: 700px;
+}
