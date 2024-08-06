@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { IPersonDetails } from '../models/interfaces';
+import { IMovieCast, IMovieCrew, IPersonCredit, IPersonDetails, ITvCast, ITvCrew } from '../models/interfaces';
 import { PersonResponse } from '../models/person.model';
 
 @Injectable({
@@ -18,6 +18,22 @@ export class PersonService {
     );
   }
 
+  getMovieCredits(id: number): Observable<IPersonCredit<IMovieCast, IMovieCrew>> {
+    return this.http.get<IPersonCredit<IMovieCast, IMovieCrew>>(environment.apiUrl + `/person/${id}/credits/movie`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
+
+  getTvCredits(id: number): Observable<IPersonCredit<ITvCast, ITvCrew>> {
+    return this.http.get<IPersonCredit<ITvCast, ITvCrew>>(environment.apiUrl + `/person/${id}/credits/tv`)
+    .pipe(
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
+
+
+
   search(query: string, page: number = 1): Observable<PersonResponse> {
     return this.http.get<PersonResponse>(environment.apiUrl + '/search/person', {
       params: {
@@ -29,6 +45,4 @@ export class PersonService {
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
-
-
 }

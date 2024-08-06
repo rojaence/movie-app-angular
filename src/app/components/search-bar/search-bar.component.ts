@@ -7,9 +7,9 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
 import { slideDownAnimation } from './search-bar.animations';
 import { FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { MediaTypeEnum } from '../../models/enums';
-import { debounceTime, distinctUntilChanged, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-bar',
@@ -32,15 +32,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       this.toggle();
     }
   }
-
-  @HostListener('document:click', ['$event'])
-  clickOutside(event: Event) {
-    if (!this.animationComplete) return
-    const targetElement = event.target as HTMLElement;
-    if (!this.searchBar.nativeElement.contains(targetElement) && this.isOpen) {
-      this.toggle()
-    }
-  }
+  routeSub = new Subscription();
 
   constructor(
     private router: Router,
@@ -56,12 +48,25 @@ export class SearchBarComponent implements OnInit, OnDestroy {
         this.goToSearch()
       }
     })
+    this.routeSub = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd),
+      map(() => this.activatedRoute),
+      map(route => {
+        while (route.firstChild) route = route.firstChild;
+        return route;
+      }),
+      filter(route => route.outlet === 'primary'),
+      map(route => route.snapshot.data['name'])
+    ).subscribe(name => {
+      if (name !== 'search') this.close();
+    });
   }
 
   ngOnDestroy(): void {
     if (this.searchSubscription) {
       this.searchSubscription.unsubscribe();
     }
+    this.routeSub.unsubscribe();
   }
 
   toggle() {
@@ -69,9 +74,11 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     if (this.isOpen) {
       this.searchInput.nativeElement.focus();
     }
-    else {
-      this.search.setValue('');
-    }
+  }
+
+  close() {
+    this.isOpen = false;
+    this.search.setValue('');
   }
 
   onAnimationStart() {

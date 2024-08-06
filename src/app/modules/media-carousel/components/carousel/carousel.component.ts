@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy, ContentChildren, QueryList, AfterViewInit, Input } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy, ContentChildren, QueryList, AfterViewInit, Input, Renderer2 } from '@angular/core';
 import { CarouselItemComponent } from '../carousel-item/carousel-item.component';
 import { Subscription } from 'rxjs';
 
@@ -16,15 +16,15 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   @ContentChildren(CarouselItemComponent) items = new QueryList<CarouselItemComponent>();
   itemsChangeSubscription: Subscription | undefined;
 
-  constructor() {}
+  constructor(
+    private renderer: Renderer2
+  ) {}
 
   ngAfterViewInit(): void {
     this.slideList?.nativeElement.addEventListener('scroll', this.onScrollEvent);
-    this.itemsChangeSubscription = this.items.changes.subscribe((c) => {
-      this.scrollX = 0;
-      this.slideList!.nativeElement.scrollLeft = 0;
-      this.scrollEnd = false;
-    })
+    this.itemsChangeSubscription = this.items.changes.subscribe(() => {
+      this.resetScroll();
+    });
   }
 
   ngOnDestroy(): void {
@@ -33,38 +33,86 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   }
 
   onScrollEvent = () => {
-    this.scrollX = this.slideList!.nativeElement.scrollLeft;
-    this.endScrollCheck();
+    if (this.slideList) {
+      this.scrollX = this.slideList.nativeElement.scrollLeft;
+      this.endScrollCheck();
+    }
   };
 
   endScrollCheck() {
-    const listElement = this.slideList!.nativeElement;
-    if (Math.floor(listElement!.scrollWidth - listElement!.scrollLeft) <= listElement!.offsetWidth) {
-      this.scrollEnd = true;
-    } else {
+    if (this.slideList) {
+      const listElement = this.slideList.nativeElement;
+      this.scrollEnd = Math.floor(listElement.scrollWidth - listElement.scrollLeft) <= listElement.offsetWidth;
+    }
+  }
+
+  scrollList(value: number) {
+    if (!this.slideList) return;
+    this.slideList.nativeElement.scrollLeft += value;
+    this.scrollX += value;
+    this.endScrollCheck();
+  }
+
+
+  resetScroll() {
+    if (this.slideList) {
+      this.scrollX = 0;
+      this.slideList.nativeElement.scrollLeft = 0;
       this.scrollEnd = false;
     }
   }
 
   scrollShift(direction: 'right' | 'left') {
-    const listElement = this.slideList!.nativeElement;
+    if (!this.slideList) return;
+    const listElement = this.slideList.nativeElement;
     const listRects = listElement.getBoundingClientRect();
+    const children = Array.from(listElement.children) as HTMLElement[];
 
-    let value = 0;
     if (direction === 'right') {
-      if (this.scrollEnd) return;
-      value = listRects.width;
+      let lastVisibleChild: HTMLElement | null = null;
+
+      for (const child of children) {
+        const childRect = child.getBoundingClientRect();
+        if (childRect.left >= listRects.left && childRect.right <= listRects.right) {
+          lastVisibleChild = child;
+        } else if (lastVisibleChild) {
+          break;
+        }
+      }
+
+      if (lastVisibleChild) {
+        const scrollAmount = lastVisibleChild.getBoundingClientRect().left - listRects.left;
+        listElement.scrollLeft += scrollAmount;
+        this.scrollX += scrollAmount;
+        this.endScrollCheck();
+      }
+    } else if (direction === 'left') {
+      const listRects = listElement.getBoundingClientRect();
+      let firstVisibleChild: HTMLElement | null = null;
+
+      for (let i = children.length - 1; i >= 0; i--) {
+        const child = children[i];
+        const childRect = child.getBoundingClientRect();
+        if (childRect.left >= listRects.left && childRect.right <= listRects.right) {
+          firstVisibleChild = child;
+        } else if (firstVisibleChild) {
+          break;
+        }
+      }
+
+      if (firstVisibleChild) {
+        const scrollAmount = firstVisibleChild.getBoundingClientRect().right - listRects.right;
+        listElement.scrollLeft += scrollAmount;
+        this.scrollX += scrollAmount;
+        this.endScrollCheck();
+      }
     }
-    if (direction === 'left') {
-      if (this.scrollX === 0) return;
-      value -= listRects.width;
-    }
-    this.scrollList(value);
   }
 
-  scrollList(value: number) {
-    this.slideList!.nativeElement.scrollLeft += value;
-    this.scrollX += value;
-    this.endScrollCheck();
+  isElementInViewport(element: HTMLElement, container: HTMLElement): boolean {
+    const rect = element.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    return rect.left >= containerRect.left && rect.right <= containerRect.right;
   }
 }

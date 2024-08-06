@@ -1,0 +1,41 @@
+<section class="gallery">
+  <app-carousel>
+    <app-carousel-header listTitle="Known for">
+      <mat-button-toggle-group class="media-type-selector" aria-label="Media type"
+        [(ngModel)]="selectedMediaType"
+        (ngModelChange)="fetchData()"
+        [disabled]="loading"
+      >
+        @for (type of mediaTypes; track type.value) {
+          <mat-button-toggle class="media-type-selector__item" [value]="type.value">
+            {{ type.viewValue }}
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+      <mat-button-toggle-group class="credit-type-selector"         aria-label="Credit type"
+        [(ngModel)]="selectedCreditType"
+        (ngModelChange)="setMediaItems()"
+      >
+        @for (type of creditTypes; track type.value) {
+          <mat-button-toggle class="credit-type-selector__item" [value]="type.value">
+            {{ type.viewValue }}
+          </mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </app-carousel-header>
+
+    @if (loading) {
+      <app-carousel-item *appRepeat="8">
+        <app-card-skeleton />
+      </app-carousel-item>
+    } @else {
+      @for (item of mediaItems; track item.id) {
+        <app-carousel-item>
+          <a [routerLink]="[ '/' + item.mediaType, item.id]" class="card-link">
+            <app-media-card [data]="item"></app-media-card>
+          </a>
+        </app-carousel-item>
+      }
+    }
+  </app-carousel>
+</section>

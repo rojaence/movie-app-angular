@@ -263,3 +263,59 @@ export interface IPersonDetails extends IBasePerson {
   imdbId:             string;
   placeOfBirth:       string;
 }
+
+export interface IPersonCredit<TCast, TCrew>
+{
+  id: number,
+  cast: TCast[],
+  crew: TCrew[]
+}
+
+export interface IBaseCredit
+{
+  adult: boolean;
+  backdropPath: string;
+  genreIds: number[];
+  id: number;
+  originalLanguage: string;
+  overview: string;
+  popularity: number,
+  posterPath: string;
+  voteAverage: number;
+  voteCount: number;
+  creditId: string;
+}
+
+export interface IBaseMovieCredit extends IBaseCredit {
+  originalTitle: string;
+  title: string;
+  video: boolean;
+  releaseDate: Date | string;
+}
+
+export interface IBaseTvCredit extends IBaseCredit {
+  originCountry: string[];
+  originalName: string;
+  name: string;
+  firstAirDate: Date | string;
+  episodeCount: number;
+}
+
+export interface IMovieCast extends IBaseMovieCredit {
+  order: number;
+  character: string;
+}
+
+export interface IMovieCrew extends IBaseMovieCredit {
+  department: string;
+  job: string;
+}
+
+export interface ITvCast extends IBaseTvCredit {
+  character: string;
+}
+
+export interface ITvCrew extends IBaseTvCredit {
+  department: string;
+  job: string;
+}

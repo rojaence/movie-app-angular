@@ -9,7 +9,6 @@
     scroll-behavior: smooth;
     padding: 0 0 1rem;
     list-style: none;
-    scroll-snap-type: x mandatory;
     @extend .app-scrollbar--alt !optional;
     &--empty {
       height: 5rem;

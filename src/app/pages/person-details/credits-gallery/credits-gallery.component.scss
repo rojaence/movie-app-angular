@@ -1,0 +1,11 @@
+.media-type-selector, .credit-type-selector {
+  border-radius: 2rem;
+}
+
+.media-type-selector {
+  --mat-standard-button-toggle-selected-state-background-color: var(--primary-color);
+}
+
+.credit-type-selector {
+  --mat-standard-button-toggle-selected-state-background-color: var(--info-color);
+}

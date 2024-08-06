@@ -6,11 +6,13 @@ import { IPersonDetails } from '../../models/interfaces';
 import { MediaInfoSkeletonComponent } from '../media-details/media-info-skeleton/media-info-skeleton.component';
 import { PersonInfoComponent } from './person-info/person-info.component';
 import { environment } from '../../../environments/environment';
+import { CreditsGalleryComponent } from './credits-gallery/credits-gallery.component';
+import { MediaGalleryComponent } from "../media-details/media-gallery/media-gallery.component";
 
 @Component({
   selector: 'app-person-details',
   standalone: true,
-  imports: [MediaInfoSkeletonComponent, PersonInfoComponent],
+  imports: [MediaInfoSkeletonComponent, PersonInfoComponent, CreditsGalleryComponent],
   templateUrl: './person-details.component.html',
   styleUrl: './person-details.component.scss'
 })
