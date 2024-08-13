@@ -319,3 +319,7 @@ export interface ITvCrew extends IBaseTvCredit {
   department: string;
   job: string;
 }
+
+export interface IGenreResponse {
+  genres: IGenre[];
+}

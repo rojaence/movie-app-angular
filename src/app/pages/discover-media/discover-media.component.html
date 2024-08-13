@@ -1,0 +1,54 @@
+<section class="container">
+  <header class="header">
+    <h1 class="title">
+      {{ pageTitle[mediaType] }}
+    </h1>
+    <div id="filters">
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Genre</mat-label>
+        <mat-select [(ngModel)]="selectedGenre" (ngModelChange)="onChangeGenre()">
+          @for (genre of genres; track genre.id) {
+            <mat-option [value]="genre.id.toString()">{{ genre.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field [appearance]="'outline'">
+        <mat-label>Sort by</mat-label>
+        <mat-select [(ngModel)]="sortBy" (ngModelChange)="onChangeSortBy()">
+          @for (item of sortItems; track item.value) {
+            <mat-option [value]="item.value">{{ item.viewValue }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </header>
+  @if (loading && currentPage === 1) {
+    <mat-spinner [diameter]="100" class="loader"></mat-spinner>
+  } @else {
+      <app-virtual-list class="list" (scrollEnd)="onScrollEnd($event)">
+        @for (media of mediaItems; track media.id) {
+          <app-virtual-list-item>
+            <a [routerLink]="[ '/' + mediaType, media.id]" class="card-link">
+              <app-media-card [data]="media" size="small"></app-media-card>
+            </a>
+          </app-virtual-list-item>
+        }
+        @empty {
+          <app-virtual-list-item>
+            <div class="empty-list">
+              <span class="empty-list__label">No data</span>
+            </div>
+          </app-virtual-list-item>
+        }
+        @if (loading) {
+          <app-virtual-list-item>
+            <div class="loader">
+              <mat-spinner [diameter]="100" class="loader-placeholder"></mat-spinner>
+            </div>
+          </app-virtual-list-item>
+        }
+      </app-virtual-list>
+    }
+</section>
+

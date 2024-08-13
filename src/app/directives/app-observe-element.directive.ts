@@ -1,4 +1,4 @@
-import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { debounceTime, Observable, Subscription } from 'rxjs';
 
 @Directive({
@@ -17,67 +17,71 @@ export class AppObserveElementDirective implements OnInit {
   @Output() isIntersecting = new EventEmitter<boolean>()
 
   private intersectionObserver: IntersectionObserver | null = null
-  private _isIntersecting = false
   private subscription: Subscription = new Subscription()
 
-  constructor(private element: ElementRef) { }
-
-  intersecting = false
+  constructor(private element: ElementRef) {}
 
   ngOnInit(): void {
-    this.createAndObserve()
-    this.observeLastChild()
+    if (typeof IntersectionObserver === 'undefined') return;
+    this.createAndObserve();
   }
 
   ngOnDestroy () {
-    this.subscription.unsubscribe()
+    this.cleanUp();
+  }
+
+  private cleanUp() {
     if (this.intersectionObserver) {
-      this.intersectionObserver.disconnect()
+      this.intersectionObserver.disconnect();
+    }
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 
-  observeLastChild() {
-    const parent = this.element.nativeElement
-    const lastChild = parent.lastElementChild
-    console.log('last child')
-    console.log(lastChild)
-    if (lastChild && this.intersectionObserver) {
-      this.intersectionObserver.disconnect()
-      this.intersectionObserver.observe(lastChild)
-    }
-  }
-
-  createAndObserve() {
+  private createAndObserve() {
+    const sentinel = this.getSentinelElement();
     const options: IntersectionObserverInit = {
-      root: null,
+      root: this.root,
       rootMargin: this.rootMargin,
       threshold: this.threshold
-    }
-
+    };
     this.intersectionObserver = new IntersectionObserver(entries => {
-      const { isIntersecting } = entries[0]
-      this.handleIntersection(isIntersecting)
-    }, options)
+      entries.forEach(entry => {
+        if (entry.target === sentinel) {
+          this.handleIntersection(entry.isIntersecting);
+        }
+      });
+    }, options);
+
+    if (sentinel) {
+      this.intersectionObserver.observe(sentinel);
+    }
   }
 
-  handleIntersection(isIntersecting: boolean) {
+  private getSentinelElement(): HTMLElement | null {
+    const sentinel = this.element.nativeElement.querySelector('.sentinel');
+    return sentinel;
+  }
+
+  private handleIntersection(isIntersecting: boolean) {
     if (this.subscription) {
-      this.subscription.unsubscribe()
+      this.subscription.unsubscribe();
     }
-    this.subscription = new Observable<boolean>(subscriber => {
-      subscriber.next(isIntersecting)
+
+    this.subscription = new Subscription();
+
+    const subscription = new Observable<boolean>(subscriber => {
+      subscriber.next(isIntersecting);
       if (isIntersecting && !this.isContinuous) {
-        subscriber.complete()
+        subscriber.complete();
       }
     })
     .pipe(debounceTime(this.debounceTime))
     .subscribe(status => {
-      this.isIntersecting.emit(status)
-      this._isIntersecting = status
-    })
-  }
+      this.isIntersecting.emit(status);
+    });
 
-  public updateLastChildObservation() {
-    this.observeLastChild()
+    this.subscription.add(subscription);
   }
 }

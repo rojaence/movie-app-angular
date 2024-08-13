@@ -35,6 +35,7 @@ export class MediaDetailsComponent implements OnInit, OnDestroy {
   loadingRecommendations = true;
 
   private subscriptions: Subscription[] = [];
+  private paramSubscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
@@ -43,7 +44,7 @@ export class MediaDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.paramSubscription = this.route.params.subscribe(params => {
       this.id = parseInt(params['id']);
       this.mediaType = this.route.snapshot.url[0].path as 'movie' | 'tv';
       this.fetchData();
@@ -52,6 +53,7 @@ export class MediaDetailsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+    this.paramSubscription.unsubscribe();
   }
 
   fetchData() {

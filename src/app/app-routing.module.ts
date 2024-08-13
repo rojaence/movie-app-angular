@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { MediaDetailsComponent } from './pages/media-details/media-details.component';
 import { MediaSearchComponent } from './pages/media-search/media-search.component';
 import { PersonDetailsComponent } from './pages/person-details/person-details.component';
+import { DiscoverMediaComponent } from './pages/discover-media/discover-media.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,24 @@ const routes: Routes = [
     title: 'Search media',
     data: {
       name: 'search'
+    }
+  },
+  {
+    path: 'movies',
+    component: DiscoverMediaComponent,
+    title: 'Discover Movies',
+    data: {
+      name: 'movies',
+      mediaType: 'movie'
+    }
+  },
+  {
+    path: 'tv',
+    component: DiscoverMediaComponent,
+    title: 'Discover Tv Series',
+    data: {
+      name: 'tv',
+      mediaType: 'tv'
     }
   }
 ];

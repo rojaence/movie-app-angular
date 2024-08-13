@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { IImageGallery, IMediaResponse, ITv, ITvDetails, IVideoGallery } from '../models/interfaces';
+import { IGenreResponse, IImageGallery, IMediaResponse, ITv, ITvDetails, IVideoGallery } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 import { TvResponse } from '../models/tv.model';
 
@@ -13,8 +13,14 @@ export class TvService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<TvResponse> {
-    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/tv')
+  getAll(page: number, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<TvResponse> {
+    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/tv', {
+      params: {
+        page,
+        genres: genres.join(','),
+        sortBy
+      }
+    })
     .pipe(
       map(response => {
         return new TvResponse(response);
@@ -84,6 +90,13 @@ export class TvService {
       }
     }).pipe(
       map(response => new TvResponse(response)),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
+
+  getGenres(): Observable<IGenreResponse> {
+    return this.http.get<IGenreResponse>(environment.apiUrl + `/genre/tv`
+    ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }

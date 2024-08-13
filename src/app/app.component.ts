@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, EventType, NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, EventType, Router } from '@angular/router';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
@@ -15,6 +15,29 @@ export class AppComponent implements OnInit {
   @ViewChild('searchBar') searchBarComponent!: SearchBarComponent;
   @ViewChild('searchBarButton') searchBarButton!: ElementRef;
   routerSubscripion = new Subscription()
+
+  pages = [
+    {
+      name: 'Home',
+      link: '/'
+    },
+    {
+      name: 'Movies',
+      link: '/movies'
+    },
+    {
+      name: 'Tv series',
+      link: '/tv'
+    },
+    {
+      name: 'Trending',
+      link: '#'
+    },
+    {
+      name: 'Popular',
+      link: '#'
+    },
+  ]
 
   constructor(
     private router: Router,

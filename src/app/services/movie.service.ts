@@ -3,7 +3,7 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { MovieResponse } from '../models/movie.model';
-import { IImageGallery, IMediaResponse, IMovie, IMovieDetails, IVideoGallery } from '../models/interfaces';
+import { IGenreResponse, IImageGallery, IMediaResponse, IMovie, IMovieDetails, IVideoGallery } from '../models/interfaces';
 import { TimeWindowEnum } from '../models/enums';
 
 @Injectable({
@@ -17,8 +17,14 @@ export class MovieService {
 
   }
 
-  getAll(): Observable<MovieResponse> {
-    return this.http.get<IMediaResponse<IMovie>>(environment.apiUrl + '/movie')
+  getAll(page: number = 1, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<MovieResponse> {
+    return this.http.get<IMediaResponse<IMovie>>(environment.apiUrl + '/movie', {
+      params: {
+        page,
+        genres: genres.join(','),
+        sortBy
+      }
+    })
     .pipe(
       map(response => {
         return new MovieResponse(response);
@@ -86,6 +92,13 @@ export class MovieService {
       }
     }).pipe(
       map(response => new MovieResponse(response)),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
+
+  getGenres(): Observable<IGenreResponse> {
+    return this.http.get<IGenreResponse>(environment.apiUrl + `/genre/movie`
+    ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }

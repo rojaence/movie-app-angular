@@ -1,7 +1,12 @@
 <div class="virtual-list-container">
-  <ul class="virtual-list">
-    <li class="virtual-list__item" *ngFor="let item of items">
+  <ul class="virtual-list" #virtualList appObserveElement [root]="null"
+  [rootMargin]="'0px'"
+  [threshold]="0"
+  [debounceTime]="200"
+  (isIntersecting)="onIntersection($event)">
+    <li class="virtual-list__item" *ngFor="let item of items" #virtualListItem>
       <ng-container [ngTemplateOutlet]="item.template"></ng-container>
     </li>
+    <li class="virtual-list__item sentinel" #sentinelItem></li>
   </ul>
 </div>

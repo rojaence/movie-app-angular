@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild, ElementRef, OnInit, Renderer2, Input, OnDestroy } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,6 +23,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   isOpen = false;
   search = new FormControl();
   animationComplete = false;
+  routeName = '';
   @ViewChild('searchInput') searchInput!: ElementRef<HTMLInputElement>;
   @ViewChild('searchBar') searchBar!: ElementRef;
   private searchSubscription: Subscription = new Subscription();
@@ -30,6 +31,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   handleKeyboardEvent(event: KeyboardEvent) {
     if (this.isOpen && event.key === 'Escape') {
       this.toggle();
+    }
+  }
+
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (!this.animationComplete || this.routeName === 'search') return
+    const targetElement = event.target as HTMLElement;
+    if (!this.searchBar.nativeElement.contains(targetElement) && this.isOpen) {
+      this.toggle()
     }
   }
   routeSub = new Subscription();
@@ -58,6 +68,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       filter(route => route.outlet === 'primary'),
       map(route => route.snapshot.data['name'])
     ).subscribe(name => {
+      this.routeName = name;
       if (name !== 'search') this.close();
     });
   }
