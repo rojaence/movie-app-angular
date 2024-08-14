@@ -1,28 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { TimeWindowEnum } from '../../models/enums';
-import { IMediaCard, MediaTypeToggleItem } from '../../models/interfaces';
+import { Component } from '@angular/core';
 import { finalize, Subscription } from 'rxjs';
+import { IMediaCard, MediaTypeToggleItem } from '../../models/interfaces';
 import { MovieService } from '../../services/movie.service';
-import { TvService } from '../../services/tv.service';
 import { Movie } from '../../models/movie.model';
-import { Tv } from '../../models/tv.model';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatProgressSpinner } from '@angular/material/progress-spinner';
-import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-virtual-grid.module';
-import { MediaCardComponent } from '../../components/media-card/media-card.component';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { PersonService } from '../../services/person.service';
 import { Person } from '../../models/person.model';
+import { Tv } from '../../models/tv.model';
+import { PersonService } from '../../services/person.service';
+import { TvService } from '../../services/tv.service';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { RouterModule } from '@angular/router';
+import { MediaCardComponent } from '../../components/media-card/media-card.component';
+import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-virtual-grid.module';
 
 @Component({
-  selector: 'app-trending',
+  selector: 'app-popular',
   standalone: true,
   imports: [MatButtonToggleModule, MatProgressSpinner, MediaVirtualGridModule, MediaCardComponent, RouterModule, FormsModule],
-  templateUrl: './trending.component.html',
-  styleUrl: './trending.component.scss'
+  templateUrl: './popular.component.html',
+  styleUrl: './popular.component.scss'
 })
-export class TrendingComponent implements OnInit {
+export class PopularComponent {
   subscription = new Subscription();
   loading = true;
   currentPage = 1;
@@ -43,19 +42,7 @@ export class TrendingComponent implements OnInit {
     }
   ];
 
-  timeWindows: MediaTypeToggleItem<TimeWindowEnum>[] = [
-    {
-      value: TimeWindowEnum.day,
-      viewValue: 'Today',
-    },
-    {
-      value: TimeWindowEnum.week,
-      viewValue: 'Week',
-    }
-  ]
-
   selectedMediaType: 'movie' | 'tv' = 'movie';
-  selectedTimeWindow: TimeWindowEnum = TimeWindowEnum.day;
 
   constructor(
     private movieService: MovieService,
@@ -82,7 +69,7 @@ export class TrendingComponent implements OnInit {
   fetchData() {
     this.loading = true;
     if (this.selectedMediaType === 'movie') {
-      this.subscription = this.movieService.getTrending(this.selectedTimeWindow, this.currentPage)
+      this.subscription = this.movieService.getPopular(this.currentPage)
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: (value) => {
@@ -92,7 +79,7 @@ export class TrendingComponent implements OnInit {
         },
       })
     } else if (this.selectedMediaType === 'tv') {
-      this.subscription = this.tvService.getTrending(this.selectedTimeWindow, this.currentPage)
+      this.subscription = this.tvService.getPopular(this.currentPage)
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: (value) => {
@@ -102,7 +89,7 @@ export class TrendingComponent implements OnInit {
         },
       })
     } else if (this.selectedMediaType === 'person') {
-      this.subscription = this.personService.getTrending(this.selectedTimeWindow, this.currentPage)
+      this.subscription = this.personService.getPopular(this.currentPage)
       .pipe(finalize(() => this.loading = false))
       .subscribe({
         next: (value) => {

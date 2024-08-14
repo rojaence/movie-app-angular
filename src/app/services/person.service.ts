@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { IMovieCast, IMovieCrew, IPersonCredit, IPersonDetails, ITvCast, ITvCrew } from '../models/interfaces';
+import { IMediaResponse, IMovieCast, IMovieCrew, IPerson, IPersonCredit, IPersonDetails, ITvCast, ITvCrew } from '../models/interfaces';
 import { PersonResponse } from '../models/person.model';
 import { TimeWindowEnum } from '../models/enums';
 
@@ -47,6 +47,19 @@ export class PersonService {
     )
   }
 
+  getPopular(page: number = 1): Observable<PersonResponse> {
+    return this.http.get<IMediaResponse<IPerson>>(environment.apiUrl + '/popular/person', {
+      params: {
+        page
+      }
+    })
+    .pipe(
+      map(response => {
+        return new PersonResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    );
+  }
 
   search(query: string, page: number = 1): Observable<PersonResponse> {
     return this.http.get<PersonResponse>(environment.apiUrl + '/search/person', {

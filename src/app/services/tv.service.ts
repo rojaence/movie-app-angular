@@ -29,8 +29,12 @@ export class TvService {
     );
   }
 
-  getPopular(): Observable<TvResponse> {
-    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/popular/tv')
+  getPopular(page: number = 1): Observable<TvResponse> {
+    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/popular/tv', {
+      params: {
+        page
+      }
+    })
     .pipe(
       map(response => {
         return new TvResponse(response);

@@ -11,6 +11,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 })
 
 export class AppComponent implements OnInit {
+  private overflowRouteNames = ['search', 'trending', 'popular', 'movies', 'tv']
   overflowRoute = false
   @ViewChild('searchBar') searchBarComponent!: SearchBarComponent;
   @ViewChild('searchBarButton') searchBarButton!: ElementRef;
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
     },
     {
       name: 'Popular',
-      link: '#'
+      link: '/popular'
     },
   ]
 
@@ -54,8 +55,7 @@ export class AppComponent implements OnInit {
       }),
       mergeMap(route => route.data)
     ).subscribe((data) => {
-      let name = data['name'];
-      this.overflowRoute = name === 'search' || name === 'trending'
+      this.overflowRoute = this.overflowRouteNames.includes(data['name'])
     })
   }
 }

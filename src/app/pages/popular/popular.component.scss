@@ -1,0 +1,32 @@
+.media-type-toggle {
+  border-radius: 2rem;
+}
+
+.media-type-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--primary-color);
+}
+
+.time-window-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--info-color);
+}
+
+.loader-placeholder {
+  height: 100%;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 200px;
+}
+
+.loader {
+  margin: 4rem auto;
+}
+
+.header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

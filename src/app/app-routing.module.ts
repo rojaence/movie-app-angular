@@ -7,6 +7,7 @@ import { MediaSearchComponent } from './pages/media-search/media-search.componen
 import { PersonDetailsComponent } from './pages/person-details/person-details.component';
 import { DiscoverMediaComponent } from './pages/discover-media/discover-media.component';
 import { TrendingComponent } from './pages/trending/trending.component';
+import { PopularComponent } from './pages/popular/popular.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,14 @@ const routes: Routes = [
     title: 'Trending',
     data: {
       name: 'trending',
+    }
+  },
+  {
+    path: 'popular',
+    component: PopularComponent,
+    title: 'Popular',
+    data: {
+      name: 'popular',
     }
   }
 ];

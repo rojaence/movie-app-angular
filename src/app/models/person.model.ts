@@ -41,7 +41,6 @@ export class Person implements IPerson {
   }
 
   getMediaCardData(): IMediaCard {
-    console.log(this.name)
     return {
       id: this.id,
       title: this.name,

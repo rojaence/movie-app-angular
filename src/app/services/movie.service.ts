@@ -33,8 +33,12 @@ export class MovieService {
     );
   }
 
-  getPopular(): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie').pipe(
+  getPopular(page: number = 1): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie', {
+      params: {
+        page
+      }
+    }).pipe(
       map(response => {
         return new MovieResponse(response);
       }),
