@@ -30,7 +30,7 @@ export class Person implements IPerson {
     this.gender = gender,
     this.id = id,
     this.knownForDepartment = knownForDepartment,
-    this.name = name
+    this.name = name,
     this.originalName = originalName,
     this.popularity = popularity,
     this.profilePath = profilePath
@@ -41,6 +41,7 @@ export class Person implements IPerson {
   }
 
   getMediaCardData(): IMediaCard {
+    console.log(this.name)
     return {
       id: this.id,
       title: this.name,

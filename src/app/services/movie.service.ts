@@ -42,10 +42,11 @@ export class MovieService {
     );
   }
 
-  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day): Observable<MovieResponse> {
+  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<MovieResponse> {
     return this.http.get<MovieResponse>(environment.apiUrl + '/trending/movie', {
       params: {
-        timeWindow
+        timeWindow,
+        page
       }
     }).pipe(
       map(response => {

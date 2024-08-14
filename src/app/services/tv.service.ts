@@ -39,10 +39,11 @@ export class TvService {
     );
   }
 
-  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day): Observable<TvResponse> {
+  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<TvResponse> {
     return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/trending/tv', {
       params: {
-        timeWindow
+        timeWindow,
+        page
       }
     })
     .pipe(

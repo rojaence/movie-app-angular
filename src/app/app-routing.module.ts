@@ -6,6 +6,7 @@ import { MediaDetailsComponent } from './pages/media-details/media-details.compo
 import { MediaSearchComponent } from './pages/media-search/media-search.component';
 import { PersonDetailsComponent } from './pages/person-details/person-details.component';
 import { DiscoverMediaComponent } from './pages/discover-media/discover-media.component';
+import { TrendingComponent } from './pages/trending/trending.component';
 
 
 const routes: Routes = [
@@ -72,6 +73,14 @@ const routes: Routes = [
     data: {
       name: 'tv',
       mediaType: 'tv'
+    }
+  },
+  {
+    path: 'trending',
+    component: TrendingComponent,
+    title: 'Trending',
+    data: {
+      name: 'trending',
     }
   }
 ];

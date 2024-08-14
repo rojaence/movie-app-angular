@@ -1,0 +1,47 @@
+<section class="container">
+  <header class="header">
+    <h1 class="tile">
+      Trending
+    </h1>
+    <div id="filters">
+      <mat-button-toggle-group class="media-type-toggle"  aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="selectedMediaType" [(ngModel)]="selectedMediaType" (ngModelChange)="onChangeFilter()">
+        @for (mediaType of mediaTypes; track mediaType.value) {
+          <mat-button-toggle class="media-type-toggle__item" [value]="mediaType.value">{{ mediaType.viewValue }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+      <mat-button-toggle-group class="time-window-toggle" name="mediaTimeWindow" aria-label="Time Window" #mediaTypeToggle="matButtonToggleGroup" [value]="selectedTimeWindow" [(ngModel)]="selectedTimeWindow" (ngModelChange)="onChangeFilter()">
+        @for (timeWindow of timeWindows; track timeWindow.value) {
+          <mat-button-toggle class="media-type-toggle__item" [value]="timeWindow.value">{{ timeWindow.viewValue }}</mat-button-toggle>
+        }
+      </mat-button-toggle-group>
+    </div>
+  </header>
+
+  @if (loading && currentPage === 1) {
+    <mat-spinner [diameter]="100" class="loader"></mat-spinner>
+  } @else {
+    <app-virtual-list class="list" (scrollEnd)="onScrollEnd($event)">
+      @for (media of mediaItems; track media.id) {
+        <app-virtual-list-item>
+          <a [routerLink]="[ '/' + selectedMediaType, media.id]" class="card-link">
+            <app-media-card [data]="media" size="small"></app-media-card>
+          </a>
+        </app-virtual-list-item>
+      }
+      @empty {
+        <app-virtual-list-item>
+          <div class="empty-list">
+            <span class="empty-list__label">No data</span>
+          </div>
+        </app-virtual-list-item>
+      }
+      @if (loading) {
+        <app-virtual-list-item>
+          <div class="loader">
+            <mat-spinner [diameter]="100" class="loader-placeholder"></mat-spinner>
+          </div>
+        </app-virtual-list-item>
+      }
+    </app-virtual-list>
+  }
+</section>

@@ -1,0 +1,50 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+#filters {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.loader {
+  margin: 4rem auto;
+}
+
+.loader-placeholder {
+  height: 100%;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  place-items: center;
+  width: 200px;
+}
+
+.media-type-toggle, .time-window-toggle {
+  border-radius: 2rem;
+}
+
+.media-type-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--primary-color);
+}
+
+.time-window-toggle {
+  --mat-standard-button-toggle-selected-state-background-color: var(--info-color);
+}

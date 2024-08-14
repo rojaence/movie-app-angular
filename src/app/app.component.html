@@ -14,7 +14,7 @@
     </ul>
   </mat-drawer>
 
-  <mat-drawer-content class="app-content" [class.overflow-scroll]="searchRoute">
+  <mat-drawer-content class="app-content" [class.overflow-scroll]="overflowRoute">
     <app-search-bar #searchBar></app-search-bar>
     <app-header (sideNavToggle)="mainDrawer.toggle()" (searchBarToggle)="searchBar.toggle()" #appHeader></app-header>
     <main class="main">

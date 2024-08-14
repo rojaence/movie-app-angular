@@ -4,6 +4,7 @@ import { catchError, map, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { IMovieCast, IMovieCrew, IPersonCredit, IPersonDetails, ITvCast, ITvCrew } from '../models/interfaces';
 import { PersonResponse } from '../models/person.model';
+import { TimeWindowEnum } from '../models/enums';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,19 @@ export class PersonService {
     )
   }
 
+  getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<PersonResponse> {
+    return this.http.get<PersonResponse>(environment.apiUrl + '/trending/person', {
+      params: {
+        timeWindow,
+        page
+      }
+    }).pipe(
+      map(response => {
+        return new PersonResponse(response);
+      }),
+      catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
+    )
+  }
 
 
   search(query: string, page: number = 1): Observable<PersonResponse> {
