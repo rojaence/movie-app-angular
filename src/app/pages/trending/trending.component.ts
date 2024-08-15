@@ -14,11 +14,12 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { PersonService } from '../../services/person.service';
 import { Person } from '../../models/person.model';
+import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
 
 @Component({
   selector: 'app-trending',
   standalone: true,
-  imports: [MatButtonToggleModule, MatProgressSpinner, MediaVirtualGridModule, MediaCardComponent, RouterModule, FormsModule],
+  imports: [MatButtonToggleModule, MatProgressSpinner, MediaVirtualGridModule, MediaCardComponent, RouterModule, FormsModule, ScrollTopComponent],
   templateUrl: './trending.component.html',
   styleUrl: './trending.component.scss'
 })

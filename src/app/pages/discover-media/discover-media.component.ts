@@ -16,11 +16,12 @@ import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-v
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { movieSortItems, tvSortItems } from './discover-media.constants';
+import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
 
 @Component({
   selector: 'app-discover-media',
   standalone: true,
-  imports: [RouterModule, MediaCardComponent, FormsModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MediaVirtualGridModule, MatButtonModule, MatButtonToggleModule],
+  imports: [RouterModule, MediaCardComponent, FormsModule, ReactiveFormsModule, MatSelectModule, MatFormFieldModule, MatInputModule, MatProgressSpinnerModule, MediaVirtualGridModule, MatButtonModule, MatButtonToggleModule, ScrollTopComponent],
   templateUrl: './discover-media.component.html',
   styleUrl: './discover-media.component.scss'
 })

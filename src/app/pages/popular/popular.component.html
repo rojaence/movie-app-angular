@@ -2,7 +2,7 @@
 <section class="container">
   <header class="header">
     <h1 class="tile">
-      Trending
+      Popular
     </h1>
     <div id="filters">
       <mat-button-toggle-group class="media-type-toggle"  aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="selectedMediaType" [(ngModel)]="selectedMediaType" (ngModelChange)="onChangeFilter()">
@@ -40,4 +40,5 @@
       }
     </app-virtual-list>
   }
+  <app-scroll-top />
 </section>

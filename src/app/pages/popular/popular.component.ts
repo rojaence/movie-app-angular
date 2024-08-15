@@ -13,11 +13,12 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { RouterModule } from '@angular/router';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-virtual-grid.module';
+import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
 
 @Component({
   selector: 'app-popular',
   standalone: true,
-  imports: [MatButtonToggleModule, MatProgressSpinner, MediaVirtualGridModule, MediaCardComponent, RouterModule, FormsModule],
+  imports: [MatButtonToggleModule, MatProgressSpinner, MediaVirtualGridModule, MediaCardComponent, RouterModule, FormsModule, ScrollTopComponent],
   templateUrl: './popular.component.html',
   styleUrl: './popular.component.scss'
 })
