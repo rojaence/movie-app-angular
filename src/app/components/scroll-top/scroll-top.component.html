@@ -1,5 +1,3 @@
-@if (show) {
-  <button mat-fab class="scroll-top" [color]="color" (click)="handleScrollTop()">
-    <mat-icon aria-hidden="false" aria-label="Scroll top icon">arrow_upward</mat-icon>
-  </button>
-}
+<button mat-fab class="scroll-top" [color]="color" (click)="handleScrollTop()" [@growAnimation]="show ? 'open' : 'closed'" class="scroll-top">
+<mat-icon aria-hidden="false" aria-label="Scroll top icon">arrow_upward</mat-icon>
+</button>
