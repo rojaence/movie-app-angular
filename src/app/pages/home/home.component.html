@@ -1,6 +1,6 @@
 <section class="container">
   <app-carousel [disabled]="loadingTrending">
-    <app-carousel-header listTitle="Trending" contentLink="#">
+    <app-carousel-header listTitle="Trending" contentLink="/trending">
       <mat-button-toggle-group class="media-type-toggle" name="trendingMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="trendingMediaType" [(ngModel)]="trendingMediaType" (ngModelChange)="getTrendingMedia(trendingMediaType, selectedTimeWindow)">
         @for (mediaType of mediaTypes; track mediaType.value) {
           <mat-button-toggle class="media-type-toggle__item" [value]="mediaType.value">{{ mediaType.viewValue }}</mat-button-toggle>
@@ -28,7 +28,7 @@
   </app-carousel>
 
   <app-carousel [disabled]="loadingPopular">
-    <app-carousel-header listTitle="What's popular" contentLink="#">
+    <app-carousel-header listTitle="What's popular" contentLink="/popular">
       <mat-button-toggle-group class="media-type-toggle" name="popularMediaType" aria-label="Media Type" #mediaTypeToggle="matButtonToggleGroup" [value]="popularMediaType" [(ngModel)]="popularMediaType" (ngModelChange)="getPopularMedia(popularMediaType)">
         @for (mediaType of mediaTypes; track mediaType.value) {
           <mat-button-toggle class="media-type-toggle__item" [value]="mediaType.value">{{ mediaType.viewValue }}</mat-button-toggle>

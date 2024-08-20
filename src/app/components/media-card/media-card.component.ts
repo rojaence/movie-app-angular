@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatCardModule, CommonModule, MatTooltipModule, MediaTypeChipComponent, MatIconModule],
   templateUrl: './media-card.component.html',
-  styleUrl: './media-card.component.scss'
+  styleUrl: './media-card.component.scss',
 })
 export class MediaCardComponent {
   @Input({required: true}) data!: IMediaCard;
