@@ -36,7 +36,7 @@
     <footer class="info__footer">
       <div class="genres">
         @for (genre of data.genres; track genre.id) {
-          <a href="#" matRipple class="genres__link">{{ genre.name | uppercase }}</a>
+          <button matRipple (click)="goToMovies(genre.id)" class="genres__link">{{ genre.name | uppercase }}</button>
         }
       </div>
     </footer>

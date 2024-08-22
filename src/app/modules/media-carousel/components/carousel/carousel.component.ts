@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnDestroy, ContentChildren, QueryList, AfterViewInit, Input, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnDestroy, ContentChildren, QueryList, AfterViewInit, Input } from '@angular/core';
 import { CarouselItemComponent } from '../carousel-item/carousel-item.component';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +17,6 @@ export class CarouselComponent implements OnDestroy, AfterViewInit {
   itemsChangeSubscription: Subscription | undefined;
 
   constructor(
-    private renderer: Renderer2
   ) {}
 
   ngAfterViewInit(): void {

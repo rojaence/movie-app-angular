@@ -4,7 +4,7 @@
     <button mat-icon-button type="button" color="accent" class="slide-button slide-button--left" (click)="scrollShift('left')" [disabled]="disabled || items.length === 0">
       <mat-icon>chevron_left</mat-icon>
     </button>
-    <ul #slideList class="carousel__list" [ngClass]="{ 'carousel__list--empty': items.length === 0}">
+    <ul #slideList class="carousel__list app-scrollbar--alt" [ngClass]="{ 'carousel__list--empty': items.length === 0}">
       <li *ngFor="let item of items" class="carousel__item">
         <ng-container [ngTemplateOutlet]="item.template"></ng-container>
       </li>

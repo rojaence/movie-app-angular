@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { PersonService } from '../../../services/person.service';
 import { combineLatest, finalize, Subscription } from 'rxjs';
 import { IMediaCard, IMovieCast, IMovieCrew, IPersonCredit, ITvCast, ITvCrew, MediaTypeToggleItem } from '../../../models/interfaces';

@@ -7,7 +7,6 @@ import { MediaInfoSkeletonComponent } from '../media-details/media-info-skeleton
 import { PersonInfoComponent } from './person-info/person-info.component';
 import { environment } from '../../../environments/environment';
 import { CreditsGalleryComponent } from './credits-gallery/credits-gallery.component';
-import { MediaGalleryComponent } from "../media-details/media-gallery/media-gallery.component";
 
 @Component({
   selector: 'app-person-details',

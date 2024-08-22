@@ -4,7 +4,7 @@
 >
   <mat-form-field appearance="outline" class="form-input" [subscriptSizing]="'dynamic'" >
     <mat-icon matIconPrefix>search</mat-icon>
-    <input type="text" matInput placeholder="Find movies, TV Shows and people..." [formControl]="search" #searchInput>
+    <input type="text" matInput i18n-placeholder="Search bar placeholder@@inputSearchHint" placeholder="Find movies, TV Series and people..." [formControl]="search" #searchInput>
   </mat-form-field>
   <button mat-icon-button type="button" color="warn" (click)="toggle()" class="close-button">
     <mat-icon>close</mat-icon>

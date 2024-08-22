@@ -1,5 +1,3 @@
-@use '../../../../../variables.scss';
-
 .carousel {
   padding: 0 2.5rem;
   &__list {
@@ -9,7 +7,6 @@
     scroll-behavior: smooth;
     padding: 0 0 1rem;
     list-style: none;
-    @extend .app-scrollbar--alt !optional;
     &--empty {
       height: 5rem;
       overflow-x: auto;

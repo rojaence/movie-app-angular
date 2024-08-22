@@ -4,9 +4,9 @@ import { MovieService } from '../../services/movie.service';
 import { TvService } from '../../services/tv.service';
 import { Tv } from '../../models/tv.model';
 import { Movie } from '../../models/movie.model';
-import { finalize, Subscription } from 'rxjs';
+import { combineLatest, finalize, Subscription } from 'rxjs';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { movieSortItems, tvSortItems } from './discover-media.constants';
 import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
+import { MediaTypeEnum } from '../../models/enums';
 
 @Component({
   selector: 'app-discover-media',
@@ -57,7 +58,16 @@ export class DiscoverMediaComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(data => {
+    let paramsSub = this.activatedRoute.queryParams;
+    let dataSub = this.activatedRoute.data;
+    let combined = combineLatest([paramsSub, dataSub]);
+
+    combined.subscribe(([params, data]) => {
+      // params
+      let genre = params['genre'] !== undefined ? decodeURIComponent(params['genre']) : '';
+      this.selectedGenre = genre;
+
+      // data
       this.mediaType = data['mediaType'];
       this.sortItems = data['mediaType'] === 'tv' ? tvSortItems : movieSortItems;
       this.getGenres();
@@ -68,14 +78,14 @@ export class DiscoverMediaComponent implements OnInit {
     if (this.mediaType === 'movie') {
       this.genreSubscription = this.movieService.getGenres().subscribe(value => {
         this.genres = value.genres;
-        this.selectedGenre = value.genres[0].id.toString();
+        this.selectedGenre = this.selectedGenre || value.genres[0].id.toString();
         this.fetchData();
       })
     }
     else if (this.mediaType === 'tv') {
       this.genreSubscription = this.tvService.getGenres().subscribe(value => {
         this.genres = value.genres;
-        this.selectedGenre = value.genres[0].id.toString();
+        this.selectedGenre = this.selectedGenre || value.genres[0].id.toString();
         this.fetchData();
       })
     }
@@ -83,11 +93,19 @@ export class DiscoverMediaComponent implements OnInit {
 
   onChangeGenre() {
     this.currentPage = 1;
-    this.fetchData();
+    let route = "/movies";
+    if (this.mediaType === MediaTypeEnum.tv) route = "/tv";
+    this.router.navigate([route],
+      {
+        queryParams: {
+          genre: encodeURIComponent(this.selectedGenre),
+        }
+      }
+    );
   }
 
   onScrollEnd(status: boolean) {
-    if (status) {
+    if (status && this.mediaItems.length > 0) {
       this.currentPage += 1;
       this.fetchData();
     }
@@ -99,6 +117,7 @@ export class DiscoverMediaComponent implements OnInit {
   }
 
   fetchData() {
+    console.log('fetching data')
     this.loading = true;
     if (this.mediaType === 'movie') {
       this.searchSubscription = this.movieService.getAll(this.currentPage, [parseInt(this.selectedGenre)], this.sortBy)

@@ -1,4 +1,4 @@
-import { Component, ContentChildren, ElementRef, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
+import { Component, ContentChildren, ElementRef, EventEmitter, Input, Output, QueryList, ViewChild } from '@angular/core';
 import { VirtualListItemComponent } from '../virtual-list-item/virtual-list-item.component';
 
 @Component({

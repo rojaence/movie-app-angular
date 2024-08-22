@@ -10,7 +10,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MovieService } from '../../../services/movie.service';
 import { TvService } from '../../../services/tv.service';
 import { finalize } from 'rxjs';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { MediaTypeEnum } from '../../../models/enums';
 
 @Component({
   selector: 'app-media-info',
@@ -28,7 +30,8 @@ export class MediaInfoComponent implements OnInit, OnChanges {
     private movieService: MovieService,
     private tvService: TvService,
     public dialog: MatDialog,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private router: Router
   ) {}
 
   openVideoViewer(): void {
@@ -82,6 +85,18 @@ export class MediaInfoComponent implements OnInit, OnChanges {
     } else {
       this.introVideo = undefined;
     }
+  }
+
+  goToMovies(genreId: number) {
+    let route = "/movies";
+    if (this.data.mediaType === MediaTypeEnum.tv) route = "/tv";
+    this.router.navigate([route],
+      {
+        queryParams: {
+          genre: encodeURIComponent(genreId),
+        }
+      }
+    );
   }
 
 }
