@@ -3,7 +3,7 @@ import { PersonService } from '../../../services/person.service';
 import { combineLatest, finalize, Subscription } from 'rxjs';
 import { IMediaCard, IMovieCast, IMovieCrew, IPersonCredit, ITvCast, ITvCrew, MediaTypeToggleItem } from '../../../models/interfaces';
 import { MediaCarouselModule } from '../../../modules/media-carousel/media-carousel.module';
-import { MediaTypeEnum } from '../../../models/enums';
+import { CreditTypeEnum, MediaTypeEnum } from '../../../models/enums';
 import { AppRepeatDirective } from '../../../directives/app-repeat.directive';
 import { MediaCardComponent } from "../../../components/media-card/media-card.component";
 import { ActivatedRoute, RouterModule } from '@angular/router';
@@ -11,6 +11,7 @@ import { CardSkeletonComponent } from "../../../components/card-skeleton/card-sk
 import { environment } from '../../../../environments/environment';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+import { CREDIT_TYPES_MAP, MEDIA_TYPE_MAP } from '../../../constants/common-values';
 
 @Component({
   selector: 'app-credits-gallery',
@@ -27,31 +28,21 @@ export class CreditsGalleryComponent implements OnInit, OnChanges, OnDestroy {
   selectedMediaType: 'movie' | 'tv' = 'movie';
   selectedCreditType: 'cast' | 'crew' = 'cast';
 
+  knownForTitle = $localize `:@@knownForTitle:Known for`;
+
   movieCredits?: IPersonCredit<IMovieCast, IMovieCrew>;
   tvCredits?: IPersonCredit<ITvCast, ITvCrew>;
 
   mediaItems: IMediaCard[] = [];
 
-  mediaTypes: MediaTypeToggleItem<'movie'| 'tv'>[] = [
-    {
-      value: 'movie',
-      viewValue: 'Movies'
-    },
-    {
-      value: 'tv',
-      viewValue: 'Tv series'
-    }
-  ]
+  mediaTypes: MediaTypeToggleItem<MediaTypeEnum>[] = [
+    MEDIA_TYPE_MAP[MediaTypeEnum.movie],
+    MEDIA_TYPE_MAP[MediaTypeEnum.tv]
+  ];
 
-  creditTypes: MediaTypeToggleItem<'cast' | 'crew'>[] = [
-    {
-      value: 'cast',
-      viewValue: 'Cast'
-    },
-    {
-      value: 'crew',
-      viewValue: 'Crew'
-    }
+  creditTypes: MediaTypeToggleItem<CreditTypeEnum>[] = [
+    CREDIT_TYPES_MAP[CreditTypeEnum.cast],
+    CREDIT_TYPES_MAP[CreditTypeEnum.crew]
   ]
 
   constructor(

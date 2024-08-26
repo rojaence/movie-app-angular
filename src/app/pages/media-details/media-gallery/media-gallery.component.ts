@@ -37,17 +37,19 @@ export class MediaGalleryComponent implements OnInit, OnChanges, OnDestroy {
   galleryTypes: MediaTypeToggleItem<'backdrop'| 'poster' | 'video' >[] = [
     {
       value: 'backdrop',
-      viewValue: 'Backdrops'
+      viewValue: $localize `:@@backdropLabel:Backdrop`,
     },
     {
       value: 'poster',
-      viewValue: 'Posters'
+      viewValue: $localize `:@@posterLabel:Poster`,
     },
     {
       value: 'video',
-      viewValue: 'Videos'
+      viewValue: $localize `:@@videoLabel:Video`,
     }
   ]
+
+  galleryTitle = $localize `:@@galleryTitle:Gallery`;
 
   selectedGalleryType: 'backdrop' | 'poster' | 'video' = "backdrop";
 

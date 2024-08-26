@@ -1,6 +1,6 @@
 <section class="gallery">
   <app-carousel [disabled]="false">
-    <app-carousel-header listTitle="Gallery">
+    <app-carousel-header [listTitle]="galleryTitle">
       <mat-button-toggle-group class="type-selector" aria-label="Gallery type"
          [value]="selectedGalleryType"
         [(ngModel)]="selectedGalleryType"

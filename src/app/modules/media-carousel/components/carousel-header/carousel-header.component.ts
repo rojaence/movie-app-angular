@@ -9,5 +9,4 @@ export class CarouselHeaderComponent {
   @Input() listTitle: string = "";
   @Input() titleAccent: string = "";
   @Input() contentLink: string = "";
-  @Input() contentLinkText: string = "see more";
 }

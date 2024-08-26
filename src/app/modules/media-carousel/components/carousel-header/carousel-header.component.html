@@ -5,7 +5,7 @@
   <span class="carousel-header__accent" *ngIf="titleAccent">
     {{ titleAccent }}
   </span>
-  <a [routerLink]="contentLink" class="carousel-header__link" matRipple *ngIf="contentLink">
-    {{contentLinkText | uppercase }}
+  <a [routerLink]="contentLink" class="carousel-header__link" matRipple *ngIf="contentLink" i18n="Carousel more link text@@carouselMoreLinkText">
+    See more
   </a>
 </header>

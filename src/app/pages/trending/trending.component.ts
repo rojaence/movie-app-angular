@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimeWindowEnum } from '../../models/enums';
+import { MediaTypeEnum, TimeWindowEnum } from '../../models/enums';
 import { IMediaCard, MediaTypeToggleItem } from '../../models/interfaces';
 import { finalize, Subscription } from 'rxjs';
 import { MovieService } from '../../services/movie.service';
@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { PersonService } from '../../services/person.service';
 import { Person } from '../../models/person.model';
 import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
+import { MEDIA_TIME_WINDOW_MAP, MEDIA_TYPE_MAP } from '../../constants/common-values';
 
 @Component({
   selector: 'app-trending',
@@ -29,30 +30,16 @@ export class TrendingComponent implements OnInit {
   currentPage = 1;
   totalPages = 1;
   mediaItems: IMediaCard[] = [];
-  mediaTypes: MediaTypeToggleItem<'movie' | 'tv' | 'person'>[] = [
-    {
-      value: 'movie',
-      viewValue: 'Movies'
-    },
-    {
-      value: 'tv',
-      viewValue: 'Tv Shows'
-    },
-    {
-      value: 'person',
-      viewValue: 'People'
-    }
+
+  mediaTypes: MediaTypeToggleItem<MediaTypeEnum>[] = [
+    MEDIA_TYPE_MAP[MediaTypeEnum.movie],
+    MEDIA_TYPE_MAP[MediaTypeEnum.tv],
+    MEDIA_TYPE_MAP[MediaTypeEnum.person]
   ];
 
   timeWindows: MediaTypeToggleItem<TimeWindowEnum>[] = [
-    {
-      value: TimeWindowEnum.day,
-      viewValue: 'Today',
-    },
-    {
-      value: TimeWindowEnum.week,
-      viewValue: 'Week',
-    }
+    MEDIA_TIME_WINDOW_MAP[TimeWindowEnum.day],
+    MEDIA_TIME_WINDOW_MAP[TimeWindowEnum.week]
   ]
 
   selectedMediaType: 'movie' | 'tv' = 'movie';

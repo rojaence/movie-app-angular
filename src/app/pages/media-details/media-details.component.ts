@@ -37,6 +37,8 @@ export class MediaDetailsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private paramSubscription = new Subscription();
 
+  recommendationsTitle = $localize `:@@recommendationsTitle:Recommendations`;
+
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieService,

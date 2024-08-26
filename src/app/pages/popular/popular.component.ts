@@ -14,6 +14,8 @@ import { RouterModule } from '@angular/router';
 import { MediaCardComponent } from '../../components/media-card/media-card.component';
 import { MediaVirtualGridModule } from '../../modules/media-virtual-grid/media-virtual-grid.module';
 import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
+import { MediaTypeEnum } from '../../models/enums';
+import { MEDIA_TYPE_MAP } from '../../constants/common-values';
 
 @Component({
   selector: 'app-popular',
@@ -28,19 +30,11 @@ export class PopularComponent {
   currentPage = 1;
   totalPages = 1;
   mediaItems: IMediaCard[] = [];
-  mediaTypes: MediaTypeToggleItem<'movie' | 'tv' | 'person'>[] = [
-    {
-      value: 'movie',
-      viewValue: 'Movies'
-    },
-    {
-      value: 'tv',
-      viewValue: 'Tv Shows'
-    },
-    {
-      value: 'person',
-      viewValue: 'People'
-    }
+
+  mediaTypes: MediaTypeToggleItem<MediaTypeEnum>[] = [
+    MEDIA_TYPE_MAP[MediaTypeEnum.movie],
+    MEDIA_TYPE_MAP[MediaTypeEnum.tv],
+    MEDIA_TYPE_MAP[MediaTypeEnum.person]
   ];
 
   selectedMediaType: 'movie' | 'tv' = 'movie';

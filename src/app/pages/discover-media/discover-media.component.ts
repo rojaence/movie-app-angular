@@ -17,7 +17,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { movieSortItems, tvSortItems } from './discover-media.constants';
 import { ScrollTopComponent } from '../../components/scroll-top/scroll-top.component';
-import { MediaTypeEnum } from '../../models/enums';
+import { MediaTypeEnum, PageTitleEnum } from '../../models/enums';
+import { PAGE_MAIN_TITLE_MAP, MEDIA_FILTERS } from '../../constants/common-values';
 
 @Component({
   selector: 'app-discover-media',
@@ -31,11 +32,14 @@ export class DiscoverMediaComponent implements OnInit {
   mediaType: 'movie' | 'tv' = 'movie';
   permittedMediaTypes = ['movie', 'tv'];
   pageTitle = {
-    'movie': 'Movies',
-    'tv': 'Tv Series'
+    'movie': PAGE_MAIN_TITLE_MAP[PageTitleEnum.movies],
+    'tv': PAGE_MAIN_TITLE_MAP[PageTitleEnum.tv]
   };
 
   selectedGenre = '';
+
+  genreLabel = MEDIA_FILTERS.genre;
+  sortByLabel = MEDIA_FILTERS.sortBy;
 
   mediaItems: IMediaCard[] = [];
   currentPage = 1;
@@ -117,7 +121,6 @@ export class DiscoverMediaComponent implements OnInit {
   }
 
   fetchData() {
-    console.log('fetching data')
     this.loading = true;
     if (this.mediaType === 'movie') {
       this.searchSubscription = this.movieService.getAll(this.currentPage, [parseInt(this.selectedGenre)], this.sortBy)

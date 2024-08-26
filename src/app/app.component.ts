@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, EventType, Router } from '@angular/router';
 import { filter, map, mergeMap, Subscription } from 'rxjs';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { PAGE_MAIN_TITLE_MAP } from './constants/common-values';
+import { PageTitleEnum } from './models/enums';
 
 
 @Component({
@@ -19,23 +21,23 @@ export class AppComponent implements OnInit {
 
   pages = [
     {
-      name: 'Home',
+      name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.home],
       link: '/'
     },
     {
-      name: 'Movies',
+      name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.movies],
       link: '/movies'
     },
     {
-      name: 'Tv series',
+      name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.tv],
       link: '/tv'
     },
     {
-      name: 'Trending',
+      name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.trending],
       link: '/trending'
     },
     {
-      name: 'Popular',
+      name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.popular],
       link: '/popular'
     },
   ]

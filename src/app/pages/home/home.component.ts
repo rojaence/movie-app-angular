@@ -15,8 +15,9 @@ import { CardSkeletonComponent } from '../../components/card-skeleton/card-skele
 import { AppRepeatDirective } from '../../directives/app-repeat.directive';
 import { NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TimeWindowEnum } from '../../models/enums';
+import { MediaTypeEnum, TimeWindowEnum } from '../../models/enums';
 import { RouterModule } from '@angular/router';
+import { MEDIA_TIME_WINDOW_MAP, MEDIA_TYPE_MAP } from '../../constants/common-values';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,12 @@ import { RouterModule } from '@angular/router';
   imports: [ MediaCarouselModule, MediaCardComponent, MatButtonToggleModule, MatProgressBarModule, MatProgressSpinnerModule, SkeletonComponent, CardSkeletonComponent, AppRepeatDirective, NgIf, FormsModule, RouterModule],
 })
 export class HomeComponent implements OnInit, OnDestroy {
+
+  constructor(private movieService: MovieService, private tvService: TvService) {
+    this.popularSubscription = new Subscription();
+    this.trendingSubscription = new Subscription();
+  }
+
   trendingSubscription: Subscription;
   popularSubscription: Subscription;
   trending: (Movie | Tv)[] = [];
@@ -33,36 +40,22 @@ export class HomeComponent implements OnInit, OnDestroy {
   loadingTrending = true;
   loadingPopular = true;
 
-  mediaTypes: MediaTypeToggleItem<'movie' | 'tv'>[] = [
-    {
-      value: 'movie',
-      viewValue: 'Movies'
-    },
-    {
-      value: 'tv',
-      viewValue: 'Tv Shows'
-    }
+  trendingTitle = $localize `:Trending carousel title@@trendingTitle:Trending`;
+  popularTitle = $localize `:Popular carousel title@@popularTitle:What's Popular`;
+
+  mediaTypes: MediaTypeToggleItem<MediaTypeEnum>[] = [
+    MEDIA_TYPE_MAP[MediaTypeEnum.movie],
+    MEDIA_TYPE_MAP[MediaTypeEnum.tv]
   ];
 
   timeWindows: MediaTypeToggleItem<TimeWindowEnum>[] = [
-    {
-      value: TimeWindowEnum.day,
-      viewValue: 'Today',
-    },
-    {
-      value: TimeWindowEnum.week,
-      viewValue: 'Week',
-    }
+    MEDIA_TIME_WINDOW_MAP[TimeWindowEnum.day],
+    MEDIA_TIME_WINDOW_MAP[TimeWindowEnum.week]
   ]
 
   popularMediaType: 'movie' | 'tv' = 'movie';
   trendingMediaType: 'movie' | 'tv' = 'movie';
   selectedTimeWindow: TimeWindowEnum = TimeWindowEnum.day;
-
-  constructor(private movieService: MovieService, private tvService: TvService) {
-    this.popularSubscription = new Subscription();
-    this.trendingSubscription = new Subscription();
-  }
 
   ngOnInit(): void {
     this.getTrendingMedia(this.trendingMediaType, this.selectedTimeWindow);

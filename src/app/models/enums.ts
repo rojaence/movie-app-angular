@@ -10,3 +10,18 @@ export enum MediaTypeEnum
   movie = 'movie',
   person = 'person'
 }
+
+export enum PageTitleEnum
+{
+  home = 'home',
+  movies = 'movies',
+  tv = 'tv',
+  trending = 'trending',
+  popular = 'popular'
+}
+
+export enum CreditTypeEnum
+{
+  cast = 'cast',
+  crew = 'crew'
+}

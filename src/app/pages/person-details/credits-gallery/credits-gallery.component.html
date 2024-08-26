@@ -1,6 +1,6 @@
 <section class="gallery">
   <app-carousel>
-    <app-carousel-header listTitle="Known for">
+    <app-carousel-header [listTitle]="knownForTitle">
       <mat-button-toggle-group class="media-type-selector" aria-label="Media type"
         [(ngModel)]="selectedMediaType"
         (ngModelChange)="fetchData()"

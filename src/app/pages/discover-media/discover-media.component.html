@@ -5,7 +5,7 @@
     </h1>
     <div id="filters">
       <mat-form-field [appearance]="'outline'">
-        <mat-label>Genre</mat-label>
+        <mat-label>{{ genreLabel }}</mat-label>
         <mat-select [(ngModel)]="selectedGenre" (ngModelChange)="onChangeGenre()">
           @for (genre of genres; track genre.id) {
             <mat-option [value]="genre.id.toString()">{{ genre.name }}</mat-option>
@@ -14,7 +14,7 @@
       </mat-form-field>
 
       <mat-form-field [appearance]="'outline'">
-        <mat-label>Sort by</mat-label>
+        <mat-label>{{ sortByLabel }}</mat-label>
         <mat-select [(ngModel)]="sortBy" (ngModelChange)="onChangeSortBy()">
           @for (item of sortItems; track item.value) {
             <mat-option [value]="item.value">{{ item.viewValue }}</mat-option>

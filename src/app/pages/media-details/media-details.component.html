@@ -12,7 +12,7 @@
   }
   <section class="container">
     <app-carousel>
-      <app-carousel-header listTitle="Recomendaciones"/>
+      <app-carousel-header [listTitle]="recommendationsTitle"/>
       @if (loadingRecommendations) {
         <app-carousel-item *appRepeat="8">
           <app-card-skeleton />
