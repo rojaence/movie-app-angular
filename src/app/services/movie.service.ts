@@ -11,6 +11,8 @@ import { TimeWindowEnum } from '../models/enums';
 })
 export class MovieService {
 
+  private apiUrl = `${environment.apiUrl}/movies`;
+
   constructor(
     private http: HttpClient
   ) {
@@ -18,7 +20,7 @@ export class MovieService {
   }
 
   getAll(page: number = 1, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<MovieResponse> {
-    return this.http.get<IMediaResponse<IMovie>>(environment.apiUrl + '/movie', {
+    return this.http.get<IMediaResponse<IMovie>>(this.apiUrl, {
       params: {
         page,
         genres: genres.join(','),
@@ -34,7 +36,7 @@ export class MovieService {
   }
 
   getPopular(page: number = 1): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/popular/movie', {
+    return this.http.get<MovieResponse>(this.apiUrl + '/popular', {
       params: {
         page
       }
@@ -47,7 +49,7 @@ export class MovieService {
   }
 
   getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/trending/movie', {
+    return this.http.get<MovieResponse>(this.apiUrl + '/trending', {
       params: {
         timeWindow,
         page
@@ -61,13 +63,13 @@ export class MovieService {
   }
 
   getDetails(id: number): Observable<IMovieDetails> {
-    return this.http.get<IMovieDetails>(environment.apiUrl + `/movie/${id}`).pipe(
+    return this.http.get<IMovieDetails>(this.apiUrl + `/${id}`).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getRecommendations(id: number): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + `/movie/${id}/recommendations`).pipe(
+    return this.http.get<MovieResponse>(this.apiUrl + `/${id}/recommendations`).pipe(
       map(response => {
         return new MovieResponse(response);
       }),
@@ -76,21 +78,21 @@ export class MovieService {
   }
 
   getImageGallery(id: number): Observable<IImageGallery> {
-    return this.http.get<IImageGallery>(environment.apiUrl + `/movie/${id}/images`
+    return this.http.get<IImageGallery>(this.apiUrl + `/${id}/images`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
   getVideoGallery(id: number): Observable<IVideoGallery> {
-    return this.http.get<IVideoGallery>(environment.apiUrl + `/movie/${id}/videos`
+    return this.http.get<IVideoGallery>(this.apiUrl + `/${id}/videos`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
-  search(query: string, page: number = 1): Observable<MovieResponse> {
-    return this.http.get<MovieResponse>(environment.apiUrl + '/search/movie', {
+  search(query: string = "", page: number = 1): Observable<MovieResponse> {
+    return this.http.get<MovieResponse>(this.apiUrl + '/search', {
       params: {
         query,
         page
@@ -102,7 +104,7 @@ export class MovieService {
   }
 
   getGenres(): Observable<IGenreResponse> {
-    return this.http.get<IGenreResponse>(environment.apiUrl + `/genre/movie`
+    return this.http.get<IGenreResponse>(this.apiUrl + `/genres`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )

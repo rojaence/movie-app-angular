@@ -64,8 +64,8 @@
         <note priority="1" from="description">Carousel more link text</note>
       </trans-unit>
       <trans-unit id="mediaTypeMovies" datatype="html">
-        <source>Movies</source>
-        <target state="">Películas</target>
+        <source>Movie</source>
+        <target state="">Película</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home.component.ts</context>
           <context context-type="linenumber">48</context>
@@ -74,7 +74,7 @@
       </trans-unit>
       <trans-unit id="mediaTypeTv" datatype="html">
         <source>Tv</source>
-        <target state="">Series</target>
+        <target state="">Serie</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home.component.ts</context>
           <context context-type="linenumber">52</context>

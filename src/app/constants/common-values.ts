@@ -4,7 +4,7 @@ import { MediaTypeToggleItem } from "../models/interfaces";
 export const MEDIA_TYPE_MAP:  Record<MediaTypeEnum, MediaTypeToggleItem<MediaTypeEnum>> = {
   movie: {
     value: MediaTypeEnum.movie,
-    viewValue: $localize `:Media Type movies@@mediaTypeMovies:Movies`
+    viewValue: $localize `:Media Type movies@@mediaTypeMovies:Movie`
   },
   tv: {
     value: MediaTypeEnum.tv,

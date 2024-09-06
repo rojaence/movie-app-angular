@@ -74,7 +74,7 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
       this.searchQuery = query;
       this.mediaType = mediaTypeParam as MediaTypeEnum;
       this.currentPage = pageParam;
-      this.search();
+      if (this.searchQuery) this.search();
     });
   }
 

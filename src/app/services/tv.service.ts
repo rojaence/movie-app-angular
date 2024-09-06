@@ -11,10 +11,12 @@ import { TvResponse } from '../models/tv.model';
 })
 export class TvService {
 
+  private apiUrl = `${environment.apiUrl}/tv`;
+
   constructor(private http: HttpClient) { }
 
   getAll(page: number, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<TvResponse> {
-    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/tv', {
+    return this.http.get<IMediaResponse<ITv>>(this.apiUrl, {
       params: {
         page,
         genres: genres.join(','),
@@ -30,7 +32,7 @@ export class TvService {
   }
 
   getPopular(page: number = 1): Observable<TvResponse> {
-    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/popular/tv', {
+    return this.http.get<IMediaResponse<ITv>>(this.apiUrl + '/popular', {
       params: {
         page
       }
@@ -44,7 +46,7 @@ export class TvService {
   }
 
   getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<TvResponse> {
-    return this.http.get<IMediaResponse<ITv>>(environment.apiUrl + '/trending/tv', {
+    return this.http.get<IMediaResponse<ITv>>(this.apiUrl + '/trending', {
       params: {
         timeWindow,
         page
@@ -59,13 +61,13 @@ export class TvService {
   }
 
   getDetails(id: number): Observable<ITvDetails> {
-    return this.http.get<ITvDetails>(environment.apiUrl + `/tv/${id}`).pipe(
+    return this.http.get<ITvDetails>(this.apiUrl + `/${id}`).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getRecommendations(id: number): Observable<TvResponse> {
-    return this.http.get<TvResponse>(environment.apiUrl + `/tv/${id}/recommendations`).pipe(
+    return this.http.get<TvResponse>(this.apiUrl + `/${id}/recommendations`).pipe(
       map(response => {
         return new TvResponse(response);
       }),
@@ -74,21 +76,21 @@ export class TvService {
   }
 
   getImageGallery(id: number): Observable<IImageGallery> {
-    return this.http.get<IImageGallery>(environment.apiUrl + `/tv/${id}/images`
+    return this.http.get<IImageGallery>(this.apiUrl + `/${id}/images`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
   getVideoGallery(id: number): Observable<IVideoGallery> {
-    return this.http.get<IVideoGallery>(environment.apiUrl + `/tv/${id}/videos`
+    return this.http.get<IVideoGallery>(this.apiUrl + `/${id}/videos`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
-  search(query: string, page: number = 1): Observable<TvResponse> {
-    return this.http.get<TvResponse>(environment.apiUrl + '/search/tv', {
+  search(query: string = "", page: number = 1): Observable<TvResponse> {
+    return this.http.get<TvResponse>(this.apiUrl + '/search', {
       params: {
         query,
         page
@@ -100,7 +102,7 @@ export class TvService {
   }
 
   getGenres(): Observable<IGenreResponse> {
-    return this.http.get<IGenreResponse>(environment.apiUrl + `/genre/tv`
+    return this.http.get<IGenreResponse>(this.apiUrl + `/genres`
     ).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )

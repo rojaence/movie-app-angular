@@ -11,30 +11,32 @@ import { TimeWindowEnum } from '../models/enums';
 })
 export class PersonService {
 
+  private apiUrl = `${environment.apiUrl}/person`;
+
   constructor(private http: HttpClient) { }
 
   getDetails(id: number): Observable<IPersonDetails> {
-    return this.http.get<IPersonDetails>(environment.apiUrl + `/person/${id}`).pipe(
+    return this.http.get<IPersonDetails>(this.apiUrl + `/${id}`).pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     );
   }
 
   getMovieCredits(id: number): Observable<IPersonCredit<IMovieCast, IMovieCrew>> {
-    return this.http.get<IPersonCredit<IMovieCast, IMovieCrew>>(environment.apiUrl + `/person/${id}/credits/movie`)
+    return this.http.get<IPersonCredit<IMovieCast, IMovieCrew>>(this.apiUrl + `/${id}/credits/movie`)
     .pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
   getTvCredits(id: number): Observable<IPersonCredit<ITvCast, ITvCrew>> {
-    return this.http.get<IPersonCredit<ITvCast, ITvCrew>>(environment.apiUrl + `/person/${id}/credits/tv`)
+    return this.http.get<IPersonCredit<ITvCast, ITvCrew>>(this.apiUrl + `/${id}/credits/tv`)
     .pipe(
       catchError((error: HttpErrorResponse) => throwError(() => new Error(error.message)))
     )
   }
 
   getTrending(timeWindow: TimeWindowEnum = TimeWindowEnum.day, page = 1): Observable<PersonResponse> {
-    return this.http.get<PersonResponse>(environment.apiUrl + '/trending/person', {
+    return this.http.get<PersonResponse>(this.apiUrl + '/trending', {
       params: {
         timeWindow,
         page
@@ -48,7 +50,7 @@ export class PersonService {
   }
 
   getPopular(page: number = 1): Observable<PersonResponse> {
-    return this.http.get<IMediaResponse<IPerson>>(environment.apiUrl + '/popular/person', {
+    return this.http.get<IMediaResponse<IPerson>>(this.apiUrl + '/popular', {
       params: {
         page
       }
@@ -61,8 +63,8 @@ export class PersonService {
     );
   }
 
-  search(query: string, page: number = 1): Observable<PersonResponse> {
-    return this.http.get<PersonResponse>(environment.apiUrl + '/search/person', {
+  search(query: string = "", page: number = 1): Observable<PersonResponse> {
+    return this.http.get<PersonResponse>(this.apiUrl + '/search', {
       params: {
         query,
         page

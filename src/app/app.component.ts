@@ -19,6 +19,8 @@ export class AppComponent implements OnInit {
   @ViewChild('searchBarButton') searchBarButton!: ElementRef;
   routerSubscripion = new Subscription()
 
+
+
   pages = [
     {
       name: PAGE_MAIN_TITLE_MAP[PageTitleEnum.home],
