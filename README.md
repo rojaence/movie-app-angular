@@ -2,7 +2,9 @@
 
 ## Overview
 
-This app is a client for my [MovieAppApi](https://github.com/rojaence/MovieAppApi.git) project. An alternative version of [movie-app](https://github.com/rojaence/movie-app.git) (react) using Angular 17, SSR and @angular/localize to internationalization.
+This app is a client for my [MovieAppApi](https://github.com/rojaence/MovieAppApi.git) project. It's an alternative version to [movie-app](https://github.com/rojaence/movie-app.git) (react)
+
+Coded with Angular 17, SSR and @angular/localize to Internationalization
 
 ## Requirements
 
@@ -65,5 +67,5 @@ This app is a client for my [MovieAppApi](https://github.com/rojaence/MovieAppAp
 
 Deployment with Azure App Service
 
-* Spanish Demo
-* English Demo
+* [Spanish Demo](https://movie-app-angular-es-c9hvcra3agc6auc0.southcentralus-01.azurewebsites.net)
+* [English Demo](https://movie-app-angular-en-cyedcsczffgecjh3.southcentralus-01.azurewebsites.net)
