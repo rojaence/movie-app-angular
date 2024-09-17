@@ -18,6 +18,7 @@ import { MediaTypeEnum } from '../../models/enums';
 import { SearchBarComponent } from '../../components/search-bar/search-bar.component';
 import { MatIconModule } from '@angular/material/icon';
 import { PersonService } from '../../services/person.service';
+import { MEDIA_TYPE_MAP } from '../../constants/common-values';
 
 @Component({
   selector: 'app-media-search',
@@ -41,19 +42,10 @@ export class MediaSearchComponent implements OnInit, OnDestroy {
   searchSubscription: Subscription = new Subscription();
   paramsSubscription: Subscription = new Subscription()
 
-  mediaTypes: MediaTypeToggleItem<'movie' | 'tv' | 'person'>[] = [
-    {
-      value: 'movie',
-      viewValue: 'Movies'
-    },
-    {
-      value: 'tv',
-      viewValue: 'Tv Shows'
-    },
-    {
-      value: 'person',
-      viewValue: 'People'
-    }
+  mediaTypes: MediaTypeToggleItem<MediaTypeEnum>[] = [
+    MEDIA_TYPE_MAP[MediaTypeEnum.movie],
+    MEDIA_TYPE_MAP[MediaTypeEnum.tv],
+    MEDIA_TYPE_MAP[MediaTypeEnum.person],
   ];
 
   mediaType: MediaTypeEnum = MediaTypeEnum.movie

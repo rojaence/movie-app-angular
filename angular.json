@@ -5,11 +5,14 @@
   "projects": {
     "MovieAppAngular": {
       "i18n": {
-        "sourceLocale": "en-US",
+        "sourceLocale": {
+          "code": "en-US",
+          "baseHref": "/"
+        },
         "locales": {
           "es-EC": {
             "translation": "src/locale/messages.es.xlf",
-            "baseHref": ""
+            "baseHref": "/"
           }
         }
       },
@@ -57,6 +60,56 @@
             }
           },
           "configurations": {
+            "production-en": {
+              "localize": ["en-US"],
+              "baseHref": "/",
+              "outputPath": "dist/en",
+              "deleteOutputPath": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.en.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "production-es": {
+              "localize": ["es-EC"],
+              "baseHref": "/",
+              "outputPath": "dist/es",
+              "deleteOutputPath": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.es.ts"
+                }
+              ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "2mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
             "production": {
               "budgets": [
                 {
@@ -126,5 +179,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "6a34984b-7ff5-4c01-a90d-f51d3d154b0b"
   }
 }

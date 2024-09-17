@@ -155,7 +155,8 @@ export interface IMediaResponse<TMedia> {
 export interface LanguageOption {
   value: string,
   viewValue: string,
-  viewValueShort: string
+  viewValueShort: string,
+  url: string
 }
 
 /* export interface IMediaService<TResponse>

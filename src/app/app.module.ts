@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AppHeaderComponent } from './components/app-header/app-header.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,6 +21,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MediaDetailsComponent } from './pages/media-details/media-details.component';
+import { languageInterceptor } from './interceptors/LanguageInterceptor';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,10 @@ import { MediaDetailsComponent } from './pages/media-details/media-details.compo
   providers: [
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch())
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([languageInterceptor])
+    )
   ],
   bootstrap: [AppComponent],
 })

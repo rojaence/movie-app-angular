@@ -7,7 +7,11 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:MovieAppAngular": "node dist/movie-app-angular/server/server.mjs"
+    "serve:ssr:MovieAppAngular": "node dist/movie-app-angular/server/server.mjs",
+    "build:all": "ng build --configuration=production-es && ng build --configuration=production-en",
+    "postbuild": "npm run move-folders && npm run clean-folders",
+    "move-folders": "mv dist/es/browser/es-EC/* dist/es/browser/ && mv dist/es/server/es-EC/* dist/es/server/ && mv dist/en/browser/en-US/* dist/en/browser/ && mv dist/en/server/en-US/* dist/en/server/",
+    "clean-folders": "rimraf dist/es/browser/es-EC && rimraf dist/es/server/es-EC && rimraf dist/en/browser/en-US && rimraf dist/en/server/en-US"
   },
   "private": true,
   "dependencies": {
@@ -25,8 +29,10 @@
     "@angular/ssr": "^17.1.3",
     "class-transformer": "^0.5.1",
     "express": "^4.18.2",
+    "mv": "^2.1.1",
     "ngx-infinite-scroll": "^17.0.1",
     "ngx-pagination": "^6.0.3",
+    "rimraf": "^6.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

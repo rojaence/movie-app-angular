@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="disclaimer" datatype="html">
+        <source>This product uses the TMDB API but is not endorsed or certified by TMDB</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app-footer/app-footer.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="attribution" datatype="html">
+        <source>Coded by Ronny Endara</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app-footer/app-footer.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="btnSearchTxt" datatype="html">
+        <source>SEARCH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/app-header/app-header.component.html</context>
+          <context context-type="linenumber">20,23</context>
+        </context-group>
+        <note priority="1" from="description">Search button text</note>
+      </trans-unit>
+      <trans-unit id="mediaTypeMovies" datatype="html">
+        <source>Movie</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/media-type-chip/media-type-chip.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-search/media-search.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaTypeTv" datatype="html">
+        <source>Tv</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/media-type-chip/media-type-chip.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="mediaTypePerson" datatype="html">
+        <source>Person</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/media-type-chip/media-type-chip.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="inputSearchHint" datatype="html">
+        <source>Find movies, TV Series and people...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/search-bar/search-bar.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+        <note priority="1" from="description">Search bar placeholder</note>
+      </trans-unit>
+      <trans-unit id="timeWindowToday" datatype="html">
+        <source>Today</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">Today Time</note>
+      </trans-unit>
+      <trans-unit id="timeWindowWeek" datatype="html">
+        <source>Week</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+        <note priority="1" from="description">Week Time</note>
+      </trans-unit>
+      <trans-unit id="homeHeaderTitle" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+        <note priority="1" from="description">Home page title</note>
+      </trans-unit>
+      <trans-unit id="trendingHeaderTitle" datatype="html">
+        <source>Trending</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Trending page title</note>
+      </trans-unit>
+      <trans-unit id="moviesHeaderTitle" datatype="html">
+        <source>Movies</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <note priority="1" from="description">Movies page title</note>
+      </trans-unit>
+      <trans-unit id="tvHeaderTitle" datatype="html">
+        <source>Tv/Series</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">35</context>
+        </context-group>
+        <note priority="1" from="description">Tv page title</note>
+      </trans-unit>
+      <trans-unit id="popularHeaderTitle" datatype="html">
+        <source>Popular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+        <note priority="1" from="description">Tv page title</note>
+      </trans-unit>
+      <trans-unit id="homeMainTitle" datatype="html">
+        <source>Home</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+        <note priority="1" from="description">Home page title</note>
+      </trans-unit>
+      <trans-unit id="trendingMainTitle" datatype="html">
+        <source>Trending</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">Trending page title</note>
+      </trans-unit>
+      <trans-unit id="moviesMainTitle" datatype="html">
+        <source>Movies</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+        <note priority="1" from="description">Movies page title</note>
+      </trans-unit>
+      <trans-unit id="tvMainTitle" datatype="html">
+        <source>Tv/Series</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">Tv page title</note>
+      </trans-unit>
+      <trans-unit id="popularMainTitle" datatype="html">
+        <source>Popular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <note priority="1" from="description">Tv page title</note>
+      </trans-unit>
+      <trans-unit id="genreFilterLabel" datatype="html">
+        <source>Genre</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="sortByFilterLabel" datatype="html">
+        <source>Sort by</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="creditTypeCast" datatype="html">
+        <source>Cast</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="creditTypeCrew" datatype="html">
+        <source>Crew</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/constants/common-values.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="carouselMoreLinkText" datatype="html">
+        <source> See more </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/modules/media-carousel/components/carousel-header/carousel-header.component.html</context>
+          <context context-type="linenumber">9,12</context>
+        </context-group>
+        <note priority="1" from="description">Carousel more link text</note>
+      </trans-unit>
+      <trans-unit id="popularityAsc" datatype="html">
+        <source>Popularity asc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+        <note priority="1" from="description">Popularity asc label</note>
+      </trans-unit>
+      <trans-unit id="popularityDesc" datatype="html">
+        <source>Popularity desc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+        <note priority="1" from="description">Popularity desc label</note>
+      </trans-unit>
+      <trans-unit id="releaseDateAsc" datatype="html">
+        <source>Release date asc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+        <note priority="1" from="description">Release date asc label</note>
+      </trans-unit>
+      <trans-unit id="releaseDateDesc" datatype="html">
+        <source>Release date desc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+        <note priority="1" from="description">Release date desc label</note>
+      </trans-unit>
+      <trans-unit id="ratingAsc" datatype="html">
+        <source>Rating asc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">50</context>
+        </context-group>
+        <note priority="1" from="description">Rating asc label</note>
+      </trans-unit>
+      <trans-unit id="ratingDesc" datatype="html">
+        <source>Rating desc.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/discover-media/discover-media.constants.ts</context>
+          <context context-type="linenumber">54</context>
+        </context-group>
+        <note priority="1" from="description">Ratind desc label</note>
+      </trans-unit>
+      <trans-unit id="trendingTitle" datatype="html">
+        <source>Trending</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/home.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+        <note priority="1" from="description">Trending carousel title</note>
+      </trans-unit>
+      <trans-unit id="popularTitle" datatype="html">
+        <source>What&apos;s Popular</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/home.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+        <note priority="1" from="description">Popular carousel title</note>
+      </trans-unit>
+      <trans-unit id="recommendationsTitle" datatype="html">
+        <source>Recommendations</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-details/media-details.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="backdropLabel" datatype="html">
+        <source>Backdrop</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-details/media-gallery/media-gallery.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="posterLabel" datatype="html">
+        <source>Poster</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-details/media-gallery/media-gallery.component.ts</context>
+          <context context-type="linenumber">44</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="videoLabel" datatype="html">
+        <source>Video</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-details/media-gallery/media-gallery.component.ts</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="galleryTitle" datatype="html">
+        <source>Gallery</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-details/media-gallery/media-gallery.component.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7039652752357763048" datatype="html">
+        <source>@@mediaTypeTv:Tv</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-search/media-search.component.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1148363634437211882" datatype="html">
+        <source>@@mediaTypePerson:Person</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/media-search/media-search.component.ts</context>
+          <context context-type="linenumber">55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="knownForTitle" datatype="html">
+        <source>Known for</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/person-details/credits-gallery/credits-gallery.component.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="trendingCarouselTitle" datatype="html">
+        <source> Trending </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/trending/trending.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

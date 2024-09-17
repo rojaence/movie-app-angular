@@ -8,7 +8,7 @@ export const MEDIA_TYPE_MAP:  Record<MediaTypeEnum, MediaTypeToggleItem<MediaTyp
   },
   tv: {
     value: MediaTypeEnum.tv,
-    viewValue: $localize `:Media Type Tv Series@@mediaTypeTv:Tv`
+    viewValue: $localize `:Media Type Tv Series@@mediaTypeTv:Serie`
   },
   person: {
     value: MediaTypeEnum.person,

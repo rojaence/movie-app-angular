@@ -10,7 +10,9 @@
     <div class="options">
       <mat-form-field appearance="outline" class="language-selector" matError>
         <mat-select [(value)]="selectedLanguage" [panelWidth]="'10rem'">
-          <mat-option *ngFor="let option of languages" [value]="option.value">{{ option.viewValue }}</mat-option>
+          <mat-option *ngFor="let option of languages" [value]="option.value" (click)="goToLang(option.url)">
+            {{ option.viewValue }}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <button matRipple type="button" class="search-button" (click)="searchBarToggle.emit()" #searchButton>

@@ -1,27 +1,69 @@
 # MovieAppAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.3.
+## Overview
 
-## Development server
+This app is a client for my [MovieAppApi](https://github.com/rojaence/MovieAppApi.git) project. An alternative version of [movie-app](https://github.com/rojaence/movie-app.git) (react) using Angular 17, SSR and @angular/localize to internationalization.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Requirements
 
-## Code scaffolding
+* Angular 17
+* Angular Material 17
+* @angular/ssr
+* @angular/localize
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
+1. Clone the repository
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+   ```bash
+   git clone https://github.com/rojaence/movie-app-angular.git
+   ```
+2. Install dependencies
 
-## Running unit tests
+   ```
+   npm install
+   ```
+3. Configure environment files
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+   environment.ts
 
-## Running end-to-end tests
+   ```typescript
+   export const environment = {
+     apiUrl: 'your_production_movieappapi_url',
+     imageCdn: 'https://image.tmdb.org/t/p',
+     thumbnailVideoBaseUrl: 'https://i.ytimg.com/vi',
+     language: 'es',
+     clientEnUrl: 'your_production_en_url',
+     clientEsUrl: 'your_production_es_url'
+   };
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+   ```
 
-## Further help
+   Note: Review and adjust environment.es, environment.en and environment.development as appropriate. When run ng build,
+4. Run serve (development)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+   ```bash
+   ng serve
+   ```
+5. Run build (production)
+
+   When running the build, the respective settings for each language will be used.
+
+   ```bash
+   npm run build:all
+   ```
+
+   Then run prepare folders to deploy. (remove es-EC and en-US subfolders)
+
+   ```bash
+   npm run postbuild
+   ```
+
+   **Note:** To compile the application with ssr it is recommended to have the [movieAppApi](https://github.com/rojaence/MovieAppApi.git) project running in production.
+
+## Demos
+
+Deployment with Azure App Service
+
+* Spanish Demo
+* English Demo
