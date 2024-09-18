@@ -31,7 +31,7 @@ jobs:
 
       - name: postbuild (prepare browser and server folders)
         run: |
-          npm run postbuild
+          npm run postbuild-en
 
       - name: Zip artifact for deployment
         run: zip release.zip dist/en -r
