@@ -30,11 +30,11 @@ describe('TvService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/tv`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/tv?page=1&genres=&sortBy=popularity.desc`);
     req.flush(expectedRes);
   });
 
-  it("should get popular movies", () => {
+  it("should get popular series", () => {
     const expectedRes = MOCK_TV_RESPONSE;
 
     service.getPopular().subscribe({
@@ -43,11 +43,11 @@ describe('TvService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/popular/tv`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/tv/popular?page=1`);
     req.flush(expectedRes);
   });
 
-  it("should get trending movies", () => {
+  it("should get trending series", () => {
     const expectedRes = MOCK_TV_RESPONSE;
 
     service.getTrending().subscribe({
@@ -56,7 +56,7 @@ describe('TvService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/trending/tv?timeWindow=day`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/tv/trending?timeWindow=day&page=1`);
     req.flush(expectedRes);
   });
 

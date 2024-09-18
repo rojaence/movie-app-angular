@@ -30,7 +30,7 @@ describe('MovieService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/movie`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/movies?page=1&genres=&sortBy=popularity.desc`);
     req.flush(expectedRes);
 
   });
@@ -44,7 +44,7 @@ describe('MovieService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/popular/movie`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/movies/popular?page=1`);
     req.flush(expectedRes);
   });
 
@@ -57,7 +57,7 @@ describe('MovieService', () => {
       }
     })
 
-    const req = httpMock.expectOne(`${environment.apiUrl}/trending/movie?timeWindow=day`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/movies/trending?timeWindow=day&page=1`);
     req.flush(expectedRes);
   });
 
@@ -69,7 +69,7 @@ describe('MovieService', () => {
         expect(data).toEqual(expectedRes);
       }
     })
-    const req = httpMock.expectOne(`${environment.apiUrl}/movie/3/recommendations`);
+    const req = httpMock.expectOne(`${environment.apiUrl}/movies/3/recommendations`);
     req.flush(expectedRes);
   });
 

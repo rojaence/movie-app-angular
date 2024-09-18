@@ -15,7 +15,7 @@ export class TvService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(page: number, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<TvResponse> {
+  getAll(page: number = 1, genres: number[] = [], sortBy: string = "popularity.desc"): Observable<TvResponse> {
     return this.http.get<IMediaResponse<ITv>>(this.apiUrl, {
       params: {
         page,
