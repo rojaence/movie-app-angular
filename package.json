@@ -10,6 +10,8 @@
     "serve:ssr:MovieAppAngular": "node dist/movie-app-angular/server/server.mjs",
     "build:all": "ng build --configuration=production-es && ng build --configuration=production-en",
     "postbuild": "npm run move-folders && npm run clean-folders",
+    "postbuild-es": "mv dist/es/browser/es-EC/* dist/es/browser/ && mv dist/es/server/es-EC/* dist/es/server/ && rimraf dist/es/browser/es-EC && rimraf dist/es/server/es-EC",
+    "postbuild-en": "mv dist/en/browser/en-US/* dist/en/browser/ && mv dist/en/server/en-US/* dist/en/server/ && rimraf dist/en/browser/en-US && rimraf dist/en/server/en-US",
     "move-folders": "mv dist/es/browser/es-EC/* dist/es/browser/ && mv dist/es/server/es-EC/* dist/es/server/ && mv dist/en/browser/en-US/* dist/en/browser/ && mv dist/en/server/en-US/* dist/en/server/",
     "clean-folders": "rimraf dist/es/browser/es-EC && rimraf dist/es/server/es-EC && rimraf dist/en/browser/en-US && rimraf dist/en/server/en-US"
   },
