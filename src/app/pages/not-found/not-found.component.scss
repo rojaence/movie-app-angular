@@ -1,0 +1,43 @@
+.not-found {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  padding: 2rem 0;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.title {
+  font-size: 2rem;
+}
+
+.icon {
+  grid-area: icon;
+  font-size: 10rem;
+  height: 10rem;
+  width: 10rem;
+}
+
+.message {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.link {
+  padding: .5rem 1rem;
+  background-color: var(--primary-color);
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: .3rem;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .not-found {
+    flex-direction: row;
+  }
+}

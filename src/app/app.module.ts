@@ -28,7 +28,6 @@ import { languageInterceptor } from './interceptors/LanguageInterceptor';
     AppComponent,
     AppHeaderComponent,
     AppFooterComponent,
-    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,7 @@ import { languageInterceptor } from './interceptors/LanguageInterceptor';
     MatFormFieldModule,
     MatSidenavModule,
     SearchBarComponent,
-    MediaDetailsComponent
+    MediaDetailsComponent,
   ],
   providers: [
     provideClientHydration(),

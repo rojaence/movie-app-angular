@@ -17,7 +17,7 @@ export enum PageTitleEnum
   movies = 'movies',
   tv = 'tv',
   trending = 'trending',
-  popular = 'popular'
+  popular = 'popular',
 }
 
 export enum CreditTypeEnum

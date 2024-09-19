@@ -366,6 +366,30 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="notFoundTitle" datatype="html">
+        <source>Something&apos;s wrong here...</source>
+        <target>Algo anda mal aquí</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found/not-found.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="notFoundCopy" datatype="html">
+        <source>We can&apos;t find the page you&apos;re looking for.</source>
+        <target>No podemos encontar la página que estás buscando.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found/not-found.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="notFoundLink" datatype="html">
+        <source>Back to home</source>
+        <target>Volver a inicio</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/not-found/not-found.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="knownForTitle" datatype="html">
         <source>Known for</source>
         <target state="">Conocido/a por</target>

@@ -31,9 +31,9 @@ export const MEDIA_TIME_WINDOW_MAP : Record<TimeWindowEnum, MediaTypeToggleItem<
 export const PAGE_HEADER_TITLE_MAP : Record<PageTitleEnum, string> = {
   home: $localize `:Home page title@@homeHeaderTitle:Home`,
   trending: $localize `:Trending page title@@trendingHeaderTitle:Trending`,
-  movies: $localize `:Movies page title@@moviesHeaderTitle:Movies`,
-  tv: $localize `:Tv page title@@tvHeaderTitle:Tv/Series`,
-  popular: $localize `:Tv page title@@popularHeaderTitle:Popular`,
+  movies: $localize `:Movies page title@@moviesHeaderTitle:Discover movies`,
+  tv: $localize `:Tv page title@@tvHeaderTitle:Discover Series`,
+  popular: $localize `:Tv page title@@popularHeaderTitle:Popular`
 }
 
 export const PAGE_MAIN_TITLE_MAP : Record<PageTitleEnum, string> = {

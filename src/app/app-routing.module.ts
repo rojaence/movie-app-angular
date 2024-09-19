@@ -12,13 +12,6 @@ import { PopularComponent } from './pages/popular/popular.component';
 
 const routes: Routes = [
   {
-    path: 'notfound',
-    component: NotFoundComponent,
-    data: {
-      name: 'notFound'
-    }
-  },
-  {
     path: '',
     component: HomeComponent,
     title: 'Home',
@@ -91,7 +84,14 @@ const routes: Routes = [
     data: {
       name: 'popular',
     }
-  }
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    data: {
+      name: 'notFound'
+    }
+  },
 ];
 
 @NgModule({
